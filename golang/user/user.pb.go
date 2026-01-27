@@ -28,6 +28,7 @@ type User struct {
 	SecondName    string                 `protobuf:"bytes,3,opt,name=second_name,json=secondName,proto3" json:"second_name,omitempty"`
 	Email         string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
 	Phone         string                 `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
+	Role          string                 `protobuf:"bytes,6,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -97,6 +98,13 @@ func (x *User) GetPhone() string {
 	return ""
 }
 
+func (x *User) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
 type CreateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FirstName     string                 `protobuf:"bytes,1,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
@@ -104,7 +112,6 @@ type CreateUserRequest struct {
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	Phone         string                 `protobuf:"bytes,4,opt,name=phone,proto3" json:"phone,omitempty"`
 	Password      string                 `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
-	Role          string                 `protobuf:"bytes,6,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -170,13 +177,6 @@ func (x *CreateUserRequest) GetPhone() string {
 func (x *CreateUserRequest) GetPassword() string {
 	if x != nil {
 		return x.Password
-	}
-	return ""
-}
-
-func (x *CreateUserRequest) GetRole() string {
-	if x != nil {
-		return x.Role
 	}
 	return ""
 }
@@ -743,7 +743,7 @@ var File_user_proto protoreflect.FileDescriptor
 const file_user_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"user.proto\x12\auser.v1\"\x8e\x01\n" +
+	"user.proto\x12\auser.v1\"\x96\x01\n" +
 	"\x04User\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1d\n" +
 	"\n" +
@@ -751,7 +751,8 @@ const file_user_proto_rawDesc = "" +
 	"\vsecond_name\x18\x03 \x01(\tR\n" +
 	"secondName\x12\x14\n" +
 	"\x05email\x18\x04 \x01(\tR\x05email\x12\x14\n" +
-	"\x05phone\x18\x05 \x01(\tR\x05phoneJ\x04\b\x06\x10\aR\x04role\"\xaf\x01\n" +
+	"\x05phone\x18\x05 \x01(\tR\x05phone\x12\x12\n" +
+	"\x04role\x18\x06 \x01(\tR\x04role\"\xa7\x01\n" +
 	"\x11CreateUserRequest\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x01 \x01(\tR\tfirstName\x12\x1f\n" +
@@ -759,8 +760,7 @@ const file_user_proto_rawDesc = "" +
 	"secondName\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x14\n" +
 	"\x05phone\x18\x04 \x01(\tR\x05phone\x12\x1a\n" +
-	"\bpassword\x18\x05 \x01(\tR\bpassword\x12\x12\n" +
-	"\x04role\x18\x06 \x01(\tR\x04role\"C\n" +
+	"\bpassword\x18\x05 \x01(\tR\bpasswordJ\x04\b\x06\x10\aR\x04role\"C\n" +
 	"\x12CreateUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\"-\n" +
