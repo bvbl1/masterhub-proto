@@ -31,6 +31,8 @@ const (
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Service with REST annotations
 type UserServiceClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	GetUserById(ctx context.Context, in *GetUserRequestById, opts ...grpc.CallOption) (*GetUserResponse, error)
@@ -122,6 +124,8 @@ func (c *userServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
+//
+// Service with REST annotations
 type UserServiceServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	GetUserById(context.Context, *GetUserRequestById) (*GetUserResponse, error)

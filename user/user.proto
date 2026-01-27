@@ -1,23 +1,58 @@
 syntax = "proto3";
 
 package user.v1;
+import "google/api/annotations.proto";
 
 option go_package = "github.com/bvbl1/masterhub-proto/golang/user;userpb";
 
 
-//Service
-
+// Service with REST annotations
 service UserService {
-  rpc CreateUser        (CreateUserRequest)        returns (CreateUserResponse);
-  rpc GetUserById       (GetUserRequestById)       returns (GetUserResponse);
-  rpc GetUserByEmail    (GetUserRequestByEmail)    returns (GetUserResponse);
-  rpc GetUserByPhone    (GetUserRequestByPhone)    returns (GetUserResponse);
-  rpc ListUsers         (ListUsersRequest)         returns (ListUsersResponse);
-  rpc UpdateUser        (UpdateUserRequest)        returns (UpdateUserResponse);
-  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/users"
+      body: "*" 
+    };
+  }
+
+  rpc GetUserById(GetUserRequestById) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/{user_id}"
+    };
+  }
+
+  rpc GetUserByEmail(GetUserRequestByEmail) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/email/{email}"
+    };
+  }
+
+  rpc GetUserByPhone(GetUserRequestByPhone) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/phone/{phone}"
+    };
+  }
+
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      put: "/v1/users/{user_id}"
+      body: "*" 
+    };
+  }
+
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/login"
+      body: "*"
+    };
+  }
 }
-
-
 //Messages
 
 message User {
