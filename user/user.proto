@@ -26,7 +26,9 @@ message User {
   string second_name = 3;
   string email       = 4;
   string phone       = 5;
-  string role        = 6;
+  
+  reserved 6;
+  reserved "role";
 }
 
 
