@@ -794,10 +794,10 @@ const file_user_proto_rawDesc = "" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"H\n" +
 	"\rLoginResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12!\n" +
-	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user2\xb8\x05\n" +
-	"\vUserService\x12[\n" +
+	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user2\xb7\x05\n" +
+	"\vUserService\x12Z\n" +
 	"\n" +
-	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/v1/users\x12a\n" +
+	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
 	"\vGetUserById\x12\x1b.user.v1.GetUserRequestById\x1a\x18.user.v1.GetUserResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/users/{user_id}\x12k\n" +
 	"\x0eGetUserByEmail\x12\x1e.user.v1.GetUserRequestByEmail\x1a\x18.user.v1.GetUserResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/v1/users/email/{email}\x12k\n" +
 	"\x0eGetUserByPhone\x12\x1e.user.v1.GetUserRequestByPhone\x1a\x18.user.v1.GetUserResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/v1/users/phone/{phone}\x12U\n" +

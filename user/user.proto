@@ -10,7 +10,7 @@ option go_package = "github.com/bvbl1/masterhub-proto/golang/user;userpb";
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
     option (google.api.http) = {
-      post: "/v1/users"
+      post: "/v1/user"
       body: "*" 
     };
   }
