@@ -52,6 +52,12 @@ service UserService {
       body: "*"
     };
   }
+
+  rpc PromoteToProvider(PromoteToProviderRequest) returns (PromoteToProviderResponse) {
+    option (google.api.http) = {
+      post: "/v1/user/provider"
+    };
+  }
 }
 //Messages
 
@@ -139,4 +145,10 @@ message LoginRequest {
 message LoginResponse {
   string token  = 1;
   User   user   = 2;
+}
+
+message PromoteToProviderRequest {}
+
+message PromoteToProviderResponse {
+  string role = 1;
 }

@@ -19,13 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_CreateUser_FullMethodName     = "/user.v1.UserService/CreateUser"
-	UserService_GetUserById_FullMethodName    = "/user.v1.UserService/GetUserById"
-	UserService_GetUserByEmail_FullMethodName = "/user.v1.UserService/GetUserByEmail"
-	UserService_GetUserByPhone_FullMethodName = "/user.v1.UserService/GetUserByPhone"
-	UserService_ListUsers_FullMethodName      = "/user.v1.UserService/ListUsers"
-	UserService_UpdateUser_FullMethodName     = "/user.v1.UserService/UpdateUser"
-	UserService_Login_FullMethodName          = "/user.v1.UserService/Login"
+	UserService_CreateUser_FullMethodName        = "/user.v1.UserService/CreateUser"
+	UserService_GetUserById_FullMethodName       = "/user.v1.UserService/GetUserById"
+	UserService_GetUserByEmail_FullMethodName    = "/user.v1.UserService/GetUserByEmail"
+	UserService_GetUserByPhone_FullMethodName    = "/user.v1.UserService/GetUserByPhone"
+	UserService_ListUsers_FullMethodName         = "/user.v1.UserService/ListUsers"
+	UserService_UpdateUser_FullMethodName        = "/user.v1.UserService/UpdateUser"
+	UserService_Login_FullMethodName             = "/user.v1.UserService/Login"
+	UserService_PromoteToProvider_FullMethodName = "/user.v1.UserService/PromoteToProvider"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -41,6 +42,7 @@ type UserServiceClient interface {
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	PromoteToProvider(ctx context.Context, in *PromoteToProviderRequest, opts ...grpc.CallOption) (*PromoteToProviderResponse, error)
 }
 
 type userServiceClient struct {
@@ -121,6 +123,16 @@ func (c *userServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 	return out, nil
 }
 
+func (c *userServiceClient) PromoteToProvider(ctx context.Context, in *PromoteToProviderRequest, opts ...grpc.CallOption) (*PromoteToProviderResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PromoteToProviderResponse)
+	err := c.cc.Invoke(ctx, UserService_PromoteToProvider_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -134,6 +146,7 @@ type UserServiceServer interface {
 	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	PromoteToProvider(context.Context, *PromoteToProviderRequest) (*PromoteToProviderResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -164,6 +177,9 @@ func (UnimplementedUserServiceServer) UpdateUser(context.Context, *UpdateUserReq
 }
 func (UnimplementedUserServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedUserServiceServer) PromoteToProvider(context.Context, *PromoteToProviderRequest) (*PromoteToProviderResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method PromoteToProvider not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -312,6 +328,24 @@ func _UserService_Login_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_PromoteToProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PromoteToProviderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).PromoteToProvider(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_PromoteToProvider_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).PromoteToProvider(ctx, req.(*PromoteToProviderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -346,6 +380,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _UserService_Login_Handler,
+		},
+		{
+			MethodName: "PromoteToProvider",
+			Handler:    _UserService_PromoteToProvider_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
