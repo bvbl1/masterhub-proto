@@ -291,6 +291,9 @@ func request_UserService_PromoteToProvider_0(ctx context.Context, marshaler runt
 		protoReq PromoteToProviderRequest
 		metadata runtime.ServerMetadata
 	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 	if req.Body != nil {
 		_, _ = io.Copy(io.Discard, req.Body)
 	}
@@ -303,6 +306,9 @@ func local_request_UserService_PromoteToProvider_0(ctx context.Context, marshale
 		protoReq PromoteToProviderRequest
 		metadata runtime.ServerMetadata
 	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 	msg, err := server.PromoteToProvider(ctx, &protoReq)
 	return msg, metadata, err
 }

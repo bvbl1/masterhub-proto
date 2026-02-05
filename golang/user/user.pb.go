@@ -877,7 +877,7 @@ const file_user_proto_rawDesc = "" +
 	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user\"\x1a\n" +
 	"\x18PromoteToProviderRequest\"/\n" +
 	"\x19PromoteToProviderResponse\x12\x12\n" +
-	"\x04role\x18\x01 \x01(\tR\x04role2\xae\x06\n" +
+	"\x04role\x18\x01 \x01(\tR\x04role2\xb1\x06\n" +
 	"\vUserService\x12Z\n" +
 	"\n" +
 	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
@@ -887,8 +887,8 @@ const file_user_proto_rawDesc = "" +
 	"\tListUsers\x12\x19.user.v1.ListUsersRequest\x1a\x1a.user.v1.ListUsersResponse\"\x11\x82\xd3\xe4\x93\x02\v\x12\t/v1/users\x12e\n" +
 	"\n" +
 	"UpdateUser\x12\x1a.user.v1.UpdateUserRequest\x1a\x1b.user.v1.UpdateUserResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\x1a\x13/v1/users/{user_id}\x12Q\n" +
-	"\x05Login\x12\x15.user.v1.LoginRequest\x1a\x16.user.v1.LoginResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12u\n" +
-	"\x11PromoteToProvider\x12!.user.v1.PromoteToProviderRequest\x1a\".user.v1.PromoteToProviderResponse\"\x19\x82\xd3\xe4\x93\x02\x13\"\x11/v1/user/providerB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
+	"\x05Login\x12\x15.user.v1.LoginRequest\x1a\x16.user.v1.LoginResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12x\n" +
+	"\x11PromoteToProvider\x12!.user.v1.PromoteToProviderRequest\x1a\".user.v1.PromoteToProviderResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/user/providerB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
