@@ -59,6 +59,13 @@ service UserService {
       body: "*"
     };
   }
+
+  rpc GetMe(GetMeRequest) returns (GetMeResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/me"
+    };
+  }
+
 }
 //Messages
 
@@ -148,8 +155,16 @@ message LoginResponse {
   User   user   = 2;
 }
 
+//PromoteToProvider
 message PromoteToProviderRequest {}
 
 message PromoteToProviderResponse {
   string role = 1;
 }
+
+//GetMe
+message GetMeRequest{}
+
+message GetMeResponse {
+  User user = 1;
+} 
