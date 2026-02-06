@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package category.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/category;categorypb";
+
+// Импортируем для аннотаций
+import "google/api/annotations.proto";
+
+service CategoryService {
+  rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse) {
+    option (google.api.http) = {
+      get: "/v1/categories"
+    };
+  }
+}
+
+message Category {
+  int64  id          = 1;
+  string name        = 2;
+}
+
+
+// its empty yet, in future may be pagination/filter: int32 limit = 1; int32 offset = 2; string search = 3;
+message ListCategoriesRequest {
+}
+
+message ListCategoriesResponse {
+  repeated Category categories = 1;
+}
