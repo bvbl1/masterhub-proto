@@ -4,27 +4,99 @@ package category.v1;
 
 option go_package = "github.com/bvbl1/masterhub-proto/golang/category;categorypb";
 
-// Импортируем для аннотаций
 import "google/api/annotations.proto";
 
 service CategoryService {
+
+  // Create
+  rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse) {
+    option (google.api.http) = {
+      post: "/v1/categories"
+      body: "*"
+    };
+  }
+
+  // Get single category
+  rpc GetCategory (GetCategoryRequest) returns (GetCategoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/categories/{id}"
+    };
+  }
+
+  // List
   rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse) {
     option (google.api.http) = {
       get: "/v1/categories"
     };
   }
+
+  // Update
+  rpc UpdateCategory (UpdateCategoryRequest) returns (UpdateCategoryResponse) {
+    option (google.api.http) = {
+      patch: "/v1/categories/{id}"
+      body: "*"
+    };
+  }
+
+  // Delete
+  rpc DeleteCategory (DeleteCategoryRequest) returns (DeleteCategoryResponse) {
+    option (google.api.http) = {
+      delete: "/v1/categories/{id}"
+    };
+  }
 }
 
 message Category {
-  int64  id          = 1;
-  string name        = 2;
+  int64  id   = 1;
+  string name = 2;
 }
 
+/* -------- CREATE -------- */
 
-// its empty yet, in future may be pagination/filter: int32 limit = 1; int32 offset = 2; string search = 3;
+message CreateCategoryRequest {
+  string name = 1;
+}
+
+message CreateCategoryResponse {
+  Category category = 1;
+}
+
+/* -------- GET -------- */
+
+message GetCategoryRequest {
+  int64 id = 1;
+}
+
+message GetCategoryResponse {
+  Category category = 1;
+}
+
+/* -------- LIST -------- */
+
 message ListCategoriesRequest {
 }
 
 message ListCategoriesResponse {
   repeated Category categories = 1;
+}
+
+/* -------- UPDATE -------- */
+
+message UpdateCategoryRequest {
+  int64 id = 1;
+  string name = 2;
+}
+
+message UpdateCategoryResponse {
+  Category category = 1;
+}
+
+/* -------- DELETE -------- */
+
+message DeleteCategoryRequest {
+  int64 id = 1;
+}
+
+message DeleteCategoryResponse {
+  bool success = 1;
 }
