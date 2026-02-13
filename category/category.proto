@@ -49,12 +49,14 @@ service CategoryService {
 message Category {
   int64  id   = 1;
   string name = 2;
+  string description = 3;
 }
 
 /* -------- CREATE -------- */
 
 message CreateCategoryRequest {
   string name = 1;
+  string description = 2; 
 }
 
 message CreateCategoryResponse {
@@ -85,6 +87,7 @@ message ListCategoriesResponse {
 message UpdateCategoryRequest {
   int64 id = 1;
   string name = 2;
+  string description = 3;
 }
 
 message UpdateCategoryResponse {
