@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package job-request.v1;
+import "google/api/annotations.proto";
+option go_package = "github.com/bvbl1/masterhub-proto/golang/job-request;jobrequestpb";
+
+service JobRequestService {
+  rpc CreateJobRequest(CreateJobRequestRequest) returns (CreateJobRequestResponse) {
+    option (google.api.http) = {
+      post: "/v1/job-requests"
+      body: "*"
+    };
+  }
+
+  rpc GetJobRequestById(GetJobRequestByIdRequest) returns (GetJobRequestResponse) {
+    option (google.api.http) = {
+      get: "/v1/job-requests/{id}"
+    };
+  }
+  rpc ListOpenJobRequests(ListOpenJobRequestsRequest) returns (ListJobRequestsResponse) {
+    option (google.api.http) = {
+      get: "/v1/job-requests/open"
+    };
+  }
+  rpc ListMyJobRequests(ListMyJobRequestsRequest) returns (ListJobRequestsResponse) {
+    option (google.api.http) = {
+      get: "/v1/job-requests/my"
+    };
+  }
+}
+
