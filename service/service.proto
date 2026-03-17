@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package service.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/service;servicepb";
+
+import "google/api/annotations.proto";
+
+service ServiceService {
+
+  rpc CreateService (CreateServiceRequest) returns (CreateServiceResponse) {
+    option (google.api.http) = {
+      post: "/v1/services"
+      body: "*"
+    };
+  }
+
+  rpc GetService (GetServiceRequest) returns (GetServiceResponse) {
+    option (google.api.http) = {
+      get: "/v1/services/{id}"
+    };
+  }
+
+  rpc ListServices (ListServicesRequest) returns (ListServicesResponse) {
+    option (google.api.http) = {
+      get: "/v1/services"
+    };
+  }
+
+  rpc UpdateService (UpdateServiceRequest) returns (UpdateServiceResponse) {
+    option (google.api.http) = {
+      put: "/v1/services/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteService (DeleteServiceRequest) returns (DeleteServiceResponse) {
+    option (google.api.http) = {
+      delete: "/v1/services/{id}"
+    };
+  }
+}
+
+/* -------- MESSAGES -------- */
+
+message Service {
+  int64  id          = 1;
+  int64  provider_id = 2;
+  int64  category_id = 3;
+  string title       = 4;
+  string description = 5;
+  double price_start = 6;
+  bool   is_active   = 7;
+}
+
+/* -------- CREATE -------- */
+
+message CreateServiceRequest {
+  string title       = 1;
+  string description = 2;
+  double price_start = 3;
+}
+
+message CreateServiceResponse {
+  Service service = 1;
+}
+
+/* -------- GET -------- */
+
+message GetServiceRequest {
+  int64 id = 1;
+}
+
+message GetServiceResponse {
+  Service service = 1;
+}
+
+/* -------- LIST -------- */
+
+message ListServicesRequest {
+  int64 category_id = 1;
+  int64 provider_id = 2;
+  bool  only_active = 3;
+}
+
+message ListServicesResponse {
+  repeated Service services = 1;
+}
+
+/* -------- UPDATE -------- */
+
+message UpdateServiceRequest {
+  int64  id          = 1;
+  string title       = 2;
+  string description = 3;
+  double price_start = 4;
+  bool   is_active   = 5;
+}
+
+message UpdateServiceResponse {
+  Service service = 1;
+}
+
+/* -------- DELETE -------- */
+
+message DeleteServiceRequest {
+  int64 id = 1;
+}
+
+message DeleteServiceResponse {
+  bool success = 1;
+}
