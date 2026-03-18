@@ -59,6 +59,7 @@ message CreateServiceRequest {
   string title       = 1;
   string description = 2;
   double price_start = 3;
+  int64  category_id = 4;
 }
 
 message CreateServiceResponse {
