@@ -236,7 +236,6 @@ func (x *SendNotificationResponse) GetSuccess() bool {
 
 type ListNotificationsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -269,13 +268,6 @@ func (x *ListNotificationsRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ListNotificationsRequest.ProtoReflect.Descriptor instead.
 func (*ListNotificationsRequest) Descriptor() ([]byte, []int) {
 	return file_notification_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *ListNotificationsRequest) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
 }
 
 type ListNotificationsResponse struct {
@@ -431,9 +423,8 @@ const file_notification_proto_rawDesc = "" +
 	"\x04body\x18\x04 \x01(\tR\x04body\x12\x12\n" +
 	"\x04type\x18\x05 \x01(\tR\x04type\"4\n" +
 	"\x18SendNotificationResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"3\n" +
-	"\x18ListNotificationsRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"`\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x1a\n" +
+	"\x18ListNotificationsRequest\"`\n" +
 	"\x19ListNotificationsResponse\x12C\n" +
 	"\rnotifications\x18\x01 \x03(\v2\x1d.notification.v1.NotificationR\rnotifications\"-\n" +
 	"\x1bMarkNotificationReadRequest\x12\x0e\n" +

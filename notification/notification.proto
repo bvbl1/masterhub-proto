@@ -46,7 +46,6 @@ message SendNotificationResponse {
 }
 
 message ListNotificationsRequest {
-  int64 user_id = 1;
 }
 
 message ListNotificationsResponse {
