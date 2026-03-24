@@ -1,0 +1,200 @@
+syntax = "proto3";
+
+package order.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/order;orderpb";
+
+import "google/api/annotations.proto";
+
+service OrderService {
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders"
+      body: "*"
+    };
+  }
+
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse) {
+    option (google.api.http) = {
+      get: "/v1/orders/{id}"
+    };
+  }
+
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse) {
+    option (google.api.http) = {
+      get: "/v1/orders"
+    };
+  }
+
+  rpc AcceptOrder(AcceptOrderRequest) returns (AcceptOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{id}/accept"
+      body: "*"
+    };
+  }
+
+  rpc RejectOrder(RejectOrderRequest) returns (RejectOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{id}/reject"
+      body: "*"
+    };
+  }
+
+  rpc CancelOrder(CancelOrderRequest) returns (CancelOrderResponse) {
+    option (google.api.http) = {
+      delete: "/v1/orders/{id}"
+    };
+  }
+
+  rpc PayOrder(PayOrderRequest) returns (PayOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{id}/pay"
+      body: "*"
+    };
+  }
+
+  rpc MarkComplete(MarkCompleteRequest) returns (MarkCompleteResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{id}/complete"
+      body: "*"
+    };
+  }
+
+  rpc ConfirmComplete(ConfirmCompleteRequest) returns (ConfirmCompleteResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{id}/confirm"
+      body: "*"
+    };
+  }
+
+  rpc DisputeOrder(DisputeOrderRequest) returns (DisputeOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{id}/dispute"
+      body: "*"
+    };
+  }
+
+  // internal only — called by payment-service
+  rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (UpdateOrderStatusResponse);
+}
+
+message Order {
+  int64  id               = 1;
+  int64  customer_id      = 2;
+  int64  provider_id      = 3;
+  int64  service_id       = 4;
+  int64  address_id       = 5;
+  string scheduled_at     = 6;
+  double agreed_price     = 7;
+  string status           = 8;
+  string rejection_reason = 9;
+  string created_at       = 10;
+  string updated_at       = 11;
+}
+
+// CreateOrder
+message CreateOrderRequest {
+  int64  provider_id  = 1;
+  int64  service_id   = 2;
+  string street       = 3;
+  string city         = 4;
+  string region       = 5;
+  double latitude     = 6;
+  double longitude    = 7;
+  string scheduled_at = 8;
+  double agreed_price = 9;
+}
+
+message CreateOrderResponse {
+  Order order = 1;
+}
+
+// GetOrder
+message GetOrderRequest {
+  int64 id = 1;
+}
+
+message GetOrderResponse {
+  Order order = 1;
+}
+
+// ListOrders
+message ListOrdersRequest {}
+
+message ListOrdersResponse {
+  repeated Order orders = 1;
+}
+
+// AcceptOrder
+message AcceptOrderRequest {
+  int64 id = 1;
+}
+
+message AcceptOrderResponse {
+  Order order = 1;
+}
+
+// RejectOrder
+message RejectOrderRequest {
+  int64  id               = 1;
+  string rejection_reason = 2;
+}
+
+message RejectOrderResponse {
+  Order order = 1;
+}
+
+// CancelOrder
+message CancelOrderRequest {
+  int64 id = 1;
+}
+
+message CancelOrderResponse {
+  bool success = 1;
+}
+
+// PayOrder
+message PayOrderRequest {
+  int64 id = 1;
+}
+
+message PayOrderResponse {
+  Order order = 1;
+}
+
+// MarkComplete
+message MarkCompleteRequest {
+  int64 id = 1;
+}
+
+message MarkCompleteResponse {
+  Order order = 1;
+}
+
+// ConfirmComplete
+message ConfirmCompleteRequest {
+  int64 id = 1;
+}
+
+message ConfirmCompleteResponse {
+  Order order = 1;
+}
+
+// DisputeOrder
+message DisputeOrderRequest {
+  int64 id = 1;
+}
+
+message DisputeOrderResponse {
+  Order order = 1;
+}
+
+// UpdateOrderStatus — internal, called by payment-service
+message UpdateOrderStatusRequest {
+  int64  order_id = 1;
+  string status   = 2;
+}
+
+message UpdateOrderStatusResponse {
+  Order order = 1;
+}

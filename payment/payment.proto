@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package payment.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/payment;paymentpb";
+
+import "google/api/annotations.proto";
+
+service PaymentService {
+  // called by order-service internally
+  rpc Charge(ChargeRequest) returns (ChargeResponse);
+
+  // called by frontend via gateway
+  rpc GetPayment(GetPaymentRequest) returns (GetPaymentResponse) {
+    option (google.api.http) = {
+      get: "/v1/payments/{order_id}"
+    };
+  }
+}
+
+message Payment {
+  int64  id             = 1;
+  int64  order_id       = 2;
+  double amount         = 3;
+  string status         = 4;
+  string transaction_id = 5;
+  string created_at     = 6;
+  string updated_at     = 7;
+}
+
+// Charge — internal, called by order-service
+message ChargeRequest {
+  int64  order_id = 1;
+  double amount   = 2;
+  int64  user_id  = 3; // customer being charged
+}
+
+message ChargeResponse {
+  bool    success        = 1;
+  string  transaction_id = 2;
+  string  status         = 3;
+}
+
+// GetPayment
+message GetPaymentRequest {
+  int64 order_id = 1;
+}
+
+message GetPaymentResponse {
+  Payment payment = 1;
+}
