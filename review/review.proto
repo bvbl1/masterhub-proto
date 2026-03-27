@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package review.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/review;reviewpb";
+
+import "google/api/annotations.proto";
+
+service ReviewService {
+
+  // Create a review for a completed order
+  rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse) {
+    option (google.api.http) = {
+      post: "/v1/reviews"
+      body: "*"
+    };
+  }
+
+  // Get a single review by ID
+  rpc GetReview(GetReviewRequest) returns (GetReviewResponse) {
+    option (google.api.http) = {
+      get: "/v1/reviews/{id}"
+    };
+  }
+
+  // List reviews for a specific service
+  rpc ListReviewsByService(ListReviewsByServiceRequest) returns (ListReviewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/reviews/service/{service_id}"
+    };
+  }
+
+  // List reviews for a specific provider (across all their services)
+  rpc ListReviewsByProvider(ListReviewsByProviderRequest) returns (ListReviewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/reviews/provider/{provider_id}"
+    };
+  }
+}
+
+/* -------- DOMAIN -------- */
+
+message Review {
+  int64  id          = 1;
+  int64  order_id    = 2;
+  int64  service_id  = 3;
+  int64  reviewer_id = 4;
+  int32  rating      = 5; // 1–5
+  string comment     = 6;
+  string created_at  = 7;
+}
+
+/* -------- CREATE -------- */
+
+message CreateReviewRequest {
+  int64  order_id = 1;
+  int32  rating   = 2;
+  string comment  = 3; // optional
+}
+
+message CreateReviewResponse {
+  Review review = 1;
+}
+
+/* -------- GET -------- */
+
+message GetReviewRequest {
+  int64 id = 1;
+}
+
+message GetReviewResponse {
+  Review review = 1;
+}
+
+/* -------- LIST -------- */
+
+message ListReviewsByServiceRequest {
+  int64 service_id = 1;
+  int32 limit      = 2;
+  int32 offset     = 3;
+}
+
+message ListReviewsByProviderRequest {
+  int64 provider_id = 1;
+  int32 limit       = 2;
+  int32 offset      = 3;
+}
+
+message ListReviewsResponse {
+  repeated Review reviews    = 1;
+  double          avg_rating = 2;
+}
