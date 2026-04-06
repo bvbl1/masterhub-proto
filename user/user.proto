@@ -160,6 +160,7 @@ message PromoteToProviderRequest {}
 
 message PromoteToProviderResponse {
   string role = 1;
+  string token = 2;
 }
 
 //GetMe

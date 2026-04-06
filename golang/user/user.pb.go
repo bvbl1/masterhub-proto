@@ -779,6 +779,7 @@ func (*PromoteToProviderRequest) Descriptor() ([]byte, []int) {
 type PromoteToProviderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Role          string                 `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -816,6 +817,13 @@ func (*PromoteToProviderResponse) Descriptor() ([]byte, []int) {
 func (x *PromoteToProviderResponse) GetRole() string {
 	if x != nil {
 		return x.Role
+	}
+	return ""
+}
+
+func (x *PromoteToProviderResponse) GetToken() string {
+	if x != nil {
+		return x.Token
 	}
 	return ""
 }
@@ -957,9 +965,10 @@ const file_user_proto_rawDesc = "" +
 	"\rLoginResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12!\n" +
 	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user\"\x1a\n" +
-	"\x18PromoteToProviderRequest\"/\n" +
+	"\x18PromoteToProviderRequest\"E\n" +
 	"\x19PromoteToProviderResponse\x12\x12\n" +
-	"\x04role\x18\x01 \x01(\tR\x04role\"\x0e\n" +
+	"\x04role\x18\x01 \x01(\tR\x04role\x12\x14\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\"\x0e\n" +
 	"\fGetMeRequest\"2\n" +
 	"\rGetMeResponse\x12!\n" +
 	"\x04user\x18\x01 \x01(\v2\r.user.v1.UserR\x04user2\xff\x06\n" +
