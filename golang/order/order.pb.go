@@ -149,7 +149,6 @@ func (x *Order) GetUpdatedAt() string {
 // CreateOrder
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ProviderId    int64                  `protobuf:"varint,1,opt,name=provider_id,json=providerId,proto3" json:"provider_id,omitempty"`
 	ServiceId     int64                  `protobuf:"varint,2,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
 	Street        string                 `protobuf:"bytes,3,opt,name=street,proto3" json:"street,omitempty"`
 	City          string                 `protobuf:"bytes,4,opt,name=city,proto3" json:"city,omitempty"`
@@ -190,13 +189,6 @@ func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CreateOrderRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *CreateOrderRequest) GetProviderId() int64 {
-	if x != nil {
-		return x.ProviderId
-	}
-	return 0
 }
 
 func (x *CreateOrderRequest) GetServiceId() int64 {
@@ -1220,10 +1212,8 @@ const file_order_proto_rawDesc = "" +
 	"created_at\x18\n" +
 	" \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\v \x01(\tR\tupdatedAt\"\x98\x02\n" +
-	"\x12CreateOrderRequest\x12\x1f\n" +
-	"\vprovider_id\x18\x01 \x01(\x03R\n" +
-	"providerId\x12\x1d\n" +
+	"updated_at\x18\v \x01(\tR\tupdatedAt\"\x8a\x02\n" +
+	"\x12CreateOrderRequest\x12\x1d\n" +
 	"\n" +
 	"service_id\x18\x02 \x01(\x03R\tserviceId\x12\x16\n" +
 	"\x06street\x18\x03 \x01(\tR\x06street\x12\x12\n" +
@@ -1232,7 +1222,7 @@ const file_order_proto_rawDesc = "" +
 	"\blatitude\x18\x06 \x01(\x01R\blatitude\x12\x1c\n" +
 	"\tlongitude\x18\a \x01(\x01R\tlongitude\x12!\n" +
 	"\fscheduled_at\x18\b \x01(\tR\vscheduledAt\x12!\n" +
-	"\fagreed_price\x18\t \x01(\x01R\vagreedPrice\"<\n" +
+	"\fagreed_price\x18\t \x01(\x01R\vagreedPriceJ\x04\b\x01\x10\x02R\vprovider_id\"<\n" +
 	"\x13CreateOrderResponse\x12%\n" +
 	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"!\n" +
 	"\x0fGetOrderRequest\x12\x0e\n" +

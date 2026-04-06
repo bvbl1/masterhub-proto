@@ -94,7 +94,9 @@ message Order {
 
 // CreateOrder
 message CreateOrderRequest {
-  int64  provider_id  = 1;
+  reserved 1;
+  reserved "provider_id";
+  
   int64  service_id   = 2;
   string street       = 3;
   string city         = 4;
