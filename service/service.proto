@@ -39,6 +39,12 @@ service ServiceService {
       delete: "/v1/services/{id}"
     };
   }
+
+  rpc ListMyServices (ListMyServicesRequest) returns (ListServicesResponse) {
+    option (google.api.http) = {
+      get: "/v1/myservices"
+    };
+  }
 }
 
 /* -------- MESSAGES -------- */
@@ -110,4 +116,7 @@ message DeleteServiceRequest {
 
 message DeleteServiceResponse {
   bool success = 1;
+}
+
+message ListMyServicesRequest{
 }

@@ -626,6 +626,42 @@ func (x *DeleteServiceResponse) GetSuccess() bool {
 	return false
 }
 
+type ListMyServicesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMyServicesRequest) Reset() {
+	*x = ListMyServicesRequest{}
+	mi := &file_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMyServicesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMyServicesRequest) ProtoMessage() {}
+
+func (x *ListMyServicesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMyServicesRequest.ProtoReflect.Descriptor instead.
+func (*ListMyServicesRequest) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{11}
+}
+
 var File_service_proto protoreflect.FileDescriptor
 
 const file_service_proto_rawDesc = "" +
@@ -677,14 +713,16 @@ const file_service_proto_rawDesc = "" +
 	"\x14DeleteServiceRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"1\n" +
 	"\x15DeleteServiceResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xb5\x04\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x17\n" +
+	"\x15ListMyServicesRequest2\xa4\x05\n" +
 	"\x0eServiceService\x12m\n" +
 	"\rCreateService\x12 .service.v1.CreateServiceRequest\x1a!.service.v1.CreateServiceResponse\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/v1/services\x12f\n" +
 	"\n" +
 	"GetService\x12\x1d.service.v1.GetServiceRequest\x1a\x1e.service.v1.GetServiceResponse\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/services/{id}\x12g\n" +
 	"\fListServices\x12\x1f.service.v1.ListServicesRequest\x1a .service.v1.ListServicesResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/services\x12r\n" +
 	"\rUpdateService\x12 .service.v1.UpdateServiceRequest\x1a!.service.v1.UpdateServiceResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\x1a\x11/v1/services/{id}\x12o\n" +
-	"\rDeleteService\x12 .service.v1.DeleteServiceRequest\x1a!.service.v1.DeleteServiceResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/services/{id}B;Z9github.com/bvbl1/masterhub-proto/golang/service;servicepbb\x06proto3"
+	"\rDeleteService\x12 .service.v1.DeleteServiceRequest\x1a!.service.v1.DeleteServiceResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/services/{id}\x12m\n" +
+	"\x0eListMyServices\x12!.service.v1.ListMyServicesRequest\x1a .service.v1.ListServicesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/myservicesB;Z9github.com/bvbl1/masterhub-proto/golang/service;servicepbb\x06proto3"
 
 var (
 	file_service_proto_rawDescOnce sync.Once
@@ -698,7 +736,7 @@ func file_service_proto_rawDescGZIP() []byte {
 	return file_service_proto_rawDescData
 }
 
-var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_service_proto_goTypes = []any{
 	(*Service)(nil),               // 0: service.v1.Service
 	(*CreateServiceRequest)(nil),  // 1: service.v1.CreateServiceRequest
@@ -711,6 +749,7 @@ var file_service_proto_goTypes = []any{
 	(*UpdateServiceResponse)(nil), // 8: service.v1.UpdateServiceResponse
 	(*DeleteServiceRequest)(nil),  // 9: service.v1.DeleteServiceRequest
 	(*DeleteServiceResponse)(nil), // 10: service.v1.DeleteServiceResponse
+	(*ListMyServicesRequest)(nil), // 11: service.v1.ListMyServicesRequest
 }
 var file_service_proto_depIdxs = []int32{
 	0,  // 0: service.v1.CreateServiceResponse.service:type_name -> service.v1.Service
@@ -722,13 +761,15 @@ var file_service_proto_depIdxs = []int32{
 	5,  // 6: service.v1.ServiceService.ListServices:input_type -> service.v1.ListServicesRequest
 	7,  // 7: service.v1.ServiceService.UpdateService:input_type -> service.v1.UpdateServiceRequest
 	9,  // 8: service.v1.ServiceService.DeleteService:input_type -> service.v1.DeleteServiceRequest
-	2,  // 9: service.v1.ServiceService.CreateService:output_type -> service.v1.CreateServiceResponse
-	4,  // 10: service.v1.ServiceService.GetService:output_type -> service.v1.GetServiceResponse
-	6,  // 11: service.v1.ServiceService.ListServices:output_type -> service.v1.ListServicesResponse
-	8,  // 12: service.v1.ServiceService.UpdateService:output_type -> service.v1.UpdateServiceResponse
-	10, // 13: service.v1.ServiceService.DeleteService:output_type -> service.v1.DeleteServiceResponse
-	9,  // [9:14] is the sub-list for method output_type
-	4,  // [4:9] is the sub-list for method input_type
+	11, // 9: service.v1.ServiceService.ListMyServices:input_type -> service.v1.ListMyServicesRequest
+	2,  // 10: service.v1.ServiceService.CreateService:output_type -> service.v1.CreateServiceResponse
+	4,  // 11: service.v1.ServiceService.GetService:output_type -> service.v1.GetServiceResponse
+	6,  // 12: service.v1.ServiceService.ListServices:output_type -> service.v1.ListServicesResponse
+	8,  // 13: service.v1.ServiceService.UpdateService:output_type -> service.v1.UpdateServiceResponse
+	10, // 14: service.v1.ServiceService.DeleteService:output_type -> service.v1.DeleteServiceResponse
+	6,  // 15: service.v1.ServiceService.ListMyServices:output_type -> service.v1.ListServicesResponse
+	10, // [10:16] is the sub-list for method output_type
+	4,  // [4:10] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -745,7 +786,7 @@ func file_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_proto_rawDesc), len(file_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
