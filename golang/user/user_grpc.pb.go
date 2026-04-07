@@ -19,15 +19,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_CreateUser_FullMethodName        = "/user.v1.UserService/CreateUser"
-	UserService_GetUserById_FullMethodName       = "/user.v1.UserService/GetUserById"
-	UserService_GetUserByEmail_FullMethodName    = "/user.v1.UserService/GetUserByEmail"
-	UserService_GetUserByPhone_FullMethodName    = "/user.v1.UserService/GetUserByPhone"
-	UserService_ListUsers_FullMethodName         = "/user.v1.UserService/ListUsers"
-	UserService_UpdateUser_FullMethodName        = "/user.v1.UserService/UpdateUser"
-	UserService_Login_FullMethodName             = "/user.v1.UserService/Login"
-	UserService_PromoteToProvider_FullMethodName = "/user.v1.UserService/PromoteToProvider"
-	UserService_GetMe_FullMethodName             = "/user.v1.UserService/GetMe"
+	UserService_CreateUser_FullMethodName         = "/user.v1.UserService/CreateUser"
+	UserService_GetUserById_FullMethodName        = "/user.v1.UserService/GetUserById"
+	UserService_GetUserByEmail_FullMethodName     = "/user.v1.UserService/GetUserByEmail"
+	UserService_GetUserByPhone_FullMethodName     = "/user.v1.UserService/GetUserByPhone"
+	UserService_ListUsers_FullMethodName          = "/user.v1.UserService/ListUsers"
+	UserService_UpdateUser_FullMethodName         = "/user.v1.UserService/UpdateUser"
+	UserService_Login_FullMethodName              = "/user.v1.UserService/Login"
+	UserService_PromoteToProvider_FullMethodName  = "/user.v1.UserService/PromoteToProvider"
+	UserService_GetMe_FullMethodName              = "/user.v1.UserService/GetMe"
+	UserService_GetGoogleAuthURL_FullMethodName   = "/user.v1.UserService/GetGoogleAuthURL"
+	UserService_GoogleAuthCallback_FullMethodName = "/user.v1.UserService/GoogleAuthCallback"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -45,6 +47,8 @@ type UserServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	PromoteToProvider(ctx context.Context, in *PromoteToProviderRequest, opts ...grpc.CallOption) (*PromoteToProviderResponse, error)
 	GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error)
+	GetGoogleAuthURL(ctx context.Context, in *GetGoogleAuthURLRequest, opts ...grpc.CallOption) (*GetGoogleAuthURLResponse, error)
+	GoogleAuthCallback(ctx context.Context, in *GoogleAuthCallbackRequest, opts ...grpc.CallOption) (*GoogleAuthCallbackResponse, error)
 }
 
 type userServiceClient struct {
@@ -145,6 +149,26 @@ func (c *userServiceClient) GetMe(ctx context.Context, in *GetMeRequest, opts ..
 	return out, nil
 }
 
+func (c *userServiceClient) GetGoogleAuthURL(ctx context.Context, in *GetGoogleAuthURLRequest, opts ...grpc.CallOption) (*GetGoogleAuthURLResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetGoogleAuthURLResponse)
+	err := c.cc.Invoke(ctx, UserService_GetGoogleAuthURL_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GoogleAuthCallback(ctx context.Context, in *GoogleAuthCallbackRequest, opts ...grpc.CallOption) (*GoogleAuthCallbackResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GoogleAuthCallbackResponse)
+	err := c.cc.Invoke(ctx, UserService_GoogleAuthCallback_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -160,6 +184,8 @@ type UserServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	PromoteToProvider(context.Context, *PromoteToProviderRequest) (*PromoteToProviderResponse, error)
 	GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error)
+	GetGoogleAuthURL(context.Context, *GetGoogleAuthURLRequest) (*GetGoogleAuthURLResponse, error)
+	GoogleAuthCallback(context.Context, *GoogleAuthCallbackRequest) (*GoogleAuthCallbackResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -196,6 +222,12 @@ func (UnimplementedUserServiceServer) PromoteToProvider(context.Context, *Promot
 }
 func (UnimplementedUserServiceServer) GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetMe not implemented")
+}
+func (UnimplementedUserServiceServer) GetGoogleAuthURL(context.Context, *GetGoogleAuthURLRequest) (*GetGoogleAuthURLResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetGoogleAuthURL not implemented")
+}
+func (UnimplementedUserServiceServer) GoogleAuthCallback(context.Context, *GoogleAuthCallbackRequest) (*GoogleAuthCallbackResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GoogleAuthCallback not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -380,6 +412,42 @@ func _UserService_GetMe_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetGoogleAuthURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGoogleAuthURLRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetGoogleAuthURL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetGoogleAuthURL_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetGoogleAuthURL(ctx, req.(*GetGoogleAuthURLRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GoogleAuthCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GoogleAuthCallbackRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GoogleAuthCallback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GoogleAuthCallback_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GoogleAuthCallback(ctx, req.(*GoogleAuthCallbackRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -422,6 +490,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMe",
 			Handler:    _UserService_GetMe_Handler,
+		},
+		{
+			MethodName: "GetGoogleAuthURL",
+			Handler:    _UserService_GetGoogleAuthURL_Handler,
+		},
+		{
+			MethodName: "GoogleAuthCallback",
+			Handler:    _UserService_GoogleAuthCallback_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

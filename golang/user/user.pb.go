@@ -909,6 +909,191 @@ func (x *GetMeResponse) GetUser() *User {
 	return nil
 }
 
+// google auth
+type GetGoogleAuthURLRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGoogleAuthURLRequest) Reset() {
+	*x = GetGoogleAuthURLRequest{}
+	mi := &file_user_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGoogleAuthURLRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGoogleAuthURLRequest) ProtoMessage() {}
+
+func (x *GetGoogleAuthURLRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGoogleAuthURLRequest.ProtoReflect.Descriptor instead.
+func (*GetGoogleAuthURLRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{17}
+}
+
+type GetGoogleAuthURLResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGoogleAuthURLResponse) Reset() {
+	*x = GetGoogleAuthURLResponse{}
+	mi := &file_user_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGoogleAuthURLResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGoogleAuthURLResponse) ProtoMessage() {}
+
+func (x *GetGoogleAuthURLResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGoogleAuthURLResponse.ProtoReflect.Descriptor instead.
+func (*GetGoogleAuthURLResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetGoogleAuthURLResponse) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+type GoogleAuthCallbackRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	State         string                 `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GoogleAuthCallbackRequest) Reset() {
+	*x = GoogleAuthCallbackRequest{}
+	mi := &file_user_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GoogleAuthCallbackRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GoogleAuthCallbackRequest) ProtoMessage() {}
+
+func (x *GoogleAuthCallbackRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GoogleAuthCallbackRequest.ProtoReflect.Descriptor instead.
+func (*GoogleAuthCallbackRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GoogleAuthCallbackRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *GoogleAuthCallbackRequest) GetState() string {
+	if x != nil {
+		return x.State
+	}
+	return ""
+}
+
+type GoogleAuthCallbackResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	User          *User                  `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GoogleAuthCallbackResponse) Reset() {
+	*x = GoogleAuthCallbackResponse{}
+	mi := &file_user_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GoogleAuthCallbackResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GoogleAuthCallbackResponse) ProtoMessage() {}
+
+func (x *GoogleAuthCallbackResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GoogleAuthCallbackResponse.ProtoReflect.Descriptor instead.
+func (*GoogleAuthCallbackResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GoogleAuthCallbackResponse) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *GoogleAuthCallbackResponse) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -971,7 +1156,16 @@ const file_user_proto_rawDesc = "" +
 	"\x05token\x18\x02 \x01(\tR\x05token\"\x0e\n" +
 	"\fGetMeRequest\"2\n" +
 	"\rGetMeResponse\x12!\n" +
-	"\x04user\x18\x01 \x01(\v2\r.user.v1.UserR\x04user2\xff\x06\n" +
+	"\x04user\x18\x01 \x01(\v2\r.user.v1.UserR\x04user\"\x19\n" +
+	"\x17GetGoogleAuthURLRequest\",\n" +
+	"\x18GetGoogleAuthURLResponse\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url\"E\n" +
+	"\x19GoogleAuthCallbackRequest\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\tR\x04code\x12\x14\n" +
+	"\x05state\x18\x02 \x01(\tR\x05state\"U\n" +
+	"\x1aGoogleAuthCallbackResponse\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12!\n" +
+	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user2\xf6\b\n" +
 	"\vUserService\x12Z\n" +
 	"\n" +
 	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
@@ -983,7 +1177,9 @@ const file_user_proto_rawDesc = "" +
 	"UpdateUser\x12\x1a.user.v1.UpdateUserRequest\x1a\x1b.user.v1.UpdateUserResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\x1a\x13/v1/users/{user_id}\x12Q\n" +
 	"\x05Login\x12\x15.user.v1.LoginRequest\x1a\x16.user.v1.LoginResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12x\n" +
 	"\x11PromoteToProvider\x12!.user.v1.PromoteToProviderRequest\x1a\".user.v1.PromoteToProviderResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/user/provider\x12L\n" +
-	"\x05GetMe\x12\x15.user.v1.GetMeRequest\x1a\x16.user.v1.GetMeResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/users/meB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
+	"\x05GetMe\x12\x15.user.v1.GetMeRequest\x1a\x16.user.v1.GetMeResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/users/me\x12p\n" +
+	"\x10GetGoogleAuthURL\x12 .user.v1.GetGoogleAuthURLRequest\x1a!.user.v1.GetGoogleAuthURLResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/auth/google\x12\x82\x01\n" +
+	"\x12GoogleAuthCallback\x12\".user.v1.GoogleAuthCallbackRequest\x1a#.user.v1.GoogleAuthCallbackResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/auth/google/callbackB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -997,25 +1193,29 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_user_proto_goTypes = []any{
-	(*User)(nil),                      // 0: user.v1.User
-	(*CreateUserRequest)(nil),         // 1: user.v1.CreateUserRequest
-	(*CreateUserResponse)(nil),        // 2: user.v1.CreateUserResponse
-	(*GetUserRequestById)(nil),        // 3: user.v1.GetUserRequestById
-	(*GetUserRequestByEmail)(nil),     // 4: user.v1.GetUserRequestByEmail
-	(*GetUserRequestByPhone)(nil),     // 5: user.v1.GetUserRequestByPhone
-	(*GetUserResponse)(nil),           // 6: user.v1.GetUserResponse
-	(*ListUsersRequest)(nil),          // 7: user.v1.ListUsersRequest
-	(*ListUsersResponse)(nil),         // 8: user.v1.ListUsersResponse
-	(*UpdateUserRequest)(nil),         // 9: user.v1.UpdateUserRequest
-	(*UpdateUserResponse)(nil),        // 10: user.v1.UpdateUserResponse
-	(*LoginRequest)(nil),              // 11: user.v1.LoginRequest
-	(*LoginResponse)(nil),             // 12: user.v1.LoginResponse
-	(*PromoteToProviderRequest)(nil),  // 13: user.v1.PromoteToProviderRequest
-	(*PromoteToProviderResponse)(nil), // 14: user.v1.PromoteToProviderResponse
-	(*GetMeRequest)(nil),              // 15: user.v1.GetMeRequest
-	(*GetMeResponse)(nil),             // 16: user.v1.GetMeResponse
+	(*User)(nil),                       // 0: user.v1.User
+	(*CreateUserRequest)(nil),          // 1: user.v1.CreateUserRequest
+	(*CreateUserResponse)(nil),         // 2: user.v1.CreateUserResponse
+	(*GetUserRequestById)(nil),         // 3: user.v1.GetUserRequestById
+	(*GetUserRequestByEmail)(nil),      // 4: user.v1.GetUserRequestByEmail
+	(*GetUserRequestByPhone)(nil),      // 5: user.v1.GetUserRequestByPhone
+	(*GetUserResponse)(nil),            // 6: user.v1.GetUserResponse
+	(*ListUsersRequest)(nil),           // 7: user.v1.ListUsersRequest
+	(*ListUsersResponse)(nil),          // 8: user.v1.ListUsersResponse
+	(*UpdateUserRequest)(nil),          // 9: user.v1.UpdateUserRequest
+	(*UpdateUserResponse)(nil),         // 10: user.v1.UpdateUserResponse
+	(*LoginRequest)(nil),               // 11: user.v1.LoginRequest
+	(*LoginResponse)(nil),              // 12: user.v1.LoginResponse
+	(*PromoteToProviderRequest)(nil),   // 13: user.v1.PromoteToProviderRequest
+	(*PromoteToProviderResponse)(nil),  // 14: user.v1.PromoteToProviderResponse
+	(*GetMeRequest)(nil),               // 15: user.v1.GetMeRequest
+	(*GetMeResponse)(nil),              // 16: user.v1.GetMeResponse
+	(*GetGoogleAuthURLRequest)(nil),    // 17: user.v1.GetGoogleAuthURLRequest
+	(*GetGoogleAuthURLResponse)(nil),   // 18: user.v1.GetGoogleAuthURLResponse
+	(*GoogleAuthCallbackRequest)(nil),  // 19: user.v1.GoogleAuthCallbackRequest
+	(*GoogleAuthCallbackResponse)(nil), // 20: user.v1.GoogleAuthCallbackResponse
 }
 var file_user_proto_depIdxs = []int32{
 	0,  // 0: user.v1.GetUserResponse.user:type_name -> user.v1.User
@@ -1023,29 +1223,34 @@ var file_user_proto_depIdxs = []int32{
 	0,  // 2: user.v1.UpdateUserResponse.user:type_name -> user.v1.User
 	0,  // 3: user.v1.LoginResponse.user:type_name -> user.v1.User
 	0,  // 4: user.v1.GetMeResponse.user:type_name -> user.v1.User
-	1,  // 5: user.v1.UserService.CreateUser:input_type -> user.v1.CreateUserRequest
-	3,  // 6: user.v1.UserService.GetUserById:input_type -> user.v1.GetUserRequestById
-	4,  // 7: user.v1.UserService.GetUserByEmail:input_type -> user.v1.GetUserRequestByEmail
-	5,  // 8: user.v1.UserService.GetUserByPhone:input_type -> user.v1.GetUserRequestByPhone
-	7,  // 9: user.v1.UserService.ListUsers:input_type -> user.v1.ListUsersRequest
-	9,  // 10: user.v1.UserService.UpdateUser:input_type -> user.v1.UpdateUserRequest
-	11, // 11: user.v1.UserService.Login:input_type -> user.v1.LoginRequest
-	13, // 12: user.v1.UserService.PromoteToProvider:input_type -> user.v1.PromoteToProviderRequest
-	15, // 13: user.v1.UserService.GetMe:input_type -> user.v1.GetMeRequest
-	2,  // 14: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
-	6,  // 15: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
-	6,  // 16: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
-	6,  // 17: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
-	8,  // 18: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
-	10, // 19: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
-	12, // 20: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
-	14, // 21: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
-	16, // 22: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
-	14, // [14:23] is the sub-list for method output_type
-	5,  // [5:14] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	0,  // 5: user.v1.GoogleAuthCallbackResponse.user:type_name -> user.v1.User
+	1,  // 6: user.v1.UserService.CreateUser:input_type -> user.v1.CreateUserRequest
+	3,  // 7: user.v1.UserService.GetUserById:input_type -> user.v1.GetUserRequestById
+	4,  // 8: user.v1.UserService.GetUserByEmail:input_type -> user.v1.GetUserRequestByEmail
+	5,  // 9: user.v1.UserService.GetUserByPhone:input_type -> user.v1.GetUserRequestByPhone
+	7,  // 10: user.v1.UserService.ListUsers:input_type -> user.v1.ListUsersRequest
+	9,  // 11: user.v1.UserService.UpdateUser:input_type -> user.v1.UpdateUserRequest
+	11, // 12: user.v1.UserService.Login:input_type -> user.v1.LoginRequest
+	13, // 13: user.v1.UserService.PromoteToProvider:input_type -> user.v1.PromoteToProviderRequest
+	15, // 14: user.v1.UserService.GetMe:input_type -> user.v1.GetMeRequest
+	17, // 15: user.v1.UserService.GetGoogleAuthURL:input_type -> user.v1.GetGoogleAuthURLRequest
+	19, // 16: user.v1.UserService.GoogleAuthCallback:input_type -> user.v1.GoogleAuthCallbackRequest
+	2,  // 17: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
+	6,  // 18: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
+	6,  // 19: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
+	6,  // 20: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
+	8,  // 21: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
+	10, // 22: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
+	12, // 23: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
+	14, // 24: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
+	16, // 25: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
+	18, // 26: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
+	20, // 27: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
+	17, // [17:28] is the sub-list for method output_type
+	6,  // [6:17] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -1059,7 +1264,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
