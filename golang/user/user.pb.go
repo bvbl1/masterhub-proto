@@ -1165,7 +1165,7 @@ const file_user_proto_rawDesc = "" +
 	"\x05state\x18\x02 \x01(\tR\x05state\"U\n" +
 	"\x1aGoogleAuthCallbackResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12!\n" +
-	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user2\xf6\b\n" +
+	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user2\xf2\b\n" +
 	"\vUserService\x12Z\n" +
 	"\n" +
 	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
@@ -1178,8 +1178,8 @@ const file_user_proto_rawDesc = "" +
 	"\x05Login\x12\x15.user.v1.LoginRequest\x1a\x16.user.v1.LoginResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12x\n" +
 	"\x11PromoteToProvider\x12!.user.v1.PromoteToProviderRequest\x1a\".user.v1.PromoteToProviderResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/user/provider\x12L\n" +
 	"\x05GetMe\x12\x15.user.v1.GetMeRequest\x1a\x16.user.v1.GetMeResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/users/me\x12p\n" +
-	"\x10GetGoogleAuthURL\x12 .user.v1.GetGoogleAuthURLRequest\x1a!.user.v1.GetGoogleAuthURLResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/auth/google\x12\x82\x01\n" +
-	"\x12GoogleAuthCallback\x12\".user.v1.GoogleAuthCallbackRequest\x1a#.user.v1.GoogleAuthCallbackResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/auth/google/callbackB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
+	"\x10GetGoogleAuthURL\x12 .user.v1.GetGoogleAuthURLRequest\x1a!.user.v1.GetGoogleAuthURLResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/auth/google\x12\x7f\n" +
+	"\x12GoogleAuthCallback\x12\".user.v1.GoogleAuthCallbackRequest\x1a#.user.v1.GoogleAuthCallbackResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/v1/auth/google/callbackB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
