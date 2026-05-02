@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package media.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/media;mediapb";
+
+import "google/api/annotations.proto";
+
+service MediaService {
+
+  // Single upload — avatar, provider document, one photo
+  rpc UploadMedia(UploadMediaRequest) returns (UploadMediaResponse) {
+    option (google.api.http) = {
+      post: "/v1/media/upload"
+      body: "*"
+    };
+  }
+
+  // Batch upload — service photos, review photos (up to ~10 files)
+  rpc UploadManyMedia(UploadManyMediaRequest) returns (UploadManyMediaResponse) {
+    option (google.api.http) = {
+      post: "/v1/media/upload/batch"
+      body: "*"
+    };
+  }
+
+  // Get metadata for a single file
+  rpc GetMedia(GetMediaRequest) returns (GetMediaResponse) {
+    option (google.api.http) = {
+      get: "/v1/media/{media_id}"
+    };
+  }
+
+  // Get metadata for multiple files by ID
+  // Used by other services (service-service, review-service) to resolve media IDs
+  rpc GetManyMedia(GetManyMediaRequest) returns (GetManyMediaResponse) {
+    option (google.api.http) = {
+      get: "/v1/media/batch"
+    };
+  }
+
+  // Get all files uploaded by the caller, optionally filtered by context
+  rpc GetMyMedia(GetMyMediaRequest) returns (GetMyMediaResponse) {
+    option (google.api.http) = {
+      get: "/v1/media"
+    };
+  }
+
+  // Delete a single file — ownership validated server-side from JWT
+  rpc DeleteMedia(DeleteMediaRequest) returns (DeleteMediaResponse) {
+    option (google.api.http) = {
+      delete: "/v1/media/{media_id}"
+    };
+  }
+
+  // Batch delete — when a service listing or review is deleted
+  rpc DeleteManyMedia(DeleteManyMediaRequest) returns (DeleteManyMediaResponse) {
+    option (google.api.http) = {
+      delete: "/v1/media/batch"
+    };
+  }
+}
+
+// ─── Core message ────────────────────────────────────────────────────────────
+
+message MediaItem {
+  int64  media_id    = 1;
+  int64  uploader_id = 2;
+  string context     = 3; // "provider_documents" | "service_photos" | "review_photos" | "avatar"
+  string url         = 4; // Full public URL — frontend uses this directly
+  string filename    = 5; // Original filename
+  int64  size_bytes  = 6;
+  string created_at  = 7; // ISO 8601 string — simpler than google.protobuf.Timestamp for now
+}
+
+// ─── Upload single ────────────────────────────────────────────────────────────
+
+// Note: actual file bytes are NOT in this proto message.
+// The gRPC-gateway receives a multipart HTTP request, extracts the file,
+// and passes the metadata fields here. The file content travels as bytes
+// through the gateway layer before hitting the gRPC handler.
+// uploader_id is never sent by client — always extracted from JWT.
+message UploadMediaRequest {
+  string context      = 1; // required — one of the four context constants
+  string filename     = 2; // original filename e.g. "kitchen.jpg"
+  string content_type = 3; // MIME type e.g. "image/jpeg"
+  int64  size_bytes   = 4;
+  bytes  data         = 5; // file content
+}
+
+message UploadMediaResponse {
+  MediaItem media = 1;
+}
+
+// ─── Upload many ─────────────────────────────────────────────────────────────
+
+message FileInput {
+  string filename     = 1;
+  string content_type = 2;
+  int64  size_bytes   = 3;
+  bytes  data         = 4;
+}
+
+message UploadManyMediaRequest {
+  string          context = 1; // same context for all files in one batch
+  repeated FileInput files = 2;
+}
+
+message UploadManyMediaResponse {
+  repeated MediaItem media = 1;
+}
+
+// ─── Get single ──────────────────────────────────────────────────────────────
+
+message GetMediaRequest {
+  int64 media_id = 1;
+}
+
+message GetMediaResponse {
+  MediaItem media = 1;
+}
+
+// ─── Get many ────────────────────────────────────────────────────────────────
+
+message GetManyMediaRequest {
+  repeated int64 media_ids = 1;
+}
+
+message GetManyMediaResponse {
+  repeated MediaItem media = 1;
+}
+
+// ─── Get my media ─────────────────────────────────────────────────────────────
+
+message GetMyMediaRequest {
+  // uploader_id extracted from JWT — not a request field
+  string context = 1; // optional filter — empty string means return all contexts
+}
+
+message GetMyMediaResponse {
+  repeated MediaItem media = 1;
+}
+
+// ─── Delete single ───────────────────────────────────────────────────────────
+
+message DeleteMediaRequest {
+  int64 media_id = 1;
+}
+
+message DeleteMediaResponse {
+  bool success = 1;
+}
+
+// ─── Delete many ─────────────────────────────────────────────────────────────
+
+message DeleteManyMediaRequest {
+  repeated int64 media_ids = 1;
+}
+
+message DeleteManyMediaResponse {
+  bool    success    = 1;
+  int32   deleted    = 2; // how many were actually deleted
+  repeated int64 failed_ids = 3; // IDs that failed — empty on full success
+}
