@@ -81,11 +81,12 @@ message MediaItem {
 // through the gateway layer before hitting the gRPC handler.
 // uploader_id is never sent by client — always extracted from JWT.
 message UploadMediaRequest {
-  string context      = 1; // required — one of the four context constants
-  string filename     = 2; // original filename e.g. "kitchen.jpg"
-  string content_type = 3; // MIME type e.g. "image/jpeg"
-  int64  size_bytes   = 4;
-  bytes  data         = 5; // file content
+  reserved 3, 4;
+  reserved "content_type", "size_bytes";
+
+  string context  = 1;
+  string filename = 2;
+  bytes  data     = 5;
 }
 
 message UploadMediaResponse {
@@ -95,9 +96,10 @@ message UploadMediaResponse {
 // ─── Upload many ─────────────────────────────────────────────────────────────
 
 message FileInput {
+  reserved 2, 3;
+  reserved "content_type", "size_bytes";
+
   string filename     = 1;
-  string content_type = 2;
-  int64  size_bytes   = 3;
   bytes  data         = 4;
 }
 

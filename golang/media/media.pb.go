@@ -121,11 +121,9 @@ func (x *MediaItem) GetCreatedAt() string {
 // uploader_id is never sent by client — always extracted from JWT.
 type UploadMediaRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Context       string                 `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`                            // required — one of the four context constants
-	Filename      string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`                          // original filename e.g. "kitchen.jpg"
-	ContentType   string                 `protobuf:"bytes,3,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"` // MIME type e.g. "image/jpeg"
-	SizeBytes     int64                  `protobuf:"varint,4,opt,name=size_bytes,json=sizeBytes,proto3" json:"size_bytes,omitempty"`
-	Data          []byte                 `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"` // file content
+	Context       string                 `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`
+	Filename      string                 `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
+	Data          []byte                 `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -172,20 +170,6 @@ func (x *UploadMediaRequest) GetFilename() string {
 		return x.Filename
 	}
 	return ""
-}
-
-func (x *UploadMediaRequest) GetContentType() string {
-	if x != nil {
-		return x.ContentType
-	}
-	return ""
-}
-
-func (x *UploadMediaRequest) GetSizeBytes() int64 {
-	if x != nil {
-		return x.SizeBytes
-	}
-	return 0
 }
 
 func (x *UploadMediaRequest) GetData() []byte {
@@ -242,8 +226,6 @@ func (x *UploadMediaResponse) GetMedia() *MediaItem {
 type FileInput struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Filename      string                 `protobuf:"bytes,1,opt,name=filename,proto3" json:"filename,omitempty"`
-	ContentType   string                 `protobuf:"bytes,2,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
-	SizeBytes     int64                  `protobuf:"varint,3,opt,name=size_bytes,json=sizeBytes,proto3" json:"size_bytes,omitempty"`
 	Data          []byte                 `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -284,20 +266,6 @@ func (x *FileInput) GetFilename() string {
 		return x.Filename
 	}
 	return ""
-}
-
-func (x *FileInput) GetContentType() string {
-	if x != nil {
-		return x.ContentType
-	}
-	return ""
-}
-
-func (x *FileInput) GetSizeBytes() int64 {
-	if x != nil {
-		return x.SizeBytes
-	}
-	return 0
 }
 
 func (x *FileInput) GetData() []byte {
@@ -875,22 +843,18 @@ const file_media_proto_rawDesc = "" +
 	"\n" +
 	"size_bytes\x18\x06 \x01(\x03R\tsizeBytes\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\a \x01(\tR\tcreatedAt\"\xa0\x01\n" +
+	"created_at\x18\a \x01(\tR\tcreatedAt\"\x84\x01\n" +
 	"\x12UploadMediaRequest\x12\x18\n" +
 	"\acontext\x18\x01 \x01(\tR\acontext\x12\x1a\n" +
-	"\bfilename\x18\x02 \x01(\tR\bfilename\x12!\n" +
-	"\fcontent_type\x18\x03 \x01(\tR\vcontentType\x12\x1d\n" +
-	"\n" +
-	"size_bytes\x18\x04 \x01(\x03R\tsizeBytes\x12\x12\n" +
-	"\x04data\x18\x05 \x01(\fR\x04data\"@\n" +
+	"\bfilename\x18\x02 \x01(\tR\bfilename\x12\x12\n" +
+	"\x04data\x18\x05 \x01(\fR\x04dataJ\x04\b\x03\x10\x04J\x04\b\x04\x10\x05R\fcontent_typeR\n" +
+	"size_bytes\"@\n" +
 	"\x13UploadMediaResponse\x12)\n" +
-	"\x05media\x18\x01 \x01(\v2\x13.media.v1.MediaItemR\x05media\"}\n" +
+	"\x05media\x18\x01 \x01(\v2\x13.media.v1.MediaItemR\x05media\"a\n" +
 	"\tFileInput\x12\x1a\n" +
-	"\bfilename\x18\x01 \x01(\tR\bfilename\x12!\n" +
-	"\fcontent_type\x18\x02 \x01(\tR\vcontentType\x12\x1d\n" +
-	"\n" +
-	"size_bytes\x18\x03 \x01(\x03R\tsizeBytes\x12\x12\n" +
-	"\x04data\x18\x04 \x01(\fR\x04data\"]\n" +
+	"\bfilename\x18\x01 \x01(\tR\bfilename\x12\x12\n" +
+	"\x04data\x18\x04 \x01(\fR\x04dataJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04R\fcontent_typeR\n" +
+	"size_bytes\"]\n" +
 	"\x16UploadManyMediaRequest\x12\x18\n" +
 	"\acontext\x18\x01 \x01(\tR\acontext\x12)\n" +
 	"\x05files\x18\x02 \x03(\v2\x13.media.v1.FileInputR\x05files\"D\n" +
