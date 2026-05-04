@@ -31,6 +31,7 @@ type Service struct {
 	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
 	PriceStart    float64                `protobuf:"fixed64,6,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
 	IsActive      bool                   `protobuf:"varint,7,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,8,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -114,12 +115,20 @@ func (x *Service) GetIsActive() bool {
 	return false
 }
 
+func (x *Service) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
+}
+
 type CreateServiceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	PriceStart    float64                `protobuf:"fixed64,3,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
 	CategoryId    int64                  `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,5,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -180,6 +189,13 @@ func (x *CreateServiceRequest) GetCategoryId() int64 {
 		return x.CategoryId
 	}
 	return 0
+}
+
+func (x *CreateServiceRequest) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
 }
 
 type CreateServiceResponse struct {
@@ -667,7 +683,7 @@ var File_service_proto protoreflect.FileDescriptor
 const file_service_proto_rawDesc = "" +
 	"\n" +
 	"\rservice.proto\x12\n" +
-	"service.v1\x1a\x1cgoogle/api/annotations.proto\"\xd1\x01\n" +
+	"service.v1\x1a\x1cgoogle/api/annotations.proto\"\xf0\x01\n" +
 	"\aService\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vprovider_id\x18\x02 \x01(\x03R\n" +
@@ -678,14 +694,18 @@ const file_service_proto_rawDesc = "" +
 	"\vdescription\x18\x05 \x01(\tR\vdescription\x12\x1f\n" +
 	"\vprice_start\x18\x06 \x01(\x01R\n" +
 	"priceStart\x12\x1b\n" +
-	"\tis_active\x18\a \x01(\bR\bisActive\"\x90\x01\n" +
+	"\tis_active\x18\a \x01(\bR\bisActive\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\b \x03(\tR\tphotoUrls\"\xaf\x01\n" +
 	"\x14CreateServiceRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1f\n" +
 	"\vprice_start\x18\x03 \x01(\x01R\n" +
 	"priceStart\x12\x1f\n" +
 	"\vcategory_id\x18\x04 \x01(\x03R\n" +
-	"categoryId\"F\n" +
+	"categoryId\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\x05 \x03(\tR\tphotoUrls\"F\n" +
 	"\x15CreateServiceResponse\x12-\n" +
 	"\aservice\x18\x01 \x01(\v2\x13.service.v1.ServiceR\aservice\"#\n" +
 	"\x11GetServiceRequest\x12\x0e\n" +

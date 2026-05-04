@@ -31,6 +31,7 @@ type Review struct {
 	Rating        int32                  `protobuf:"varint,5,opt,name=rating,proto3" json:"rating,omitempty"` // 1–5
 	Comment       string                 `protobuf:"bytes,6,opt,name=comment,proto3" json:"comment,omitempty"`
 	CreatedAt     string                 `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,8,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -114,11 +115,19 @@ func (x *Review) GetCreatedAt() string {
 	return ""
 }
 
+func (x *Review) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
+}
+
 type CreateReviewRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       int64                  `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	Rating        int32                  `protobuf:"varint,2,opt,name=rating,proto3" json:"rating,omitempty"`
-	Comment       string                 `protobuf:"bytes,3,opt,name=comment,proto3" json:"comment,omitempty"` // optional
+	Comment       string                 `protobuf:"bytes,3,opt,name=comment,proto3" json:"comment,omitempty"`                      // optional
+	PhotoUrls     []string               `protobuf:"bytes,4,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"` // optional
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -172,6 +181,13 @@ func (x *CreateReviewRequest) GetComment() string {
 		return x.Comment
 	}
 	return ""
+}
+
+func (x *CreateReviewRequest) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
 }
 
 type CreateReviewResponse struct {
@@ -482,7 +498,7 @@ var File_review_proto protoreflect.FileDescriptor
 
 const file_review_proto_rawDesc = "" +
 	"\n" +
-	"\freview.proto\x12\treview.v1\x1a\x1cgoogle/api/annotations.proto\"\xc4\x01\n" +
+	"\freview.proto\x12\treview.v1\x1a\x1cgoogle/api/annotations.proto\"\xe3\x01\n" +
 	"\x06Review\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x19\n" +
 	"\border_id\x18\x02 \x01(\x03R\aorderId\x12\x1d\n" +
@@ -493,11 +509,15 @@ const file_review_proto_rawDesc = "" +
 	"\x06rating\x18\x05 \x01(\x05R\x06rating\x12\x18\n" +
 	"\acomment\x18\x06 \x01(\tR\acomment\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\a \x01(\tR\tcreatedAt\"b\n" +
+	"created_at\x18\a \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\b \x03(\tR\tphotoUrls\"\x81\x01\n" +
 	"\x13CreateReviewRequest\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\x03R\aorderId\x12\x16\n" +
 	"\x06rating\x18\x02 \x01(\x05R\x06rating\x12\x18\n" +
-	"\acomment\x18\x03 \x01(\tR\acomment\"A\n" +
+	"\acomment\x18\x03 \x01(\tR\acomment\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\x04 \x03(\tR\tphotoUrls\"A\n" +
 	"\x14CreateReviewResponse\x12)\n" +
 	"\x06review\x18\x01 \x01(\v2\x11.review.v1.ReviewR\x06review\"\"\n" +
 	"\x10GetReviewRequest\x12\x0e\n" +

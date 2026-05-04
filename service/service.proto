@@ -57,6 +57,7 @@ message Service {
   string description = 5;
   double price_start = 6;
   bool   is_active   = 7;
+  repeated string photo_urls = 8;
 }
 
 /* -------- CREATE -------- */
@@ -66,6 +67,7 @@ message CreateServiceRequest {
   string description = 2;
   double price_start = 3;
   int64  category_id = 4;
+  repeated string photo_urls = 5;
 }
 
 message CreateServiceResponse {
