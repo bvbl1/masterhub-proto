@@ -1094,6 +1094,94 @@ func (x *GoogleAuthCallbackResponse) GetUser() *User {
 	return nil
 }
 
+type UpdateAvatarRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AvatarUrl     string                 `protobuf:"bytes,1,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAvatarRequest) Reset() {
+	*x = UpdateAvatarRequest{}
+	mi := &file_user_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAvatarRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAvatarRequest) ProtoMessage() {}
+
+func (x *UpdateAvatarRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAvatarRequest.ProtoReflect.Descriptor instead.
+func (*UpdateAvatarRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *UpdateAvatarRequest) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+type UpdateAvatarResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAvatarResponse) Reset() {
+	*x = UpdateAvatarResponse{}
+	mi := &file_user_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAvatarResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAvatarResponse) ProtoMessage() {}
+
+func (x *UpdateAvatarResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAvatarResponse.ProtoReflect.Descriptor instead.
+func (*UpdateAvatarResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *UpdateAvatarResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -1165,7 +1253,12 @@ const file_user_proto_rawDesc = "" +
 	"\x05state\x18\x02 \x01(\tR\x05state\"U\n" +
 	"\x1aGoogleAuthCallbackResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12!\n" +
-	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user2\xf2\b\n" +
+	"\x04user\x18\x02 \x01(\v2\r.user.v1.UserR\x04user\"4\n" +
+	"\x13UpdateAvatarRequest\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x01 \x01(\tR\tavatarUrl\"0\n" +
+	"\x14UpdateAvatarResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xdf\t\n" +
 	"\vUserService\x12Z\n" +
 	"\n" +
 	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
@@ -1179,7 +1272,8 @@ const file_user_proto_rawDesc = "" +
 	"\x11PromoteToProvider\x12!.user.v1.PromoteToProviderRequest\x1a\".user.v1.PromoteToProviderResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/user/provider\x12L\n" +
 	"\x05GetMe\x12\x15.user.v1.GetMeRequest\x1a\x16.user.v1.GetMeResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/users/me\x12p\n" +
 	"\x10GetGoogleAuthURL\x12 .user.v1.GetGoogleAuthURLRequest\x1a!.user.v1.GetGoogleAuthURLResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/auth/google\x12\x7f\n" +
-	"\x12GoogleAuthCallback\x12\".user.v1.GoogleAuthCallbackRequest\x1a#.user.v1.GoogleAuthCallbackResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/v1/auth/google/callbackB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
+	"\x12GoogleAuthCallback\x12\".user.v1.GoogleAuthCallbackRequest\x1a#.user.v1.GoogleAuthCallbackResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/v1/auth/google/callback\x12k\n" +
+	"\fUpdateAvatar\x12\x1c.user.v1.UpdateAvatarRequest\x1a\x1d.user.v1.UpdateAvatarResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/v1/users/me/avatarB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -1193,7 +1287,7 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_user_proto_goTypes = []any{
 	(*User)(nil),                       // 0: user.v1.User
 	(*CreateUserRequest)(nil),          // 1: user.v1.CreateUserRequest
@@ -1216,6 +1310,8 @@ var file_user_proto_goTypes = []any{
 	(*GetGoogleAuthURLResponse)(nil),   // 18: user.v1.GetGoogleAuthURLResponse
 	(*GoogleAuthCallbackRequest)(nil),  // 19: user.v1.GoogleAuthCallbackRequest
 	(*GoogleAuthCallbackResponse)(nil), // 20: user.v1.GoogleAuthCallbackResponse
+	(*UpdateAvatarRequest)(nil),        // 21: user.v1.UpdateAvatarRequest
+	(*UpdateAvatarResponse)(nil),       // 22: user.v1.UpdateAvatarResponse
 }
 var file_user_proto_depIdxs = []int32{
 	0,  // 0: user.v1.GetUserResponse.user:type_name -> user.v1.User
@@ -1235,19 +1331,21 @@ var file_user_proto_depIdxs = []int32{
 	15, // 14: user.v1.UserService.GetMe:input_type -> user.v1.GetMeRequest
 	17, // 15: user.v1.UserService.GetGoogleAuthURL:input_type -> user.v1.GetGoogleAuthURLRequest
 	19, // 16: user.v1.UserService.GoogleAuthCallback:input_type -> user.v1.GoogleAuthCallbackRequest
-	2,  // 17: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
-	6,  // 18: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
-	6,  // 19: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
-	6,  // 20: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
-	8,  // 21: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
-	10, // 22: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
-	12, // 23: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
-	14, // 24: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
-	16, // 25: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
-	18, // 26: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
-	20, // 27: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
-	17, // [17:28] is the sub-list for method output_type
-	6,  // [6:17] is the sub-list for method input_type
+	21, // 17: user.v1.UserService.UpdateAvatar:input_type -> user.v1.UpdateAvatarRequest
+	2,  // 18: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
+	6,  // 19: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
+	6,  // 20: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
+	6,  // 21: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
+	8,  // 22: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
+	10, // 23: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
+	12, // 24: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
+	14, // 25: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
+	16, // 26: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
+	18, // 27: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
+	20, // 28: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
+	22, // 29: user.v1.UserService.UpdateAvatar:output_type -> user.v1.UpdateAvatarResponse
+	18, // [18:30] is the sub-list for method output_type
+	6,  // [6:18] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
 	6,  // [6:6] is the sub-list for extension extendee
 	0,  // [0:6] is the sub-list for field type_name
@@ -1264,7 +1362,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   21,
+			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
