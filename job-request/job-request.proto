@@ -1,0 +1,212 @@
+syntax = "proto3";
+
+package jobrequest.v1;
+
+option go_package = "github.com/bvbl1/masterhub-proto/golang/jobrequest;jobrequestpb";
+
+import "google/api/annotations.proto";
+
+service JobRequestService {
+
+  rpc CreateJobRequest(CreateJobRequestRequest) returns (CreateJobRequestResponse) {
+    option (google.api.http) = {
+      post: "/v1/job-requests"
+      body: "*"
+    };
+  }
+
+  rpc GetJobRequest(GetJobRequestRequest) returns (GetJobRequestResult) {
+    option (google.api.http) = {
+      get: "/v1/job-requests/{id}"
+    };
+  }
+
+  rpc ListJobRequests(ListJobRequestsRequest) returns (ListJobRequestsResponse) {
+    option (google.api.http) = {
+      get: "/v1/job-requests"
+    };
+  }
+
+  rpc CancelJobRequest(CancelJobRequestRequest) returns (CancelJobRequestResponse) {
+    option (google.api.http) = {
+      delete: "/v1/job-requests/{id}"
+    };
+  }
+
+  rpc RespondToJobRequest(RespondToJobRequestRequest) returns (RespondToJobRequestResponse) {
+    option (google.api.http) = {
+      post: "/v1/job-requests/{job_request_id}/respond"
+      body: "*"
+    };
+  }
+
+  rpc ListJobRequestResponses(ListJobRequestResponsesRequest) returns (ListJobRequestResponsesResponse) {
+    option (google.api.http) = {
+      get: "/v1/job-requests/{job_request_id}/responses"
+    };
+  }
+
+  rpc GetJobRequestResponse(GetJobRequestResponseRequest) returns (GetJobRequestResponseResponse) {
+    option (google.api.http) = {
+      get: "/v1/job-requests/{job_request_id}/responses/{response_id}"
+    };
+  }
+
+  rpc AcceptJobRequestResponse(AcceptJobRequestResponseRequest) returns (AcceptJobRequestResponseResponse) {
+    option (google.api.http) = {
+      post: "/v1/job-requests/{job_request_id}/responses/{response_id}/accept"
+      body: "*"
+    };
+  }
+
+  rpc WithdrawJobRequestResponse(WithdrawJobRequestResponseRequest) returns (WithdrawJobRequestResponseResponse) {
+    option (google.api.http) = {
+      delete: "/v1/job-requests/{job_request_id}/responses/{response_id}"
+    };
+  }
+}
+
+// ── Core messages ─────────────────────────────────────────────────────────────
+
+message JobRequest {
+  int64  id             = 1;
+  int64  customer_id    = 2;
+  int64  category_id    = 3;
+  string title          = 4;
+  string description    = 5;
+  string city           = 6;
+  double budget_min     = 7;
+  double budget_max     = 8;
+  string scheduled_at   = 9;
+  string status         = 10; // open | closed | cancelled
+  int32  response_count = 11;
+  string created_at     = 12;
+  string updated_at     = 13;
+}
+
+message JobRequestResponse {
+  int64  id             = 1;
+  int64  job_request_id = 2;
+  int64  provider_id    = 3;
+  double proposed_price = 4;
+  string comment        = 5;
+  int32  estimated_days = 6;
+  string status         = 7; // pending | accepted | rejected | withdrawn
+  string created_at     = 8;
+  string updated_at     = 9;
+}
+
+// ── CreateJobRequest ──────────────────────────────────────────────────────────
+
+message CreateJobRequestRequest {
+  int64  category_id  = 1;
+  string title        = 2;
+  string description  = 3;
+  string city         = 4;
+  double budget_min   = 5;
+  double budget_max   = 6;
+  string scheduled_at = 7;
+}
+
+message CreateJobRequestResponse {
+  JobRequest job_request = 1;
+}
+
+// ── GetJobRequest ─────────────────────────────────────────────────────────────
+
+message GetJobRequestRequest {
+  int64 id = 1;
+}
+
+message GetJobRequestResult {
+  JobRequest job_request = 1;
+}
+
+// ── ListJobRequests ───────────────────────────────────────────────────────────
+
+message ListJobRequestsRequest {
+  string status      = 1;
+  int64  category_id = 2;
+  string city        = 3;
+  int32  limit       = 4;
+  int32  offset      = 5;
+}
+
+message ListJobRequestsResponse {
+  repeated JobRequest job_requests = 1;
+}
+
+// ── CancelJobRequest ──────────────────────────────────────────────────────────
+
+message CancelJobRequestRequest {
+  int64 id = 1;
+}
+
+message CancelJobRequestResponse {
+  bool success = 1;
+}
+
+// ── RespondToJobRequest ───────────────────────────────────────────────────────
+
+message RespondToJobRequestRequest {
+  int64  job_request_id = 1;
+  double proposed_price = 2;
+  string comment        = 3;
+  int32  estimated_days = 4;
+}
+
+message RespondToJobRequestResponse {
+  JobRequestResponse response = 1;
+}
+
+// ── ListJobRequestResponses ───────────────────────────────────────────────────
+
+message ListJobRequestResponsesRequest {
+  int64 job_request_id = 1;
+  int32 limit          = 2;
+  int32 offset         = 3;
+}
+
+message ListJobRequestResponsesResponse {
+  repeated JobRequestResponse responses = 1;
+}
+
+// ── GetJobRequestResponse ─────────────────────────────────────────────────────
+
+message GetJobRequestResponseRequest {
+  int64 job_request_id = 1;
+  int64 response_id    = 2;
+}
+
+message GetJobRequestResponseResponse {
+  JobRequestResponse response = 1;
+}
+
+// ── AcceptJobRequestResponse ──────────────────────────────────────────────────
+
+message AcceptJobRequestResponseRequest {
+  int64  job_request_id = 1;
+  int64  response_id    = 2;
+  string street         = 3;
+  string city           = 4;
+  string region         = 5;
+  double latitude       = 6;
+  double longitude      = 7;
+  string scheduled_at   = 8;
+}
+
+message AcceptJobRequestResponseResponse {
+  JobRequest job_request = 1;
+  int64      order_id    = 2;
+}
+
+// ── WithdrawJobRequestResponse ────────────────────────────────────────────────
+
+message WithdrawJobRequestResponseRequest {
+  int64 job_request_id = 1;
+  int64 response_id    = 2;
+}
+
+message WithdrawJobRequestResponseResponse {
+  bool success = 1;
+}
