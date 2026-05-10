@@ -1239,6 +1239,7 @@ type LinkTelegramResponse struct {
 	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	FirstName     string                 `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
 	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
+	Token         string                 `protobuf:"bytes,4,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1290,6 +1291,13 @@ func (x *LinkTelegramResponse) GetFirstName() string {
 func (x *LinkTelegramResponse) GetRole() string {
 	if x != nil {
 		return x.Role
+	}
+	return ""
+}
+
+func (x *LinkTelegramResponse) GetToken() string {
+	if x != nil {
+		return x.Token
 	}
 	return ""
 }
@@ -1460,12 +1468,13 @@ const file_user_user_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"D\n" +
 	"\x13LinkTelegramRequest\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x17\n" +
-	"\achat_id\x18\x02 \x01(\x03R\x06chatId\"b\n" +
+	"\achat_id\x18\x02 \x01(\x03R\x06chatId\"x\n" +
 	"\x14LinkTelegramResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x12\n" +
-	"\x04role\x18\x03 \x01(\tR\x04role\"7\n" +
+	"\x04role\x18\x03 \x01(\tR\x04role\x12\x14\n" +
+	"\x05token\x18\x04 \x01(\tR\x05token\"7\n" +
 	"\x1cGenerateTelegramTokenRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\"5\n" +
 	"\x1dGenerateTelegramTokenResponse\x12\x14\n" +
