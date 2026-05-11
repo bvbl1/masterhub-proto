@@ -88,6 +88,41 @@ service UserService {
   rpc LinkTelegramByToken(LinkTelegramRequest) returns (LinkTelegramResponse);
   
   rpc GenerateTelegramToken(GenerateTelegramTokenRequest) returns (GenerateTelegramTokenResponse);
+
+  rpc SubmitProviderApplication(SubmitProviderApplicationRequest) returns (SubmitProviderApplicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/user/provider/apply"
+      body: "*"
+    };
+  }
+
+  rpc GetMyProviderApplication(GetMyProviderApplicationRequest) returns (GetMyProviderApplicationResponse) {
+    option (google.api.http) = {
+      get: "/v1/user/provider/application"
+    };
+  }
+
+  // === Admin RPCs ===
+
+  rpc ListProviderApplications(ListProviderApplicationsRequest) returns (ListProviderApplicationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/admin/provider-applications"
+    };
+  }
+
+  rpc ApproveProviderApplication(ApproveProviderApplicationRequest) returns (ApproveProviderApplicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/admin/provider-applications/{application_id}/approve"
+      body: "*"
+    };
+  }
+
+  rpc RejectProviderApplication(RejectProviderApplicationRequest) returns (RejectProviderApplicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/admin/provider-applications/{application_id}/reject"
+      body: "*"
+    };
+  }
 }
 //Messages
 
@@ -101,6 +136,16 @@ message User {
   string avatar_url = 7;
 }
 
+message ProviderApplication {
+  int64  id               = 1;
+  int64  user_id          = 2;
+  string status           = 3; // pending | approved | rejected
+  repeated string document_urls = 4;
+  string rejection_reason = 5;
+  int64  reviewed_by      = 6;
+  string created_at       = 7;
+  string updated_at       = 8;
+}
 
 //Requests / Responses
 
@@ -184,6 +229,53 @@ message PromoteToProviderRequest {}
 message PromoteToProviderResponse {
   string role = 1;
   string token = 2;
+}
+
+message SubmitProviderApplicationRequest {
+  repeated string document_urls = 1;
+}
+
+message SubmitProviderApplicationResponse {
+  ProviderApplication application = 1;
+}
+
+// Get own
+message GetMyProviderApplicationRequest {}
+
+message GetMyProviderApplicationResponse {
+  ProviderApplication application = 1;
+}
+
+// List (admin)
+message ListProviderApplicationsRequest {
+  string status = 1; // filter: pending | approved | rejected | "" for all
+  int32  limit  = 2;
+  int32  offset = 3;
+}
+
+message ListProviderApplicationsResponse {
+  repeated ProviderApplication applications = 1;
+  int32 total = 2;
+}
+
+// Approve (admin)
+message ApproveProviderApplicationRequest {
+  int64 application_id = 1;
+}
+
+message ApproveProviderApplicationResponse {
+  ProviderApplication application = 1;
+  string new_token = 2; // freshly issued JWT with role=provider, returned to admin who can pass it along — or omit and let user re-login
+}
+
+// Reject (admin)
+message RejectProviderApplicationRequest {
+  int64  application_id    = 1;
+  string rejection_reason  = 2;
+}
+
+message RejectProviderApplicationResponse {
+  ProviderApplication application = 1;
 }
 
 //GetMe

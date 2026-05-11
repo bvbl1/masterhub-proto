@@ -19,20 +19,25 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_CreateUser_FullMethodName            = "/user.v1.UserService/CreateUser"
-	UserService_GetUserById_FullMethodName           = "/user.v1.UserService/GetUserById"
-	UserService_GetUserByEmail_FullMethodName        = "/user.v1.UserService/GetUserByEmail"
-	UserService_GetUserByPhone_FullMethodName        = "/user.v1.UserService/GetUserByPhone"
-	UserService_ListUsers_FullMethodName             = "/user.v1.UserService/ListUsers"
-	UserService_UpdateUser_FullMethodName            = "/user.v1.UserService/UpdateUser"
-	UserService_Login_FullMethodName                 = "/user.v1.UserService/Login"
-	UserService_PromoteToProvider_FullMethodName     = "/user.v1.UserService/PromoteToProvider"
-	UserService_GetMe_FullMethodName                 = "/user.v1.UserService/GetMe"
-	UserService_GetGoogleAuthURL_FullMethodName      = "/user.v1.UserService/GetGoogleAuthURL"
-	UserService_GoogleAuthCallback_FullMethodName    = "/user.v1.UserService/GoogleAuthCallback"
-	UserService_UpdateAvatar_FullMethodName          = "/user.v1.UserService/UpdateAvatar"
-	UserService_LinkTelegramByToken_FullMethodName   = "/user.v1.UserService/LinkTelegramByToken"
-	UserService_GenerateTelegramToken_FullMethodName = "/user.v1.UserService/GenerateTelegramToken"
+	UserService_CreateUser_FullMethodName                 = "/user.v1.UserService/CreateUser"
+	UserService_GetUserById_FullMethodName                = "/user.v1.UserService/GetUserById"
+	UserService_GetUserByEmail_FullMethodName             = "/user.v1.UserService/GetUserByEmail"
+	UserService_GetUserByPhone_FullMethodName             = "/user.v1.UserService/GetUserByPhone"
+	UserService_ListUsers_FullMethodName                  = "/user.v1.UserService/ListUsers"
+	UserService_UpdateUser_FullMethodName                 = "/user.v1.UserService/UpdateUser"
+	UserService_Login_FullMethodName                      = "/user.v1.UserService/Login"
+	UserService_PromoteToProvider_FullMethodName          = "/user.v1.UserService/PromoteToProvider"
+	UserService_GetMe_FullMethodName                      = "/user.v1.UserService/GetMe"
+	UserService_GetGoogleAuthURL_FullMethodName           = "/user.v1.UserService/GetGoogleAuthURL"
+	UserService_GoogleAuthCallback_FullMethodName         = "/user.v1.UserService/GoogleAuthCallback"
+	UserService_UpdateAvatar_FullMethodName               = "/user.v1.UserService/UpdateAvatar"
+	UserService_LinkTelegramByToken_FullMethodName        = "/user.v1.UserService/LinkTelegramByToken"
+	UserService_GenerateTelegramToken_FullMethodName      = "/user.v1.UserService/GenerateTelegramToken"
+	UserService_SubmitProviderApplication_FullMethodName  = "/user.v1.UserService/SubmitProviderApplication"
+	UserService_GetMyProviderApplication_FullMethodName   = "/user.v1.UserService/GetMyProviderApplication"
+	UserService_ListProviderApplications_FullMethodName   = "/user.v1.UserService/ListProviderApplications"
+	UserService_ApproveProviderApplication_FullMethodName = "/user.v1.UserService/ApproveProviderApplication"
+	UserService_RejectProviderApplication_FullMethodName  = "/user.v1.UserService/RejectProviderApplication"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -55,6 +60,11 @@ type UserServiceClient interface {
 	UpdateAvatar(ctx context.Context, in *UpdateAvatarRequest, opts ...grpc.CallOption) (*UpdateAvatarResponse, error)
 	LinkTelegramByToken(ctx context.Context, in *LinkTelegramRequest, opts ...grpc.CallOption) (*LinkTelegramResponse, error)
 	GenerateTelegramToken(ctx context.Context, in *GenerateTelegramTokenRequest, opts ...grpc.CallOption) (*GenerateTelegramTokenResponse, error)
+	SubmitProviderApplication(ctx context.Context, in *SubmitProviderApplicationRequest, opts ...grpc.CallOption) (*SubmitProviderApplicationResponse, error)
+	GetMyProviderApplication(ctx context.Context, in *GetMyProviderApplicationRequest, opts ...grpc.CallOption) (*GetMyProviderApplicationResponse, error)
+	ListProviderApplications(ctx context.Context, in *ListProviderApplicationsRequest, opts ...grpc.CallOption) (*ListProviderApplicationsResponse, error)
+	ApproveProviderApplication(ctx context.Context, in *ApproveProviderApplicationRequest, opts ...grpc.CallOption) (*ApproveProviderApplicationResponse, error)
+	RejectProviderApplication(ctx context.Context, in *RejectProviderApplicationRequest, opts ...grpc.CallOption) (*RejectProviderApplicationResponse, error)
 }
 
 type userServiceClient struct {
@@ -205,6 +215,56 @@ func (c *userServiceClient) GenerateTelegramToken(ctx context.Context, in *Gener
 	return out, nil
 }
 
+func (c *userServiceClient) SubmitProviderApplication(ctx context.Context, in *SubmitProviderApplicationRequest, opts ...grpc.CallOption) (*SubmitProviderApplicationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SubmitProviderApplicationResponse)
+	err := c.cc.Invoke(ctx, UserService_SubmitProviderApplication_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetMyProviderApplication(ctx context.Context, in *GetMyProviderApplicationRequest, opts ...grpc.CallOption) (*GetMyProviderApplicationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMyProviderApplicationResponse)
+	err := c.cc.Invoke(ctx, UserService_GetMyProviderApplication_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ListProviderApplications(ctx context.Context, in *ListProviderApplicationsRequest, opts ...grpc.CallOption) (*ListProviderApplicationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListProviderApplicationsResponse)
+	err := c.cc.Invoke(ctx, UserService_ListProviderApplications_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ApproveProviderApplication(ctx context.Context, in *ApproveProviderApplicationRequest, opts ...grpc.CallOption) (*ApproveProviderApplicationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ApproveProviderApplicationResponse)
+	err := c.cc.Invoke(ctx, UserService_ApproveProviderApplication_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) RejectProviderApplication(ctx context.Context, in *RejectProviderApplicationRequest, opts ...grpc.CallOption) (*RejectProviderApplicationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RejectProviderApplicationResponse)
+	err := c.cc.Invoke(ctx, UserService_RejectProviderApplication_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -225,6 +285,11 @@ type UserServiceServer interface {
 	UpdateAvatar(context.Context, *UpdateAvatarRequest) (*UpdateAvatarResponse, error)
 	LinkTelegramByToken(context.Context, *LinkTelegramRequest) (*LinkTelegramResponse, error)
 	GenerateTelegramToken(context.Context, *GenerateTelegramTokenRequest) (*GenerateTelegramTokenResponse, error)
+	SubmitProviderApplication(context.Context, *SubmitProviderApplicationRequest) (*SubmitProviderApplicationResponse, error)
+	GetMyProviderApplication(context.Context, *GetMyProviderApplicationRequest) (*GetMyProviderApplicationResponse, error)
+	ListProviderApplications(context.Context, *ListProviderApplicationsRequest) (*ListProviderApplicationsResponse, error)
+	ApproveProviderApplication(context.Context, *ApproveProviderApplicationRequest) (*ApproveProviderApplicationResponse, error)
+	RejectProviderApplication(context.Context, *RejectProviderApplicationRequest) (*RejectProviderApplicationResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -276,6 +341,21 @@ func (UnimplementedUserServiceServer) LinkTelegramByToken(context.Context, *Link
 }
 func (UnimplementedUserServiceServer) GenerateTelegramToken(context.Context, *GenerateTelegramTokenRequest) (*GenerateTelegramTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GenerateTelegramToken not implemented")
+}
+func (UnimplementedUserServiceServer) SubmitProviderApplication(context.Context, *SubmitProviderApplicationRequest) (*SubmitProviderApplicationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SubmitProviderApplication not implemented")
+}
+func (UnimplementedUserServiceServer) GetMyProviderApplication(context.Context, *GetMyProviderApplicationRequest) (*GetMyProviderApplicationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetMyProviderApplication not implemented")
+}
+func (UnimplementedUserServiceServer) ListProviderApplications(context.Context, *ListProviderApplicationsRequest) (*ListProviderApplicationsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListProviderApplications not implemented")
+}
+func (UnimplementedUserServiceServer) ApproveProviderApplication(context.Context, *ApproveProviderApplicationRequest) (*ApproveProviderApplicationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ApproveProviderApplication not implemented")
+}
+func (UnimplementedUserServiceServer) RejectProviderApplication(context.Context, *RejectProviderApplicationRequest) (*RejectProviderApplicationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RejectProviderApplication not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -550,6 +630,96 @@ func _UserService_GenerateTelegramToken_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_SubmitProviderApplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitProviderApplicationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).SubmitProviderApplication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_SubmitProviderApplication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).SubmitProviderApplication(ctx, req.(*SubmitProviderApplicationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetMyProviderApplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMyProviderApplicationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetMyProviderApplication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetMyProviderApplication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetMyProviderApplication(ctx, req.(*GetMyProviderApplicationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ListProviderApplications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProviderApplicationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ListProviderApplications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ListProviderApplications_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ListProviderApplications(ctx, req.(*ListProviderApplicationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ApproveProviderApplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApproveProviderApplicationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ApproveProviderApplication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ApproveProviderApplication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ApproveProviderApplication(ctx, req.(*ApproveProviderApplicationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_RejectProviderApplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RejectProviderApplicationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).RejectProviderApplication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_RejectProviderApplication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).RejectProviderApplication(ctx, req.(*RejectProviderApplicationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -612,6 +782,26 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateTelegramToken",
 			Handler:    _UserService_GenerateTelegramToken_Handler,
+		},
+		{
+			MethodName: "SubmitProviderApplication",
+			Handler:    _UserService_SubmitProviderApplication_Handler,
+		},
+		{
+			MethodName: "GetMyProviderApplication",
+			Handler:    _UserService_GetMyProviderApplication_Handler,
+		},
+		{
+			MethodName: "ListProviderApplications",
+			Handler:    _UserService_ListProviderApplications_Handler,
+		},
+		{
+			MethodName: "ApproveProviderApplication",
+			Handler:    _UserService_ApproveProviderApplication_Handler,
+		},
+		{
+			MethodName: "RejectProviderApplication",
+			Handler:    _UserService_RejectProviderApplication_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
