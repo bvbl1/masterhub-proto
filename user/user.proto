@@ -84,6 +84,10 @@ service UserService {
     body: "*"
   };
   }
+
+  rpc LinkTelegramByToken(LinkTelegramRequest) returns (LinkTelegramResponse);
+  
+  rpc GenerateTelegramToken(GenerateTelegramTokenRequest) returns (GenerateTelegramTokenResponse);
 }
 //Messages
 
@@ -212,4 +216,24 @@ message UpdateAvatarRequest {
 
 message UpdateAvatarResponse {
   bool success = 1;
+}
+
+message LinkTelegramRequest {
+  string token  = 1;
+  int64  chat_id = 2;
+}
+
+message LinkTelegramResponse {
+  int64  user_id    = 1;
+  string first_name = 2;
+  string role       = 3;
+  string token      = 4;
+}
+
+message GenerateTelegramTokenRequest {
+  int64 user_id = 1;
+}
+
+message GenerateTelegramTokenResponse {
+  string token = 1;
 }
