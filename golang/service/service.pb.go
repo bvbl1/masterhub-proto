@@ -32,6 +32,7 @@ type Service struct {
 	PriceStart    float64                `protobuf:"fixed64,6,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
 	IsActive      bool                   `protobuf:"varint,7,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	PhotoUrls     []string               `protobuf:"bytes,8,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
+	City          string                 `protobuf:"bytes,9,opt,name=city,proto3" json:"city,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -122,6 +123,13 @@ func (x *Service) GetPhotoUrls() []string {
 	return nil
 }
 
+func (x *Service) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
 type CreateServiceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
@@ -129,6 +137,7 @@ type CreateServiceRequest struct {
 	PriceStart    float64                `protobuf:"fixed64,3,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
 	CategoryId    int64                  `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	PhotoUrls     []string               `protobuf:"bytes,5,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
+	City          string                 `protobuf:"bytes,6,opt,name=city,proto3" json:"city,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -196,6 +205,13 @@ func (x *CreateServiceRequest) GetPhotoUrls() []string {
 		return x.PhotoUrls
 	}
 	return nil
+}
+
+func (x *CreateServiceRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
 }
 
 type CreateServiceResponse struct {
@@ -335,6 +351,7 @@ type ListServicesRequest struct {
 	CategoryId    int64                  `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	ProviderId    int64                  `protobuf:"varint,2,opt,name=provider_id,json=providerId,proto3" json:"provider_id,omitempty"`
 	OnlyActive    bool                   `protobuf:"varint,3,opt,name=only_active,json=onlyActive,proto3" json:"only_active,omitempty"`
+	City          string                 `protobuf:"bytes,4,opt,name=city,proto3" json:"city,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -390,6 +407,13 @@ func (x *ListServicesRequest) GetOnlyActive() bool {
 	return false
 }
 
+func (x *ListServicesRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
 type ListServicesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Services      []*Service             `protobuf:"bytes,1,rep,name=services,proto3" json:"services,omitempty"`
@@ -441,6 +465,7 @@ type UpdateServiceRequest struct {
 	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	PriceStart    float64                `protobuf:"fixed64,4,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
 	IsActive      bool                   `protobuf:"varint,5,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	City          string                 `protobuf:"bytes,6,opt,name=city,proto3" json:"city,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -508,6 +533,13 @@ func (x *UpdateServiceRequest) GetIsActive() bool {
 		return x.IsActive
 	}
 	return false
+}
+
+func (x *UpdateServiceRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
 }
 
 type UpdateServiceResponse struct {
@@ -683,7 +715,7 @@ var File_service_proto protoreflect.FileDescriptor
 const file_service_proto_rawDesc = "" +
 	"\n" +
 	"\rservice.proto\x12\n" +
-	"service.v1\x1a\x1cgoogle/api/annotations.proto\"\xf0\x01\n" +
+	"service.v1\x1a\x1cgoogle/api/annotations.proto\"\x84\x02\n" +
 	"\aService\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vprovider_id\x18\x02 \x01(\x03R\n" +
@@ -696,7 +728,8 @@ const file_service_proto_rawDesc = "" +
 	"priceStart\x12\x1b\n" +
 	"\tis_active\x18\a \x01(\bR\bisActive\x12\x1d\n" +
 	"\n" +
-	"photo_urls\x18\b \x03(\tR\tphotoUrls\"\xaf\x01\n" +
+	"photo_urls\x18\b \x03(\tR\tphotoUrls\x12\x12\n" +
+	"\x04city\x18\t \x01(\tR\x04city\"\xc3\x01\n" +
 	"\x14CreateServiceRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1f\n" +
@@ -705,29 +738,32 @@ const file_service_proto_rawDesc = "" +
 	"\vcategory_id\x18\x04 \x01(\x03R\n" +
 	"categoryId\x12\x1d\n" +
 	"\n" +
-	"photo_urls\x18\x05 \x03(\tR\tphotoUrls\"F\n" +
+	"photo_urls\x18\x05 \x03(\tR\tphotoUrls\x12\x12\n" +
+	"\x04city\x18\x06 \x01(\tR\x04city\"F\n" +
 	"\x15CreateServiceResponse\x12-\n" +
 	"\aservice\x18\x01 \x01(\v2\x13.service.v1.ServiceR\aservice\"#\n" +
 	"\x11GetServiceRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"C\n" +
 	"\x12GetServiceResponse\x12-\n" +
-	"\aservice\x18\x01 \x01(\v2\x13.service.v1.ServiceR\aservice\"x\n" +
+	"\aservice\x18\x01 \x01(\v2\x13.service.v1.ServiceR\aservice\"\x8c\x01\n" +
 	"\x13ListServicesRequest\x12\x1f\n" +
 	"\vcategory_id\x18\x01 \x01(\x03R\n" +
 	"categoryId\x12\x1f\n" +
 	"\vprovider_id\x18\x02 \x01(\x03R\n" +
 	"providerId\x12\x1f\n" +
 	"\vonly_active\x18\x03 \x01(\bR\n" +
-	"onlyActive\"G\n" +
+	"onlyActive\x12\x12\n" +
+	"\x04city\x18\x04 \x01(\tR\x04city\"G\n" +
 	"\x14ListServicesResponse\x12/\n" +
-	"\bservices\x18\x01 \x03(\v2\x13.service.v1.ServiceR\bservices\"\x9c\x01\n" +
+	"\bservices\x18\x01 \x03(\v2\x13.service.v1.ServiceR\bservices\"\xb0\x01\n" +
 	"\x14UpdateServiceRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1f\n" +
 	"\vprice_start\x18\x04 \x01(\x01R\n" +
 	"priceStart\x12\x1b\n" +
-	"\tis_active\x18\x05 \x01(\bR\bisActive\"F\n" +
+	"\tis_active\x18\x05 \x01(\bR\bisActive\x12\x12\n" +
+	"\x04city\x18\x06 \x01(\tR\x04city\"F\n" +
 	"\x15UpdateServiceResponse\x12-\n" +
 	"\aservice\x18\x01 \x01(\v2\x13.service.v1.ServiceR\aservice\"&\n" +
 	"\x14DeleteServiceRequest\x12\x0e\n" +
