@@ -38,6 +38,10 @@ const (
 	UserService_ListProviderApplications_FullMethodName   = "/user.v1.UserService/ListProviderApplications"
 	UserService_ApproveProviderApplication_FullMethodName = "/user.v1.UserService/ApproveProviderApplication"
 	UserService_RejectProviderApplication_FullMethodName  = "/user.v1.UserService/RejectProviderApplication"
+	UserService_AddFavorite_FullMethodName                = "/user.v1.UserService/AddFavorite"
+	UserService_RemoveFavorite_FullMethodName             = "/user.v1.UserService/RemoveFavorite"
+	UserService_ListFavorites_FullMethodName              = "/user.v1.UserService/ListFavorites"
+	UserService_IsFavorite_FullMethodName                 = "/user.v1.UserService/IsFavorite"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -65,6 +69,10 @@ type UserServiceClient interface {
 	ListProviderApplications(ctx context.Context, in *ListProviderApplicationsRequest, opts ...grpc.CallOption) (*ListProviderApplicationsResponse, error)
 	ApproveProviderApplication(ctx context.Context, in *ApproveProviderApplicationRequest, opts ...grpc.CallOption) (*ApproveProviderApplicationResponse, error)
 	RejectProviderApplication(ctx context.Context, in *RejectProviderApplicationRequest, opts ...grpc.CallOption) (*RejectProviderApplicationResponse, error)
+	AddFavorite(ctx context.Context, in *AddFavoriteRequest, opts ...grpc.CallOption) (*AddFavoriteResponse, error)
+	RemoveFavorite(ctx context.Context, in *RemoveFavoriteRequest, opts ...grpc.CallOption) (*RemoveFavoriteResponse, error)
+	ListFavorites(ctx context.Context, in *ListFavoritesRequest, opts ...grpc.CallOption) (*ListFavoritesResponse, error)
+	IsFavorite(ctx context.Context, in *IsFavoriteRequest, opts ...grpc.CallOption) (*IsFavoriteResponse, error)
 }
 
 type userServiceClient struct {
@@ -265,6 +273,46 @@ func (c *userServiceClient) RejectProviderApplication(ctx context.Context, in *R
 	return out, nil
 }
 
+func (c *userServiceClient) AddFavorite(ctx context.Context, in *AddFavoriteRequest, opts ...grpc.CallOption) (*AddFavoriteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddFavoriteResponse)
+	err := c.cc.Invoke(ctx, UserService_AddFavorite_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) RemoveFavorite(ctx context.Context, in *RemoveFavoriteRequest, opts ...grpc.CallOption) (*RemoveFavoriteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveFavoriteResponse)
+	err := c.cc.Invoke(ctx, UserService_RemoveFavorite_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ListFavorites(ctx context.Context, in *ListFavoritesRequest, opts ...grpc.CallOption) (*ListFavoritesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListFavoritesResponse)
+	err := c.cc.Invoke(ctx, UserService_ListFavorites_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) IsFavorite(ctx context.Context, in *IsFavoriteRequest, opts ...grpc.CallOption) (*IsFavoriteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IsFavoriteResponse)
+	err := c.cc.Invoke(ctx, UserService_IsFavorite_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -290,6 +338,10 @@ type UserServiceServer interface {
 	ListProviderApplications(context.Context, *ListProviderApplicationsRequest) (*ListProviderApplicationsResponse, error)
 	ApproveProviderApplication(context.Context, *ApproveProviderApplicationRequest) (*ApproveProviderApplicationResponse, error)
 	RejectProviderApplication(context.Context, *RejectProviderApplicationRequest) (*RejectProviderApplicationResponse, error)
+	AddFavorite(context.Context, *AddFavoriteRequest) (*AddFavoriteResponse, error)
+	RemoveFavorite(context.Context, *RemoveFavoriteRequest) (*RemoveFavoriteResponse, error)
+	ListFavorites(context.Context, *ListFavoritesRequest) (*ListFavoritesResponse, error)
+	IsFavorite(context.Context, *IsFavoriteRequest) (*IsFavoriteResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -356,6 +408,18 @@ func (UnimplementedUserServiceServer) ApproveProviderApplication(context.Context
 }
 func (UnimplementedUserServiceServer) RejectProviderApplication(context.Context, *RejectProviderApplicationRequest) (*RejectProviderApplicationResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RejectProviderApplication not implemented")
+}
+func (UnimplementedUserServiceServer) AddFavorite(context.Context, *AddFavoriteRequest) (*AddFavoriteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddFavorite not implemented")
+}
+func (UnimplementedUserServiceServer) RemoveFavorite(context.Context, *RemoveFavoriteRequest) (*RemoveFavoriteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RemoveFavorite not implemented")
+}
+func (UnimplementedUserServiceServer) ListFavorites(context.Context, *ListFavoritesRequest) (*ListFavoritesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListFavorites not implemented")
+}
+func (UnimplementedUserServiceServer) IsFavorite(context.Context, *IsFavoriteRequest) (*IsFavoriteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method IsFavorite not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -720,6 +784,78 @@ func _UserService_RejectProviderApplication_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_AddFavorite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddFavoriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddFavorite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddFavorite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddFavorite(ctx, req.(*AddFavoriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_RemoveFavorite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveFavoriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).RemoveFavorite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_RemoveFavorite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).RemoveFavorite(ctx, req.(*RemoveFavoriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ListFavorites_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListFavoritesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ListFavorites(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ListFavorites_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ListFavorites(ctx, req.(*ListFavoritesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_IsFavorite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsFavoriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).IsFavorite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_IsFavorite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).IsFavorite(ctx, req.(*IsFavoriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -802,6 +938,22 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RejectProviderApplication",
 			Handler:    _UserService_RejectProviderApplication_Handler,
+		},
+		{
+			MethodName: "AddFavorite",
+			Handler:    _UserService_AddFavorite_Handler,
+		},
+		{
+			MethodName: "RemoveFavorite",
+			Handler:    _UserService_RemoveFavorite_Handler,
+		},
+		{
+			MethodName: "ListFavorites",
+			Handler:    _UserService_ListFavorites_Handler,
+		},
+		{
+			MethodName: "IsFavorite",
+			Handler:    _UserService_IsFavorite_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

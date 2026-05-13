@@ -1974,6 +1974,442 @@ func (x *GenerateTelegramTokenResponse) GetToken() string {
 	return ""
 }
 
+type AddFavoriteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProviderId    int64                  `protobuf:"varint,1,opt,name=provider_id,json=providerId,proto3" json:"provider_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddFavoriteRequest) Reset() {
+	*x = AddFavoriteRequest{}
+	mi := &file_user_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddFavoriteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddFavoriteRequest) ProtoMessage() {}
+
+func (x *AddFavoriteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddFavoriteRequest.ProtoReflect.Descriptor instead.
+func (*AddFavoriteRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *AddFavoriteRequest) GetProviderId() int64 {
+	if x != nil {
+		return x.ProviderId
+	}
+	return 0
+}
+
+type AddFavoriteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddFavoriteResponse) Reset() {
+	*x = AddFavoriteResponse{}
+	mi := &file_user_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddFavoriteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddFavoriteResponse) ProtoMessage() {}
+
+func (x *AddFavoriteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddFavoriteResponse.ProtoReflect.Descriptor instead.
+func (*AddFavoriteResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *AddFavoriteResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type RemoveFavoriteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProviderId    int64                  `protobuf:"varint,1,opt,name=provider_id,json=providerId,proto3" json:"provider_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveFavoriteRequest) Reset() {
+	*x = RemoveFavoriteRequest{}
+	mi := &file_user_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveFavoriteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveFavoriteRequest) ProtoMessage() {}
+
+func (x *RemoveFavoriteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveFavoriteRequest.ProtoReflect.Descriptor instead.
+func (*RemoveFavoriteRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *RemoveFavoriteRequest) GetProviderId() int64 {
+	if x != nil {
+		return x.ProviderId
+	}
+	return 0
+}
+
+type RemoveFavoriteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveFavoriteResponse) Reset() {
+	*x = RemoveFavoriteResponse{}
+	mi := &file_user_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveFavoriteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveFavoriteResponse) ProtoMessage() {}
+
+func (x *RemoveFavoriteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveFavoriteResponse.ProtoReflect.Descriptor instead.
+func (*RemoveFavoriteResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *RemoveFavoriteResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type ListFavoritesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListFavoritesRequest) Reset() {
+	*x = ListFavoritesRequest{}
+	mi := &file_user_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListFavoritesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFavoritesRequest) ProtoMessage() {}
+
+func (x *ListFavoritesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFavoritesRequest.ProtoReflect.Descriptor instead.
+func (*ListFavoritesRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *ListFavoritesRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *ListFavoritesRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type FavoriteProvider struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"` // good to include so frontend can call GetUserById or RemoveFavorite
+	FirstName     string                 `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	SecondName    string                 `protobuf:"bytes,3,opt,name=second_name,json=secondName,proto3" json:"second_name,omitempty"`
+	AvatarUrl     string                 `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	Role          string                 `protobuf:"bytes,5,opt,name=role,proto3" json:"role,omitempty"` // handy to confirm they're still a provider
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FavoriteProvider) Reset() {
+	*x = FavoriteProvider{}
+	mi := &file_user_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FavoriteProvider) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FavoriteProvider) ProtoMessage() {}
+
+func (x *FavoriteProvider) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FavoriteProvider.ProtoReflect.Descriptor instead.
+func (*FavoriteProvider) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *FavoriteProvider) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *FavoriteProvider) GetFirstName() string {
+	if x != nil {
+		return x.FirstName
+	}
+	return ""
+}
+
+func (x *FavoriteProvider) GetSecondName() string {
+	if x != nil {
+		return x.SecondName
+	}
+	return ""
+}
+
+func (x *FavoriteProvider) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *FavoriteProvider) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+type ListFavoritesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Providers     []*FavoriteProvider    `protobuf:"bytes,1,rep,name=providers,proto3" json:"providers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListFavoritesResponse) Reset() {
+	*x = ListFavoritesResponse{}
+	mi := &file_user_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListFavoritesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFavoritesResponse) ProtoMessage() {}
+
+func (x *ListFavoritesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFavoritesResponse.ProtoReflect.Descriptor instead.
+func (*ListFavoritesResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ListFavoritesResponse) GetProviders() []*FavoriteProvider {
+	if x != nil {
+		return x.Providers
+	}
+	return nil
+}
+
+type IsFavoriteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProviderId    int64                  `protobuf:"varint,1,opt,name=provider_id,json=providerId,proto3" json:"provider_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IsFavoriteRequest) Reset() {
+	*x = IsFavoriteRequest{}
+	mi := &file_user_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IsFavoriteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IsFavoriteRequest) ProtoMessage() {}
+
+func (x *IsFavoriteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IsFavoriteRequest.ProtoReflect.Descriptor instead.
+func (*IsFavoriteRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *IsFavoriteRequest) GetProviderId() int64 {
+	if x != nil {
+		return x.ProviderId
+	}
+	return 0
+}
+
+type IsFavoriteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IsFavorite    bool                   `protobuf:"varint,1,opt,name=is_favorite,json=isFavorite,proto3" json:"is_favorite,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IsFavoriteResponse) Reset() {
+	*x = IsFavoriteResponse{}
+	mi := &file_user_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IsFavoriteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IsFavoriteResponse) ProtoMessage() {}
+
+func (x *IsFavoriteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IsFavoriteResponse.ProtoReflect.Descriptor instead.
+func (*IsFavoriteResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *IsFavoriteResponse) GetIsFavorite() bool {
+	if x != nil {
+		return x.IsFavorite
+	}
+	return false
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -2101,7 +2537,37 @@ const file_user_proto_rawDesc = "" +
 	"\x1cGenerateTelegramTokenRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\"5\n" +
 	"\x1dGenerateTelegramTokenResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token2\xde\x11\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"5\n" +
+	"\x12AddFavoriteRequest\x12\x1f\n" +
+	"\vprovider_id\x18\x01 \x01(\x03R\n" +
+	"providerId\"/\n" +
+	"\x13AddFavoriteResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"8\n" +
+	"\x15RemoveFavoriteRequest\x12\x1f\n" +
+	"\vprovider_id\x18\x01 \x01(\x03R\n" +
+	"providerId\"2\n" +
+	"\x16RemoveFavoriteResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"D\n" +
+	"\x14ListFavoritesRequest\x12\x14\n" +
+	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset\"\x95\x01\n" +
+	"\x10FavoriteProvider\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1d\n" +
+	"\n" +
+	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x1f\n" +
+	"\vsecond_name\x18\x03 \x01(\tR\n" +
+	"secondName\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x04 \x01(\tR\tavatarUrl\x12\x12\n" +
+	"\x04role\x18\x05 \x01(\tR\x04role\"P\n" +
+	"\x15ListFavoritesResponse\x127\n" +
+	"\tproviders\x18\x01 \x03(\v2\x19.user.v1.FavoriteProviderR\tproviders\"4\n" +
+	"\x11IsFavoriteRequest\x12\x1f\n" +
+	"\vprovider_id\x18\x01 \x01(\x03R\n" +
+	"providerId\"5\n" +
+	"\x12IsFavoriteResponse\x12\x1f\n" +
+	"\vis_favorite\x18\x01 \x01(\bR\n" +
+	"isFavorite2\x9b\x15\n" +
 	"\vUserService\x12Z\n" +
 	"\n" +
 	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
@@ -2123,7 +2589,12 @@ const file_user_proto_rawDesc = "" +
 	"\x18GetMyProviderApplication\x12(.user.v1.GetMyProviderApplicationRequest\x1a).user.v1.GetMyProviderApplicationResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/v1/user/provider/application\x12\x98\x01\n" +
 	"\x18ListProviderApplications\x12(.user.v1.ListProviderApplicationsRequest\x1a).user.v1.ListProviderApplicationsResponse\"'\x82\xd3\xe4\x93\x02!\x12\x1f/v1/admin/provider-applications\x12\xba\x01\n" +
 	"\x1aApproveProviderApplication\x12*.user.v1.ApproveProviderApplicationRequest\x1a+.user.v1.ApproveProviderApplicationResponse\"C\x82\xd3\xe4\x93\x02=:\x01*\"8/v1/admin/provider-applications/{application_id}/approve\x12\xb6\x01\n" +
-	"\x19RejectProviderApplication\x12).user.v1.RejectProviderApplicationRequest\x1a*.user.v1.RejectProviderApplicationResponse\"B\x82\xd3\xe4\x93\x02<:\x01*\"7/v1/admin/provider-applications/{application_id}/rejectB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
+	"\x19RejectProviderApplication\x12).user.v1.RejectProviderApplicationRequest\x1a*.user.v1.RejectProviderApplicationResponse\"B\x82\xd3\xe4\x93\x02<:\x01*\"7/v1/admin/provider-applications/{application_id}/reject\x12p\n" +
+	"\vAddFavorite\x12\x1b.user.v1.AddFavoriteRequest\x1a\x1c.user.v1.AddFavoriteResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/favorites/{provider_id}\x12v\n" +
+	"\x0eRemoveFavorite\x12\x1e.user.v1.RemoveFavoriteRequest\x1a\x1f.user.v1.RemoveFavoriteResponse\"#\x82\xd3\xe4\x93\x02\x1d*\x1b/v1/favorites/{provider_id}\x12e\n" +
+	"\rListFavorites\x12\x1d.user.v1.ListFavoritesRequest\x1a\x1e.user.v1.ListFavoritesResponse\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/favorites\x12j\n" +
+	"\n" +
+	"IsFavorite\x12\x1a.user.v1.IsFavoriteRequest\x1a\x1b.user.v1.IsFavoriteResponse\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/favorites/{provider_id}B5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -2137,7 +2608,7 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 47)
 var file_user_proto_goTypes = []any{
 	(*User)(nil),                               // 0: user.v1.User
 	(*ProviderApplication)(nil),                // 1: user.v1.ProviderApplication
@@ -2177,6 +2648,15 @@ var file_user_proto_goTypes = []any{
 	(*LinkTelegramResponse)(nil),               // 35: user.v1.LinkTelegramResponse
 	(*GenerateTelegramTokenRequest)(nil),       // 36: user.v1.GenerateTelegramTokenRequest
 	(*GenerateTelegramTokenResponse)(nil),      // 37: user.v1.GenerateTelegramTokenResponse
+	(*AddFavoriteRequest)(nil),                 // 38: user.v1.AddFavoriteRequest
+	(*AddFavoriteResponse)(nil),                // 39: user.v1.AddFavoriteResponse
+	(*RemoveFavoriteRequest)(nil),              // 40: user.v1.RemoveFavoriteRequest
+	(*RemoveFavoriteResponse)(nil),             // 41: user.v1.RemoveFavoriteResponse
+	(*ListFavoritesRequest)(nil),               // 42: user.v1.ListFavoritesRequest
+	(*FavoriteProvider)(nil),                   // 43: user.v1.FavoriteProvider
+	(*ListFavoritesResponse)(nil),              // 44: user.v1.ListFavoritesResponse
+	(*IsFavoriteRequest)(nil),                  // 45: user.v1.IsFavoriteRequest
+	(*IsFavoriteResponse)(nil),                 // 46: user.v1.IsFavoriteResponse
 }
 var file_user_proto_depIdxs = []int32{
 	0,  // 0: user.v1.GetUserResponse.user:type_name -> user.v1.User
@@ -2190,49 +2670,58 @@ var file_user_proto_depIdxs = []int32{
 	1,  // 8: user.v1.RejectProviderApplicationResponse.application:type_name -> user.v1.ProviderApplication
 	0,  // 9: user.v1.GetMeResponse.user:type_name -> user.v1.User
 	0,  // 10: user.v1.GoogleAuthCallbackResponse.user:type_name -> user.v1.User
-	2,  // 11: user.v1.UserService.CreateUser:input_type -> user.v1.CreateUserRequest
-	4,  // 12: user.v1.UserService.GetUserById:input_type -> user.v1.GetUserRequestById
-	5,  // 13: user.v1.UserService.GetUserByEmail:input_type -> user.v1.GetUserRequestByEmail
-	6,  // 14: user.v1.UserService.GetUserByPhone:input_type -> user.v1.GetUserRequestByPhone
-	8,  // 15: user.v1.UserService.ListUsers:input_type -> user.v1.ListUsersRequest
-	10, // 16: user.v1.UserService.UpdateUser:input_type -> user.v1.UpdateUserRequest
-	12, // 17: user.v1.UserService.Login:input_type -> user.v1.LoginRequest
-	14, // 18: user.v1.UserService.PromoteToProvider:input_type -> user.v1.PromoteToProviderRequest
-	26, // 19: user.v1.UserService.GetMe:input_type -> user.v1.GetMeRequest
-	28, // 20: user.v1.UserService.GetGoogleAuthURL:input_type -> user.v1.GetGoogleAuthURLRequest
-	30, // 21: user.v1.UserService.GoogleAuthCallback:input_type -> user.v1.GoogleAuthCallbackRequest
-	32, // 22: user.v1.UserService.UpdateAvatar:input_type -> user.v1.UpdateAvatarRequest
-	34, // 23: user.v1.UserService.LinkTelegramByToken:input_type -> user.v1.LinkTelegramRequest
-	36, // 24: user.v1.UserService.GenerateTelegramToken:input_type -> user.v1.GenerateTelegramTokenRequest
-	16, // 25: user.v1.UserService.SubmitProviderApplication:input_type -> user.v1.SubmitProviderApplicationRequest
-	18, // 26: user.v1.UserService.GetMyProviderApplication:input_type -> user.v1.GetMyProviderApplicationRequest
-	20, // 27: user.v1.UserService.ListProviderApplications:input_type -> user.v1.ListProviderApplicationsRequest
-	22, // 28: user.v1.UserService.ApproveProviderApplication:input_type -> user.v1.ApproveProviderApplicationRequest
-	24, // 29: user.v1.UserService.RejectProviderApplication:input_type -> user.v1.RejectProviderApplicationRequest
-	3,  // 30: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
-	7,  // 31: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
-	7,  // 32: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
-	7,  // 33: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
-	9,  // 34: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
-	11, // 35: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
-	13, // 36: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
-	15, // 37: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
-	27, // 38: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
-	29, // 39: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
-	31, // 40: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
-	33, // 41: user.v1.UserService.UpdateAvatar:output_type -> user.v1.UpdateAvatarResponse
-	35, // 42: user.v1.UserService.LinkTelegramByToken:output_type -> user.v1.LinkTelegramResponse
-	37, // 43: user.v1.UserService.GenerateTelegramToken:output_type -> user.v1.GenerateTelegramTokenResponse
-	17, // 44: user.v1.UserService.SubmitProviderApplication:output_type -> user.v1.SubmitProviderApplicationResponse
-	19, // 45: user.v1.UserService.GetMyProviderApplication:output_type -> user.v1.GetMyProviderApplicationResponse
-	21, // 46: user.v1.UserService.ListProviderApplications:output_type -> user.v1.ListProviderApplicationsResponse
-	23, // 47: user.v1.UserService.ApproveProviderApplication:output_type -> user.v1.ApproveProviderApplicationResponse
-	25, // 48: user.v1.UserService.RejectProviderApplication:output_type -> user.v1.RejectProviderApplicationResponse
-	30, // [30:49] is the sub-list for method output_type
-	11, // [11:30] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	43, // 11: user.v1.ListFavoritesResponse.providers:type_name -> user.v1.FavoriteProvider
+	2,  // 12: user.v1.UserService.CreateUser:input_type -> user.v1.CreateUserRequest
+	4,  // 13: user.v1.UserService.GetUserById:input_type -> user.v1.GetUserRequestById
+	5,  // 14: user.v1.UserService.GetUserByEmail:input_type -> user.v1.GetUserRequestByEmail
+	6,  // 15: user.v1.UserService.GetUserByPhone:input_type -> user.v1.GetUserRequestByPhone
+	8,  // 16: user.v1.UserService.ListUsers:input_type -> user.v1.ListUsersRequest
+	10, // 17: user.v1.UserService.UpdateUser:input_type -> user.v1.UpdateUserRequest
+	12, // 18: user.v1.UserService.Login:input_type -> user.v1.LoginRequest
+	14, // 19: user.v1.UserService.PromoteToProvider:input_type -> user.v1.PromoteToProviderRequest
+	26, // 20: user.v1.UserService.GetMe:input_type -> user.v1.GetMeRequest
+	28, // 21: user.v1.UserService.GetGoogleAuthURL:input_type -> user.v1.GetGoogleAuthURLRequest
+	30, // 22: user.v1.UserService.GoogleAuthCallback:input_type -> user.v1.GoogleAuthCallbackRequest
+	32, // 23: user.v1.UserService.UpdateAvatar:input_type -> user.v1.UpdateAvatarRequest
+	34, // 24: user.v1.UserService.LinkTelegramByToken:input_type -> user.v1.LinkTelegramRequest
+	36, // 25: user.v1.UserService.GenerateTelegramToken:input_type -> user.v1.GenerateTelegramTokenRequest
+	16, // 26: user.v1.UserService.SubmitProviderApplication:input_type -> user.v1.SubmitProviderApplicationRequest
+	18, // 27: user.v1.UserService.GetMyProviderApplication:input_type -> user.v1.GetMyProviderApplicationRequest
+	20, // 28: user.v1.UserService.ListProviderApplications:input_type -> user.v1.ListProviderApplicationsRequest
+	22, // 29: user.v1.UserService.ApproveProviderApplication:input_type -> user.v1.ApproveProviderApplicationRequest
+	24, // 30: user.v1.UserService.RejectProviderApplication:input_type -> user.v1.RejectProviderApplicationRequest
+	38, // 31: user.v1.UserService.AddFavorite:input_type -> user.v1.AddFavoriteRequest
+	40, // 32: user.v1.UserService.RemoveFavorite:input_type -> user.v1.RemoveFavoriteRequest
+	42, // 33: user.v1.UserService.ListFavorites:input_type -> user.v1.ListFavoritesRequest
+	45, // 34: user.v1.UserService.IsFavorite:input_type -> user.v1.IsFavoriteRequest
+	3,  // 35: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
+	7,  // 36: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
+	7,  // 37: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
+	7,  // 38: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
+	9,  // 39: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
+	11, // 40: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
+	13, // 41: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
+	15, // 42: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
+	27, // 43: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
+	29, // 44: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
+	31, // 45: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
+	33, // 46: user.v1.UserService.UpdateAvatar:output_type -> user.v1.UpdateAvatarResponse
+	35, // 47: user.v1.UserService.LinkTelegramByToken:output_type -> user.v1.LinkTelegramResponse
+	37, // 48: user.v1.UserService.GenerateTelegramToken:output_type -> user.v1.GenerateTelegramTokenResponse
+	17, // 49: user.v1.UserService.SubmitProviderApplication:output_type -> user.v1.SubmitProviderApplicationResponse
+	19, // 50: user.v1.UserService.GetMyProviderApplication:output_type -> user.v1.GetMyProviderApplicationResponse
+	21, // 51: user.v1.UserService.ListProviderApplications:output_type -> user.v1.ListProviderApplicationsResponse
+	23, // 52: user.v1.UserService.ApproveProviderApplication:output_type -> user.v1.ApproveProviderApplicationResponse
+	25, // 53: user.v1.UserService.RejectProviderApplication:output_type -> user.v1.RejectProviderApplicationResponse
+	39, // 54: user.v1.UserService.AddFavorite:output_type -> user.v1.AddFavoriteResponse
+	41, // 55: user.v1.UserService.RemoveFavorite:output_type -> user.v1.RemoveFavoriteResponse
+	44, // 56: user.v1.UserService.ListFavorites:output_type -> user.v1.ListFavoritesResponse
+	46, // 57: user.v1.UserService.IsFavorite:output_type -> user.v1.IsFavoriteResponse
+	35, // [35:58] is the sub-list for method output_type
+	12, // [12:35] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -2246,7 +2735,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   38,
+			NumMessages:   47,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
