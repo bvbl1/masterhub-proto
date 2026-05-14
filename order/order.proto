@@ -76,6 +76,19 @@ service OrderService {
 
   // internal only — called by payment-service
   rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (UpdateOrderStatusResponse);
+
+  rpc ListDisputedOrders(ListDisputedOrdersRequest) returns (ListDisputedOrdersResponse) {
+    option (google.api.http) = {
+      get: "/v1/admin/orders/disputed"
+    };
+  }
+
+  rpc ResolveDispute(ResolveDisputeRequest) returns (ResolveDisputeResponse) {
+    option (google.api.http) = {
+      post: "/v1/admin/orders/{order_id}/resolve"
+      body: "*"
+    };
+  }
 }
 
 message Order {
@@ -183,9 +196,34 @@ message ConfirmCompleteResponse {
 // DisputeOrder
 message DisputeOrderRequest {
   int64 id = 1;
+  string reason = 2;
 }
 
 message DisputeOrderResponse {
+  Order order = 1;
+}
+
+message DisputedOrderProto {
+  int64  id             = 1;
+  int64  order_id       = 2;
+  Order  order          = 3;
+  string dispute_reason = 4;
+  int64  raised_by      = 5;
+  string created_at     = 6;
+}
+
+message ListDisputedOrdersRequest {
+
+}
+message ListDisputedOrdersResponse {
+  repeated DisputedOrderProto disputes = 1;
+}
+
+message ResolveDisputeRequest {
+  int64  order_id   = 1;
+  string resolution = 2; // "completed" or "cancelled"
+}
+message ResolveDisputeResponse {
   Order order = 1;
 }
 

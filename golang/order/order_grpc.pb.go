@@ -19,17 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrderService_CreateOrder_FullMethodName       = "/order.v1.OrderService/CreateOrder"
-	OrderService_GetOrder_FullMethodName          = "/order.v1.OrderService/GetOrder"
-	OrderService_ListOrders_FullMethodName        = "/order.v1.OrderService/ListOrders"
-	OrderService_AcceptOrder_FullMethodName       = "/order.v1.OrderService/AcceptOrder"
-	OrderService_RejectOrder_FullMethodName       = "/order.v1.OrderService/RejectOrder"
-	OrderService_CancelOrder_FullMethodName       = "/order.v1.OrderService/CancelOrder"
-	OrderService_PayOrder_FullMethodName          = "/order.v1.OrderService/PayOrder"
-	OrderService_MarkComplete_FullMethodName      = "/order.v1.OrderService/MarkComplete"
-	OrderService_ConfirmComplete_FullMethodName   = "/order.v1.OrderService/ConfirmComplete"
-	OrderService_DisputeOrder_FullMethodName      = "/order.v1.OrderService/DisputeOrder"
-	OrderService_UpdateOrderStatus_FullMethodName = "/order.v1.OrderService/UpdateOrderStatus"
+	OrderService_CreateOrder_FullMethodName        = "/order.v1.OrderService/CreateOrder"
+	OrderService_GetOrder_FullMethodName           = "/order.v1.OrderService/GetOrder"
+	OrderService_ListOrders_FullMethodName         = "/order.v1.OrderService/ListOrders"
+	OrderService_AcceptOrder_FullMethodName        = "/order.v1.OrderService/AcceptOrder"
+	OrderService_RejectOrder_FullMethodName        = "/order.v1.OrderService/RejectOrder"
+	OrderService_CancelOrder_FullMethodName        = "/order.v1.OrderService/CancelOrder"
+	OrderService_PayOrder_FullMethodName           = "/order.v1.OrderService/PayOrder"
+	OrderService_MarkComplete_FullMethodName       = "/order.v1.OrderService/MarkComplete"
+	OrderService_ConfirmComplete_FullMethodName    = "/order.v1.OrderService/ConfirmComplete"
+	OrderService_DisputeOrder_FullMethodName       = "/order.v1.OrderService/DisputeOrder"
+	OrderService_UpdateOrderStatus_FullMethodName  = "/order.v1.OrderService/UpdateOrderStatus"
+	OrderService_ListDisputedOrders_FullMethodName = "/order.v1.OrderService/ListDisputedOrders"
+	OrderService_ResolveDispute_FullMethodName     = "/order.v1.OrderService/ResolveDispute"
 )
 
 // OrderServiceClient is the client API for OrderService service.
@@ -48,6 +50,8 @@ type OrderServiceClient interface {
 	DisputeOrder(ctx context.Context, in *DisputeOrderRequest, opts ...grpc.CallOption) (*DisputeOrderResponse, error)
 	// internal only — called by payment-service
 	UpdateOrderStatus(ctx context.Context, in *UpdateOrderStatusRequest, opts ...grpc.CallOption) (*UpdateOrderStatusResponse, error)
+	ListDisputedOrders(ctx context.Context, in *ListDisputedOrdersRequest, opts ...grpc.CallOption) (*ListDisputedOrdersResponse, error)
+	ResolveDispute(ctx context.Context, in *ResolveDisputeRequest, opts ...grpc.CallOption) (*ResolveDisputeResponse, error)
 }
 
 type orderServiceClient struct {
@@ -168,6 +172,26 @@ func (c *orderServiceClient) UpdateOrderStatus(ctx context.Context, in *UpdateOr
 	return out, nil
 }
 
+func (c *orderServiceClient) ListDisputedOrders(ctx context.Context, in *ListDisputedOrdersRequest, opts ...grpc.CallOption) (*ListDisputedOrdersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListDisputedOrdersResponse)
+	err := c.cc.Invoke(ctx, OrderService_ListDisputedOrders_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) ResolveDispute(ctx context.Context, in *ResolveDisputeRequest, opts ...grpc.CallOption) (*ResolveDisputeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ResolveDisputeResponse)
+	err := c.cc.Invoke(ctx, OrderService_ResolveDispute_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrderServiceServer is the server API for OrderService service.
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility.
@@ -184,6 +208,8 @@ type OrderServiceServer interface {
 	DisputeOrder(context.Context, *DisputeOrderRequest) (*DisputeOrderResponse, error)
 	// internal only — called by payment-service
 	UpdateOrderStatus(context.Context, *UpdateOrderStatusRequest) (*UpdateOrderStatusResponse, error)
+	ListDisputedOrders(context.Context, *ListDisputedOrdersRequest) (*ListDisputedOrdersResponse, error)
+	ResolveDispute(context.Context, *ResolveDisputeRequest) (*ResolveDisputeResponse, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
 
@@ -226,6 +252,12 @@ func (UnimplementedOrderServiceServer) DisputeOrder(context.Context, *DisputeOrd
 }
 func (UnimplementedOrderServiceServer) UpdateOrderStatus(context.Context, *UpdateOrderStatusRequest) (*UpdateOrderStatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateOrderStatus not implemented")
+}
+func (UnimplementedOrderServiceServer) ListDisputedOrders(context.Context, *ListDisputedOrdersRequest) (*ListDisputedOrdersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListDisputedOrders not implemented")
+}
+func (UnimplementedOrderServiceServer) ResolveDispute(context.Context, *ResolveDisputeRequest) (*ResolveDisputeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ResolveDispute not implemented")
 }
 func (UnimplementedOrderServiceServer) mustEmbedUnimplementedOrderServiceServer() {}
 func (UnimplementedOrderServiceServer) testEmbeddedByValue()                      {}
@@ -446,6 +478,42 @@ func _OrderService_UpdateOrderStatus_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_ListDisputedOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDisputedOrdersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).ListDisputedOrders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_ListDisputedOrders_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).ListDisputedOrders(ctx, req.(*ListDisputedOrdersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_ResolveDispute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResolveDisputeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).ResolveDispute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_ResolveDispute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).ResolveDispute(ctx, req.(*ResolveDisputeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrderService_ServiceDesc is the grpc.ServiceDesc for OrderService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -496,6 +564,14 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrderStatus",
 			Handler:    _OrderService_UpdateOrderStatus_Handler,
+		},
+		{
+			MethodName: "ListDisputedOrders",
+			Handler:    _OrderService_ListDisputedOrders_Handler,
+		},
+		{
+			MethodName: "ResolveDispute",
+			Handler:    _OrderService_ResolveDispute_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
