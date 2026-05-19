@@ -37,6 +37,7 @@ type JobRequest struct {
 	ResponseCount int32                  `protobuf:"varint,11,opt,name=response_count,json=responseCount,proto3" json:"response_count,omitempty"`
 	CreatedAt     string                 `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     string                 `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,14,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -162,6 +163,13 @@ func (x *JobRequest) GetUpdatedAt() string {
 	return ""
 }
 
+func (x *JobRequest) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
+}
+
 type JobRequestResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -279,6 +287,7 @@ type CreateJobRequestRequest struct {
 	BudgetMin     float64                `protobuf:"fixed64,5,opt,name=budget_min,json=budgetMin,proto3" json:"budget_min,omitempty"`
 	BudgetMax     float64                `protobuf:"fixed64,6,opt,name=budget_max,json=budgetMax,proto3" json:"budget_max,omitempty"`
 	ScheduledAt   string                 `protobuf:"bytes,7,opt,name=scheduled_at,json=scheduledAt,proto3" json:"scheduled_at,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,8,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -360,6 +369,13 @@ func (x *CreateJobRequestRequest) GetScheduledAt() string {
 		return x.ScheduledAt
 	}
 	return ""
+}
+
+func (x *CreateJobRequestRequest) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
 }
 
 type CreateJobRequestResponse struct {
@@ -1266,7 +1282,7 @@ var File_job_request_proto protoreflect.FileDescriptor
 
 const file_job_request_proto_rawDesc = "" +
 	"\n" +
-	"\x11job-request.proto\x12\rjobrequest.v1\x1a\x1cgoogle/api/annotations.proto\"\x88\x03\n" +
+	"\x11job-request.proto\x12\rjobrequest.v1\x1a\x1cgoogle/api/annotations.proto\"\xa7\x03\n" +
 	"\n" +
 	"JobRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
@@ -1288,7 +1304,9 @@ const file_job_request_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\f \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\r \x01(\tR\tupdatedAt\"\xa9\x02\n" +
+	"updated_at\x18\r \x01(\tR\tupdatedAt\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\x0e \x03(\tR\tphotoUrls\"\xa9\x02\n" +
 	"\x12JobRequestResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12$\n" +
 	"\x0ejob_request_id\x18\x02 \x01(\x03R\fjobRequestId\x12\x1f\n" +
@@ -1301,7 +1319,7 @@ const file_job_request_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\b \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\t \x01(\tR\tupdatedAt\"\xe7\x01\n" +
+	"updated_at\x18\t \x01(\tR\tupdatedAt\"\x86\x02\n" +
 	"\x17CreateJobRequestRequest\x12\x1f\n" +
 	"\vcategory_id\x18\x01 \x01(\x03R\n" +
 	"categoryId\x12\x14\n" +
@@ -1312,7 +1330,9 @@ const file_job_request_proto_rawDesc = "" +
 	"budget_min\x18\x05 \x01(\x01R\tbudgetMin\x12\x1d\n" +
 	"\n" +
 	"budget_max\x18\x06 \x01(\x01R\tbudgetMax\x12!\n" +
-	"\fscheduled_at\x18\a \x01(\tR\vscheduledAt\"V\n" +
+	"\fscheduled_at\x18\a \x01(\tR\vscheduledAt\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\b \x03(\tR\tphotoUrls\"V\n" +
 	"\x18CreateJobRequestResponse\x12:\n" +
 	"\vjob_request\x18\x01 \x01(\v2\x19.jobrequest.v1.JobRequestR\n" +
 	"jobRequest\"&\n" +
