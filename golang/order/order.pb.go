@@ -35,6 +35,7 @@ type Order struct {
 	RejectionReason string                 `protobuf:"bytes,9,opt,name=rejection_reason,json=rejectionReason,proto3" json:"rejection_reason,omitempty"`
 	CreatedAt       string                 `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt       string                 `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	PhotoUrls       []string               `protobuf:"bytes,12,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -146,6 +147,13 @@ func (x *Order) GetUpdatedAt() string {
 	return ""
 }
 
+func (x *Order) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
+}
+
 // CreateOrder
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -158,6 +166,7 @@ type CreateOrderRequest struct {
 	Longitude     float64                `protobuf:"fixed64,7,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	ScheduledAt   string                 `protobuf:"bytes,8,opt,name=scheduled_at,json=scheduledAt,proto3" json:"scheduled_at,omitempty"`
 	AgreedPrice   float64                `protobuf:"fixed64,9,opt,name=agreed_price,json=agreedPrice,proto3" json:"agreed_price,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,10,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -253,6 +262,13 @@ func (x *CreateOrderRequest) GetAgreedPrice() float64 {
 		return x.AgreedPrice
 	}
 	return 0
+}
+
+func (x *CreateOrderRequest) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
 }
 
 type CreateOrderResponse struct {
@@ -1016,6 +1032,7 @@ type DisputeOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Reason        string                 `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,3,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1062,6 +1079,13 @@ func (x *DisputeOrderRequest) GetReason() string {
 		return x.Reason
 	}
 	return ""
+}
+
+func (x *DisputeOrderRequest) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
 }
 
 type DisputeOrderResponse struct {
@@ -1116,6 +1140,7 @@ type DisputedOrderProto struct {
 	DisputeReason string                 `protobuf:"bytes,4,opt,name=dispute_reason,json=disputeReason,proto3" json:"dispute_reason,omitempty"`
 	RaisedBy      int64                  `protobuf:"varint,5,opt,name=raised_by,json=raisedBy,proto3" json:"raised_by,omitempty"`
 	CreatedAt     string                 `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	PhotoUrls     []string               `protobuf:"bytes,7,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1190,6 +1215,13 @@ func (x *DisputedOrderProto) GetCreatedAt() string {
 		return x.CreatedAt
 	}
 	return ""
+}
+
+func (x *DisputedOrderProto) GetPhotoUrls() []string {
+	if x != nil {
+		return x.PhotoUrls
+	}
+	return nil
 }
 
 type ListDisputedOrdersRequest struct {
@@ -1469,7 +1501,7 @@ var File_order_proto protoreflect.FileDescriptor
 
 const file_order_proto_rawDesc = "" +
 	"\n" +
-	"\vorder.proto\x12\border.v1\x1a\x1cgoogle/api/annotations.proto\"\xde\x02\n" +
+	"\vorder.proto\x12\border.v1\x1a\x1cgoogle/api/annotations.proto\"\xfd\x02\n" +
 	"\x05Order\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03R\n" +
@@ -1488,7 +1520,9 @@ const file_order_proto_rawDesc = "" +
 	"created_at\x18\n" +
 	" \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\v \x01(\tR\tupdatedAt\"\x98\x02\n" +
+	"updated_at\x18\v \x01(\tR\tupdatedAt\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\f \x03(\tR\tphotoUrls\"\xb7\x02\n" +
 	"\x12CreateOrderRequest\x12\x1f\n" +
 	"\vprovider_id\x18\x01 \x01(\x03R\n" +
 	"providerId\x12\x1d\n" +
@@ -1500,7 +1534,10 @@ const file_order_proto_rawDesc = "" +
 	"\blatitude\x18\x06 \x01(\x01R\blatitude\x12\x1c\n" +
 	"\tlongitude\x18\a \x01(\x01R\tlongitude\x12!\n" +
 	"\fscheduled_at\x18\b \x01(\tR\vscheduledAt\x12!\n" +
-	"\fagreed_price\x18\t \x01(\x01R\vagreedPrice\"<\n" +
+	"\fagreed_price\x18\t \x01(\x01R\vagreedPrice\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\n" +
+	" \x03(\tR\tphotoUrls\"<\n" +
 	"\x13CreateOrderResponse\x12%\n" +
 	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"!\n" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
@@ -1534,12 +1571,14 @@ const file_order_proto_rawDesc = "" +
 	"\x16ConfirmCompleteRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"@\n" +
 	"\x17ConfirmCompleteResponse\x12%\n" +
-	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"=\n" +
+	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"\\\n" +
 	"\x13DisputeOrderRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
-	"\x06reason\x18\x02 \x01(\tR\x06reason\"=\n" +
+	"\x06reason\x18\x02 \x01(\tR\x06reason\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\x03 \x03(\tR\tphotoUrls\"=\n" +
 	"\x14DisputeOrderResponse\x12%\n" +
-	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"\xc9\x01\n" +
+	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"\xe8\x01\n" +
 	"\x12DisputedOrderProto\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x19\n" +
 	"\border_id\x18\x02 \x01(\x03R\aorderId\x12%\n" +
@@ -1547,7 +1586,9 @@ const file_order_proto_rawDesc = "" +
 	"\x0edispute_reason\x18\x04 \x01(\tR\rdisputeReason\x12\x1b\n" +
 	"\traised_by\x18\x05 \x01(\x03R\braisedBy\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\x06 \x01(\tR\tcreatedAt\"\x1b\n" +
+	"created_at\x18\x06 \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"photo_urls\x18\a \x03(\tR\tphotoUrls\"\x1b\n" +
 	"\x19ListDisputedOrdersRequest\"V\n" +
 	"\x1aListDisputedOrdersResponse\x128\n" +
 	"\bdisputes\x18\x01 \x03(\v2\x1c.order.v1.DisputedOrderProtoR\bdisputes\"R\n" +

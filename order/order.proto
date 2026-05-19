@@ -103,6 +103,7 @@ message Order {
   string rejection_reason = 9;
   string created_at       = 10;
   string updated_at       = 11;
+  repeated string photo_urls = 12;
 }
 
 // CreateOrder
@@ -116,6 +117,7 @@ message CreateOrderRequest {
   double longitude    = 7;
   string scheduled_at = 8;
   double agreed_price = 9;
+  repeated string photo_urls = 10;
 }
 
 message CreateOrderResponse {
@@ -197,6 +199,7 @@ message ConfirmCompleteResponse {
 message DisputeOrderRequest {
   int64 id = 1;
   string reason = 2;
+  repeated string photo_urls = 3;
 }
 
 message DisputeOrderResponse {
@@ -210,6 +213,7 @@ message DisputedOrderProto {
   string dispute_reason = 4;
   int64  raised_by      = 5;
   string created_at     = 6;
+  repeated string photo_urls = 7;
 }
 
 message ListDisputedOrdersRequest {
