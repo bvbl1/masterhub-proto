@@ -106,6 +106,7 @@ type Message struct {
 	Content        string                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
 	IsRead         bool                   `protobuf:"varint,5,opt,name=is_read,json=isRead,proto3" json:"is_read,omitempty"`
 	CreatedAt      string                 `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	MediaUrl       *string                `protobuf:"bytes,7,opt,name=media_url,json=mediaUrl,proto3,oneof" json:"media_url,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -178,6 +179,13 @@ func (x *Message) GetIsRead() bool {
 func (x *Message) GetCreatedAt() string {
 	if x != nil {
 		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *Message) GetMediaUrl() string {
+	if x != nil && x.MediaUrl != nil {
+		return *x.MediaUrl
 	}
 	return ""
 }
@@ -560,7 +568,7 @@ const file_chat_proto_rawDesc = "" +
 	"providerId\x12\x1d\n" +
 	"\n" +
 	"created_at\x18\x04 \x01(\tR\tcreatedAt\x12&\n" +
-	"\x0flast_message_at\x18\x05 \x01(\tR\rlastMessageAt\"\xb1\x01\n" +
+	"\x0flast_message_at\x18\x05 \x01(\tR\rlastMessageAt\"\xe1\x01\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12'\n" +
 	"\x0fconversation_id\x18\x02 \x01(\x03R\x0econversationId\x12\x1b\n" +
@@ -568,7 +576,10 @@ const file_chat_proto_rawDesc = "" +
 	"\acontent\x18\x04 \x01(\tR\acontent\x12\x17\n" +
 	"\ais_read\x18\x05 \x01(\bR\x06isRead\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\x06 \x01(\tR\tcreatedAt\"A\n" +
+	"created_at\x18\x06 \x01(\tR\tcreatedAt\x12 \n" +
+	"\tmedia_url\x18\a \x01(\tH\x00R\bmediaUrl\x88\x01\x01B\f\n" +
+	"\n" +
+	"_media_url\"A\n" +
 	"\x1eGetOrCreateConversationRequest\x12\x1f\n" +
 	"\vprovider_id\x18\x01 \x01(\x03R\n" +
 	"providerId\"\\\n" +
@@ -643,6 +654,7 @@ func file_chat_proto_init() {
 	if File_chat_proto != nil {
 		return
 	}
+	file_chat_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

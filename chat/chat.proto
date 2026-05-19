@@ -49,6 +49,7 @@ message Message {
   string content         = 4;
   bool   is_read         = 5;
   string created_at      = 6;
+  optional string media_url = 7;
 }
 
 // GetOrCreateConversation
