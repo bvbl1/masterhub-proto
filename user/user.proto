@@ -148,6 +148,12 @@ service UserService {
       get: "/v1/favorites/{provider_id}"
     };
   }
+
+  rpc GetAnalytics(GetAnalyticsRequest) returns (GetAnalyticsResponse){
+    option (google.api.http) = {
+      get: "/v1/admin/users/analytics"
+    };
+  }
 }
 //Messages
 
@@ -394,4 +400,15 @@ message IsFavoriteRequest {
 
 message IsFavoriteResponse {
   bool is_favorite = 1;
+}
+
+message GetAnalyticsRequest {
+}
+
+message GetAnalyticsResponse {
+  int64 total_users          = 1;
+  int64 new_users_this_month = 2;
+  int64 total_providers      = 3;
+  int64 total_customers      = 4;
+  int64 pending_applications = 5;
 }

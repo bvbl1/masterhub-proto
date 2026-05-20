@@ -42,6 +42,7 @@ const (
 	UserService_RemoveFavorite_FullMethodName             = "/user.v1.UserService/RemoveFavorite"
 	UserService_ListFavorites_FullMethodName              = "/user.v1.UserService/ListFavorites"
 	UserService_IsFavorite_FullMethodName                 = "/user.v1.UserService/IsFavorite"
+	UserService_GetAnalytics_FullMethodName               = "/user.v1.UserService/GetAnalytics"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -73,6 +74,7 @@ type UserServiceClient interface {
 	RemoveFavorite(ctx context.Context, in *RemoveFavoriteRequest, opts ...grpc.CallOption) (*RemoveFavoriteResponse, error)
 	ListFavorites(ctx context.Context, in *ListFavoritesRequest, opts ...grpc.CallOption) (*ListFavoritesResponse, error)
 	IsFavorite(ctx context.Context, in *IsFavoriteRequest, opts ...grpc.CallOption) (*IsFavoriteResponse, error)
+	GetAnalytics(ctx context.Context, in *GetAnalyticsRequest, opts ...grpc.CallOption) (*GetAnalyticsResponse, error)
 }
 
 type userServiceClient struct {
@@ -313,6 +315,16 @@ func (c *userServiceClient) IsFavorite(ctx context.Context, in *IsFavoriteReques
 	return out, nil
 }
 
+func (c *userServiceClient) GetAnalytics(ctx context.Context, in *GetAnalyticsRequest, opts ...grpc.CallOption) (*GetAnalyticsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAnalyticsResponse)
+	err := c.cc.Invoke(ctx, UserService_GetAnalytics_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -342,6 +354,7 @@ type UserServiceServer interface {
 	RemoveFavorite(context.Context, *RemoveFavoriteRequest) (*RemoveFavoriteResponse, error)
 	ListFavorites(context.Context, *ListFavoritesRequest) (*ListFavoritesResponse, error)
 	IsFavorite(context.Context, *IsFavoriteRequest) (*IsFavoriteResponse, error)
+	GetAnalytics(context.Context, *GetAnalyticsRequest) (*GetAnalyticsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -420,6 +433,9 @@ func (UnimplementedUserServiceServer) ListFavorites(context.Context, *ListFavori
 }
 func (UnimplementedUserServiceServer) IsFavorite(context.Context, *IsFavoriteRequest) (*IsFavoriteResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method IsFavorite not implemented")
+}
+func (UnimplementedUserServiceServer) GetAnalytics(context.Context, *GetAnalyticsRequest) (*GetAnalyticsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAnalytics not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -856,6 +872,24 @@ func _UserService_IsFavorite_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAnalyticsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetAnalytics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetAnalytics_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetAnalytics(ctx, req.(*GetAnalyticsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -954,6 +988,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IsFavorite",
 			Handler:    _UserService_IsFavorite_Handler,
+		},
+		{
+			MethodName: "GetAnalytics",
+			Handler:    _UserService_GetAnalytics_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

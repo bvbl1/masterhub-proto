@@ -2410,6 +2410,118 @@ func (x *IsFavoriteResponse) GetIsFavorite() bool {
 	return false
 }
 
+type GetAnalyticsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAnalyticsRequest) Reset() {
+	*x = GetAnalyticsRequest{}
+	mi := &file_user_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAnalyticsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnalyticsRequest) ProtoMessage() {}
+
+func (x *GetAnalyticsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnalyticsRequest.ProtoReflect.Descriptor instead.
+func (*GetAnalyticsRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{47}
+}
+
+type GetAnalyticsResponse struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	TotalUsers          int64                  `protobuf:"varint,1,opt,name=total_users,json=totalUsers,proto3" json:"total_users,omitempty"`
+	NewUsersThisMonth   int64                  `protobuf:"varint,2,opt,name=new_users_this_month,json=newUsersThisMonth,proto3" json:"new_users_this_month,omitempty"`
+	TotalProviders      int64                  `protobuf:"varint,3,opt,name=total_providers,json=totalProviders,proto3" json:"total_providers,omitempty"`
+	TotalCustomers      int64                  `protobuf:"varint,4,opt,name=total_customers,json=totalCustomers,proto3" json:"total_customers,omitempty"`
+	PendingApplications int64                  `protobuf:"varint,5,opt,name=pending_applications,json=pendingApplications,proto3" json:"pending_applications,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *GetAnalyticsResponse) Reset() {
+	*x = GetAnalyticsResponse{}
+	mi := &file_user_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAnalyticsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnalyticsResponse) ProtoMessage() {}
+
+func (x *GetAnalyticsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnalyticsResponse.ProtoReflect.Descriptor instead.
+func (*GetAnalyticsResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *GetAnalyticsResponse) GetTotalUsers() int64 {
+	if x != nil {
+		return x.TotalUsers
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetNewUsersThisMonth() int64 {
+	if x != nil {
+		return x.NewUsersThisMonth
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetTotalProviders() int64 {
+	if x != nil {
+		return x.TotalProviders
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetTotalCustomers() int64 {
+	if x != nil {
+		return x.TotalCustomers
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetPendingApplications() int64 {
+	if x != nil {
+		return x.PendingApplications
+	}
+	return 0
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -2567,7 +2679,15 @@ const file_user_proto_rawDesc = "" +
 	"providerId\"5\n" +
 	"\x12IsFavoriteResponse\x12\x1f\n" +
 	"\vis_favorite\x18\x01 \x01(\bR\n" +
-	"isFavorite2\x9b\x15\n" +
+	"isFavorite\"\x15\n" +
+	"\x13GetAnalyticsRequest\"\xed\x01\n" +
+	"\x14GetAnalyticsResponse\x12\x1f\n" +
+	"\vtotal_users\x18\x01 \x01(\x03R\n" +
+	"totalUsers\x12/\n" +
+	"\x14new_users_this_month\x18\x02 \x01(\x03R\x11newUsersThisMonth\x12'\n" +
+	"\x0ftotal_providers\x18\x03 \x01(\x03R\x0etotalProviders\x12'\n" +
+	"\x0ftotal_customers\x18\x04 \x01(\x03R\x0etotalCustomers\x121\n" +
+	"\x14pending_applications\x18\x05 \x01(\x03R\x13pendingApplications2\x8b\x16\n" +
 	"\vUserService\x12Z\n" +
 	"\n" +
 	"CreateUser\x12\x1a.user.v1.CreateUserRequest\x1a\x1b.user.v1.CreateUserResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/user\x12a\n" +
@@ -2594,7 +2714,8 @@ const file_user_proto_rawDesc = "" +
 	"\x0eRemoveFavorite\x12\x1e.user.v1.RemoveFavoriteRequest\x1a\x1f.user.v1.RemoveFavoriteResponse\"#\x82\xd3\xe4\x93\x02\x1d*\x1b/v1/favorites/{provider_id}\x12e\n" +
 	"\rListFavorites\x12\x1d.user.v1.ListFavoritesRequest\x1a\x1e.user.v1.ListFavoritesResponse\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/favorites\x12j\n" +
 	"\n" +
-	"IsFavorite\x12\x1a.user.v1.IsFavoriteRequest\x1a\x1b.user.v1.IsFavoriteResponse\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/favorites/{provider_id}B5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
+	"IsFavorite\x12\x1a.user.v1.IsFavoriteRequest\x1a\x1b.user.v1.IsFavoriteResponse\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/favorites/{provider_id}\x12n\n" +
+	"\fGetAnalytics\x12\x1c.user.v1.GetAnalyticsRequest\x1a\x1d.user.v1.GetAnalyticsResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/admin/users/analyticsB5Z3github.com/bvbl1/masterhub-proto/golang/user;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -2608,7 +2729,7 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 47)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 49)
 var file_user_proto_goTypes = []any{
 	(*User)(nil),                               // 0: user.v1.User
 	(*ProviderApplication)(nil),                // 1: user.v1.ProviderApplication
@@ -2657,6 +2778,8 @@ var file_user_proto_goTypes = []any{
 	(*ListFavoritesResponse)(nil),              // 44: user.v1.ListFavoritesResponse
 	(*IsFavoriteRequest)(nil),                  // 45: user.v1.IsFavoriteRequest
 	(*IsFavoriteResponse)(nil),                 // 46: user.v1.IsFavoriteResponse
+	(*GetAnalyticsRequest)(nil),                // 47: user.v1.GetAnalyticsRequest
+	(*GetAnalyticsResponse)(nil),               // 48: user.v1.GetAnalyticsResponse
 }
 var file_user_proto_depIdxs = []int32{
 	0,  // 0: user.v1.GetUserResponse.user:type_name -> user.v1.User
@@ -2694,31 +2817,33 @@ var file_user_proto_depIdxs = []int32{
 	40, // 32: user.v1.UserService.RemoveFavorite:input_type -> user.v1.RemoveFavoriteRequest
 	42, // 33: user.v1.UserService.ListFavorites:input_type -> user.v1.ListFavoritesRequest
 	45, // 34: user.v1.UserService.IsFavorite:input_type -> user.v1.IsFavoriteRequest
-	3,  // 35: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
-	7,  // 36: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
-	7,  // 37: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
-	7,  // 38: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
-	9,  // 39: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
-	11, // 40: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
-	13, // 41: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
-	15, // 42: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
-	27, // 43: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
-	29, // 44: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
-	31, // 45: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
-	33, // 46: user.v1.UserService.UpdateAvatar:output_type -> user.v1.UpdateAvatarResponse
-	35, // 47: user.v1.UserService.LinkTelegramByToken:output_type -> user.v1.LinkTelegramResponse
-	37, // 48: user.v1.UserService.GenerateTelegramToken:output_type -> user.v1.GenerateTelegramTokenResponse
-	17, // 49: user.v1.UserService.SubmitProviderApplication:output_type -> user.v1.SubmitProviderApplicationResponse
-	19, // 50: user.v1.UserService.GetMyProviderApplication:output_type -> user.v1.GetMyProviderApplicationResponse
-	21, // 51: user.v1.UserService.ListProviderApplications:output_type -> user.v1.ListProviderApplicationsResponse
-	23, // 52: user.v1.UserService.ApproveProviderApplication:output_type -> user.v1.ApproveProviderApplicationResponse
-	25, // 53: user.v1.UserService.RejectProviderApplication:output_type -> user.v1.RejectProviderApplicationResponse
-	39, // 54: user.v1.UserService.AddFavorite:output_type -> user.v1.AddFavoriteResponse
-	41, // 55: user.v1.UserService.RemoveFavorite:output_type -> user.v1.RemoveFavoriteResponse
-	44, // 56: user.v1.UserService.ListFavorites:output_type -> user.v1.ListFavoritesResponse
-	46, // 57: user.v1.UserService.IsFavorite:output_type -> user.v1.IsFavoriteResponse
-	35, // [35:58] is the sub-list for method output_type
-	12, // [12:35] is the sub-list for method input_type
+	47, // 35: user.v1.UserService.GetAnalytics:input_type -> user.v1.GetAnalyticsRequest
+	3,  // 36: user.v1.UserService.CreateUser:output_type -> user.v1.CreateUserResponse
+	7,  // 37: user.v1.UserService.GetUserById:output_type -> user.v1.GetUserResponse
+	7,  // 38: user.v1.UserService.GetUserByEmail:output_type -> user.v1.GetUserResponse
+	7,  // 39: user.v1.UserService.GetUserByPhone:output_type -> user.v1.GetUserResponse
+	9,  // 40: user.v1.UserService.ListUsers:output_type -> user.v1.ListUsersResponse
+	11, // 41: user.v1.UserService.UpdateUser:output_type -> user.v1.UpdateUserResponse
+	13, // 42: user.v1.UserService.Login:output_type -> user.v1.LoginResponse
+	15, // 43: user.v1.UserService.PromoteToProvider:output_type -> user.v1.PromoteToProviderResponse
+	27, // 44: user.v1.UserService.GetMe:output_type -> user.v1.GetMeResponse
+	29, // 45: user.v1.UserService.GetGoogleAuthURL:output_type -> user.v1.GetGoogleAuthURLResponse
+	31, // 46: user.v1.UserService.GoogleAuthCallback:output_type -> user.v1.GoogleAuthCallbackResponse
+	33, // 47: user.v1.UserService.UpdateAvatar:output_type -> user.v1.UpdateAvatarResponse
+	35, // 48: user.v1.UserService.LinkTelegramByToken:output_type -> user.v1.LinkTelegramResponse
+	37, // 49: user.v1.UserService.GenerateTelegramToken:output_type -> user.v1.GenerateTelegramTokenResponse
+	17, // 50: user.v1.UserService.SubmitProviderApplication:output_type -> user.v1.SubmitProviderApplicationResponse
+	19, // 51: user.v1.UserService.GetMyProviderApplication:output_type -> user.v1.GetMyProviderApplicationResponse
+	21, // 52: user.v1.UserService.ListProviderApplications:output_type -> user.v1.ListProviderApplicationsResponse
+	23, // 53: user.v1.UserService.ApproveProviderApplication:output_type -> user.v1.ApproveProviderApplicationResponse
+	25, // 54: user.v1.UserService.RejectProviderApplication:output_type -> user.v1.RejectProviderApplicationResponse
+	39, // 55: user.v1.UserService.AddFavorite:output_type -> user.v1.AddFavoriteResponse
+	41, // 56: user.v1.UserService.RemoveFavorite:output_type -> user.v1.RemoveFavoriteResponse
+	44, // 57: user.v1.UserService.ListFavorites:output_type -> user.v1.ListFavoritesResponse
+	46, // 58: user.v1.UserService.IsFavorite:output_type -> user.v1.IsFavoriteResponse
+	48, // 59: user.v1.UserService.GetAnalytics:output_type -> user.v1.GetAnalyticsResponse
+	36, // [36:60] is the sub-list for method output_type
+	12, // [12:36] is the sub-list for method input_type
 	12, // [12:12] is the sub-list for extension type_name
 	12, // [12:12] is the sub-list for extension extendee
 	0,  // [0:12] is the sub-list for field type_name
@@ -2735,7 +2860,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   47,
+			NumMessages:   49,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
