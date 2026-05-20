@@ -1497,6 +1497,187 @@ func (x *UpdateOrderStatusResponse) GetOrder() *Order {
 	return nil
 }
 
+// analytics
+type OrderStatusCount struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderStatusCount) Reset() {
+	*x = OrderStatusCount{}
+	mi := &file_order_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderStatusCount) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderStatusCount) ProtoMessage() {}
+
+func (x *OrderStatusCount) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderStatusCount.ProtoReflect.Descriptor instead.
+func (*OrderStatusCount) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *OrderStatusCount) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *OrderStatusCount) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type GetAnalyticsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAnalyticsRequest) Reset() {
+	*x = GetAnalyticsRequest{}
+	mi := &file_order_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAnalyticsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnalyticsRequest) ProtoMessage() {}
+
+func (x *GetAnalyticsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnalyticsRequest.ProtoReflect.Descriptor instead.
+func (*GetAnalyticsRequest) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{29}
+}
+
+type GetAnalyticsResponse struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	TotalOrders      int64                  `protobuf:"varint,1,opt,name=total_orders,json=totalOrders,proto3" json:"total_orders,omitempty"`
+	OrdersThisMonth  int64                  `protobuf:"varint,2,opt,name=orders_this_month,json=ordersThisMonth,proto3" json:"orders_this_month,omitempty"`
+	ByStatus         []*OrderStatusCount    `protobuf:"bytes,3,rep,name=by_status,json=byStatus,proto3" json:"by_status,omitempty"`
+	TotalRevenue     float64                `protobuf:"fixed64,4,opt,name=total_revenue,json=totalRevenue,proto3" json:"total_revenue,omitempty"`
+	RevenueThisMonth float64                `protobuf:"fixed64,5,opt,name=revenue_this_month,json=revenueThisMonth,proto3" json:"revenue_this_month,omitempty"`
+	AvgOrderValue    float64                `protobuf:"fixed64,6,opt,name=avg_order_value,json=avgOrderValue,proto3" json:"avg_order_value,omitempty"`
+	CompletionRate   float64                `protobuf:"fixed64,7,opt,name=completion_rate,json=completionRate,proto3" json:"completion_rate,omitempty"` // completed / total
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *GetAnalyticsResponse) Reset() {
+	*x = GetAnalyticsResponse{}
+	mi := &file_order_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAnalyticsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnalyticsResponse) ProtoMessage() {}
+
+func (x *GetAnalyticsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnalyticsResponse.ProtoReflect.Descriptor instead.
+func (*GetAnalyticsResponse) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *GetAnalyticsResponse) GetTotalOrders() int64 {
+	if x != nil {
+		return x.TotalOrders
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetOrdersThisMonth() int64 {
+	if x != nil {
+		return x.OrdersThisMonth
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetByStatus() []*OrderStatusCount {
+	if x != nil {
+		return x.ByStatus
+	}
+	return nil
+}
+
+func (x *GetAnalyticsResponse) GetTotalRevenue() float64 {
+	if x != nil {
+		return x.TotalRevenue
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetRevenueThisMonth() float64 {
+	if x != nil {
+		return x.RevenueThisMonth
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetAvgOrderValue() float64 {
+	if x != nil {
+		return x.AvgOrderValue
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetCompletionRate() float64 {
+	if x != nil {
+		return x.CompletionRate
+	}
+	return 0
+}
+
 var File_order_proto protoreflect.FileDescriptor
 
 const file_order_proto_rawDesc = "" +
@@ -1603,7 +1784,19 @@ const file_order_proto_rawDesc = "" +
 	"\border_id\x18\x01 \x01(\x03R\aorderId\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\tR\x06status\"B\n" +
 	"\x19UpdateOrderStatusResponse\x12%\n" +
-	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order2\x9c\v\n" +
+	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"@\n" +
+	"\x10OrderStatusCount\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12\x14\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\"\x15\n" +
+	"\x13GetAnalyticsRequest\"\xc2\x02\n" +
+	"\x14GetAnalyticsResponse\x12!\n" +
+	"\ftotal_orders\x18\x01 \x01(\x03R\vtotalOrders\x12*\n" +
+	"\x11orders_this_month\x18\x02 \x01(\x03R\x0fordersThisMonth\x127\n" +
+	"\tby_status\x18\x03 \x03(\v2\x1a.order.v1.OrderStatusCountR\bbyStatus\x12#\n" +
+	"\rtotal_revenue\x18\x04 \x01(\x01R\ftotalRevenue\x12,\n" +
+	"\x12revenue_this_month\x18\x05 \x01(\x01R\x10revenueThisMonth\x12&\n" +
+	"\x0favg_order_value\x18\x06 \x01(\x01R\ravgOrderValue\x12'\n" +
+	"\x0fcompletion_rate\x18\a \x01(\x01R\x0ecompletionRate2\x8f\f\n" +
 	"\fOrderService\x12a\n" +
 	"\vCreateOrder\x12\x1c.order.v1.CreateOrderRequest\x1a\x1d.order.v1.CreateOrderResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
 	"/v1/orders\x12Z\n" +
@@ -1620,7 +1813,8 @@ const file_order_proto_rawDesc = "" +
 	"\fDisputeOrder\x12\x1d.order.v1.DisputeOrderRequest\x1a\x1e.order.v1.DisputeOrderResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/orders/{id}/dispute\x12\\\n" +
 	"\x11UpdateOrderStatus\x12\".order.v1.UpdateOrderStatusRequest\x1a#.order.v1.UpdateOrderStatusResponse\x12\x82\x01\n" +
 	"\x12ListDisputedOrders\x12#.order.v1.ListDisputedOrdersRequest\x1a$.order.v1.ListDisputedOrdersResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/admin/orders/disputed\x12\x83\x01\n" +
-	"\x0eResolveDispute\x12\x1f.order.v1.ResolveDisputeRequest\x1a .order.v1.ResolveDisputeResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/v1/admin/orders/{order_id}/resolveB7Z5github.com/bvbl1/masterhub-proto/golang/order;orderpbb\x06proto3"
+	"\x0eResolveDispute\x12\x1f.order.v1.ResolveDisputeRequest\x1a .order.v1.ResolveDisputeResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/v1/admin/orders/{order_id}/resolve\x12q\n" +
+	"\fGetAnalytics\x12\x1d.order.v1.GetAnalyticsRequest\x1a\x1e.order.v1.GetAnalyticsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/v1/admin/orders/analyticsB7Z5github.com/bvbl1/masterhub-proto/golang/order;orderpbb\x06proto3"
 
 var (
 	file_order_proto_rawDescOnce sync.Once
@@ -1634,7 +1828,7 @@ func file_order_proto_rawDescGZIP() []byte {
 	return file_order_proto_rawDescData
 }
 
-var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
 var file_order_proto_goTypes = []any{
 	(*Order)(nil),                      // 0: order.v1.Order
 	(*CreateOrderRequest)(nil),         // 1: order.v1.CreateOrderRequest
@@ -1664,6 +1858,9 @@ var file_order_proto_goTypes = []any{
 	(*ResolveDisputeResponse)(nil),     // 25: order.v1.ResolveDisputeResponse
 	(*UpdateOrderStatusRequest)(nil),   // 26: order.v1.UpdateOrderStatusRequest
 	(*UpdateOrderStatusResponse)(nil),  // 27: order.v1.UpdateOrderStatusResponse
+	(*OrderStatusCount)(nil),           // 28: order.v1.OrderStatusCount
+	(*GetAnalyticsRequest)(nil),        // 29: order.v1.GetAnalyticsRequest
+	(*GetAnalyticsResponse)(nil),       // 30: order.v1.GetAnalyticsResponse
 }
 var file_order_proto_depIdxs = []int32{
 	0,  // 0: order.v1.CreateOrderResponse.order:type_name -> order.v1.Order
@@ -1679,37 +1876,40 @@ var file_order_proto_depIdxs = []int32{
 	21, // 10: order.v1.ListDisputedOrdersResponse.disputes:type_name -> order.v1.DisputedOrderProto
 	0,  // 11: order.v1.ResolveDisputeResponse.order:type_name -> order.v1.Order
 	0,  // 12: order.v1.UpdateOrderStatusResponse.order:type_name -> order.v1.Order
-	1,  // 13: order.v1.OrderService.CreateOrder:input_type -> order.v1.CreateOrderRequest
-	3,  // 14: order.v1.OrderService.GetOrder:input_type -> order.v1.GetOrderRequest
-	5,  // 15: order.v1.OrderService.ListOrders:input_type -> order.v1.ListOrdersRequest
-	7,  // 16: order.v1.OrderService.AcceptOrder:input_type -> order.v1.AcceptOrderRequest
-	9,  // 17: order.v1.OrderService.RejectOrder:input_type -> order.v1.RejectOrderRequest
-	11, // 18: order.v1.OrderService.CancelOrder:input_type -> order.v1.CancelOrderRequest
-	13, // 19: order.v1.OrderService.PayOrder:input_type -> order.v1.PayOrderRequest
-	15, // 20: order.v1.OrderService.MarkComplete:input_type -> order.v1.MarkCompleteRequest
-	17, // 21: order.v1.OrderService.ConfirmComplete:input_type -> order.v1.ConfirmCompleteRequest
-	19, // 22: order.v1.OrderService.DisputeOrder:input_type -> order.v1.DisputeOrderRequest
-	26, // 23: order.v1.OrderService.UpdateOrderStatus:input_type -> order.v1.UpdateOrderStatusRequest
-	22, // 24: order.v1.OrderService.ListDisputedOrders:input_type -> order.v1.ListDisputedOrdersRequest
-	24, // 25: order.v1.OrderService.ResolveDispute:input_type -> order.v1.ResolveDisputeRequest
-	2,  // 26: order.v1.OrderService.CreateOrder:output_type -> order.v1.CreateOrderResponse
-	4,  // 27: order.v1.OrderService.GetOrder:output_type -> order.v1.GetOrderResponse
-	6,  // 28: order.v1.OrderService.ListOrders:output_type -> order.v1.ListOrdersResponse
-	8,  // 29: order.v1.OrderService.AcceptOrder:output_type -> order.v1.AcceptOrderResponse
-	10, // 30: order.v1.OrderService.RejectOrder:output_type -> order.v1.RejectOrderResponse
-	12, // 31: order.v1.OrderService.CancelOrder:output_type -> order.v1.CancelOrderResponse
-	14, // 32: order.v1.OrderService.PayOrder:output_type -> order.v1.PayOrderResponse
-	16, // 33: order.v1.OrderService.MarkComplete:output_type -> order.v1.MarkCompleteResponse
-	18, // 34: order.v1.OrderService.ConfirmComplete:output_type -> order.v1.ConfirmCompleteResponse
-	20, // 35: order.v1.OrderService.DisputeOrder:output_type -> order.v1.DisputeOrderResponse
-	27, // 36: order.v1.OrderService.UpdateOrderStatus:output_type -> order.v1.UpdateOrderStatusResponse
-	23, // 37: order.v1.OrderService.ListDisputedOrders:output_type -> order.v1.ListDisputedOrdersResponse
-	25, // 38: order.v1.OrderService.ResolveDispute:output_type -> order.v1.ResolveDisputeResponse
-	26, // [26:39] is the sub-list for method output_type
-	13, // [13:26] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	28, // 13: order.v1.GetAnalyticsResponse.by_status:type_name -> order.v1.OrderStatusCount
+	1,  // 14: order.v1.OrderService.CreateOrder:input_type -> order.v1.CreateOrderRequest
+	3,  // 15: order.v1.OrderService.GetOrder:input_type -> order.v1.GetOrderRequest
+	5,  // 16: order.v1.OrderService.ListOrders:input_type -> order.v1.ListOrdersRequest
+	7,  // 17: order.v1.OrderService.AcceptOrder:input_type -> order.v1.AcceptOrderRequest
+	9,  // 18: order.v1.OrderService.RejectOrder:input_type -> order.v1.RejectOrderRequest
+	11, // 19: order.v1.OrderService.CancelOrder:input_type -> order.v1.CancelOrderRequest
+	13, // 20: order.v1.OrderService.PayOrder:input_type -> order.v1.PayOrderRequest
+	15, // 21: order.v1.OrderService.MarkComplete:input_type -> order.v1.MarkCompleteRequest
+	17, // 22: order.v1.OrderService.ConfirmComplete:input_type -> order.v1.ConfirmCompleteRequest
+	19, // 23: order.v1.OrderService.DisputeOrder:input_type -> order.v1.DisputeOrderRequest
+	26, // 24: order.v1.OrderService.UpdateOrderStatus:input_type -> order.v1.UpdateOrderStatusRequest
+	22, // 25: order.v1.OrderService.ListDisputedOrders:input_type -> order.v1.ListDisputedOrdersRequest
+	24, // 26: order.v1.OrderService.ResolveDispute:input_type -> order.v1.ResolveDisputeRequest
+	29, // 27: order.v1.OrderService.GetAnalytics:input_type -> order.v1.GetAnalyticsRequest
+	2,  // 28: order.v1.OrderService.CreateOrder:output_type -> order.v1.CreateOrderResponse
+	4,  // 29: order.v1.OrderService.GetOrder:output_type -> order.v1.GetOrderResponse
+	6,  // 30: order.v1.OrderService.ListOrders:output_type -> order.v1.ListOrdersResponse
+	8,  // 31: order.v1.OrderService.AcceptOrder:output_type -> order.v1.AcceptOrderResponse
+	10, // 32: order.v1.OrderService.RejectOrder:output_type -> order.v1.RejectOrderResponse
+	12, // 33: order.v1.OrderService.CancelOrder:output_type -> order.v1.CancelOrderResponse
+	14, // 34: order.v1.OrderService.PayOrder:output_type -> order.v1.PayOrderResponse
+	16, // 35: order.v1.OrderService.MarkComplete:output_type -> order.v1.MarkCompleteResponse
+	18, // 36: order.v1.OrderService.ConfirmComplete:output_type -> order.v1.ConfirmCompleteResponse
+	20, // 37: order.v1.OrderService.DisputeOrder:output_type -> order.v1.DisputeOrderResponse
+	27, // 38: order.v1.OrderService.UpdateOrderStatus:output_type -> order.v1.UpdateOrderStatusResponse
+	23, // 39: order.v1.OrderService.ListDisputedOrders:output_type -> order.v1.ListDisputedOrdersResponse
+	25, // 40: order.v1.OrderService.ResolveDispute:output_type -> order.v1.ResolveDisputeResponse
+	30, // 41: order.v1.OrderService.GetAnalytics:output_type -> order.v1.GetAnalyticsResponse
+	28, // [28:42] is the sub-list for method output_type
+	14, // [14:28] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_order_proto_init() }
@@ -1723,7 +1923,7 @@ func file_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_proto_rawDesc), len(file_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   28,
+			NumMessages:   31,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -32,6 +32,7 @@ const (
 	OrderService_UpdateOrderStatus_FullMethodName  = "/order.v1.OrderService/UpdateOrderStatus"
 	OrderService_ListDisputedOrders_FullMethodName = "/order.v1.OrderService/ListDisputedOrders"
 	OrderService_ResolveDispute_FullMethodName     = "/order.v1.OrderService/ResolveDispute"
+	OrderService_GetAnalytics_FullMethodName       = "/order.v1.OrderService/GetAnalytics"
 )
 
 // OrderServiceClient is the client API for OrderService service.
@@ -52,6 +53,7 @@ type OrderServiceClient interface {
 	UpdateOrderStatus(ctx context.Context, in *UpdateOrderStatusRequest, opts ...grpc.CallOption) (*UpdateOrderStatusResponse, error)
 	ListDisputedOrders(ctx context.Context, in *ListDisputedOrdersRequest, opts ...grpc.CallOption) (*ListDisputedOrdersResponse, error)
 	ResolveDispute(ctx context.Context, in *ResolveDisputeRequest, opts ...grpc.CallOption) (*ResolveDisputeResponse, error)
+	GetAnalytics(ctx context.Context, in *GetAnalyticsRequest, opts ...grpc.CallOption) (*GetAnalyticsResponse, error)
 }
 
 type orderServiceClient struct {
@@ -192,6 +194,16 @@ func (c *orderServiceClient) ResolveDispute(ctx context.Context, in *ResolveDisp
 	return out, nil
 }
 
+func (c *orderServiceClient) GetAnalytics(ctx context.Context, in *GetAnalyticsRequest, opts ...grpc.CallOption) (*GetAnalyticsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAnalyticsResponse)
+	err := c.cc.Invoke(ctx, OrderService_GetAnalytics_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrderServiceServer is the server API for OrderService service.
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility.
@@ -210,6 +222,7 @@ type OrderServiceServer interface {
 	UpdateOrderStatus(context.Context, *UpdateOrderStatusRequest) (*UpdateOrderStatusResponse, error)
 	ListDisputedOrders(context.Context, *ListDisputedOrdersRequest) (*ListDisputedOrdersResponse, error)
 	ResolveDispute(context.Context, *ResolveDisputeRequest) (*ResolveDisputeResponse, error)
+	GetAnalytics(context.Context, *GetAnalyticsRequest) (*GetAnalyticsResponse, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
 
@@ -258,6 +271,9 @@ func (UnimplementedOrderServiceServer) ListDisputedOrders(context.Context, *List
 }
 func (UnimplementedOrderServiceServer) ResolveDispute(context.Context, *ResolveDisputeRequest) (*ResolveDisputeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ResolveDispute not implemented")
+}
+func (UnimplementedOrderServiceServer) GetAnalytics(context.Context, *GetAnalyticsRequest) (*GetAnalyticsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAnalytics not implemented")
 }
 func (UnimplementedOrderServiceServer) mustEmbedUnimplementedOrderServiceServer() {}
 func (UnimplementedOrderServiceServer) testEmbeddedByValue()                      {}
@@ -514,6 +530,24 @@ func _OrderService_ResolveDispute_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_GetAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAnalyticsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetAnalytics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_GetAnalytics_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetAnalytics(ctx, req.(*GetAnalyticsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrderService_ServiceDesc is the grpc.ServiceDesc for OrderService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -572,6 +606,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ResolveDispute",
 			Handler:    _OrderService_ResolveDispute_Handler,
+		},
+		{
+			MethodName: "GetAnalytics",
+			Handler:    _OrderService_GetAnalytics_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

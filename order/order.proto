@@ -89,6 +89,12 @@ service OrderService {
       body: "*"
     };
   }
+
+  rpc GetAnalytics(GetAnalyticsRequest) returns (GetAnalyticsResponse) {
+    option (google.api.http) = {
+      get: "/v1/admin/orders/analytics"
+    };
+  }
 }
 
 message Order {
@@ -239,4 +245,23 @@ message UpdateOrderStatusRequest {
 
 message UpdateOrderStatusResponse {
   Order order = 1;
+}
+
+//analytics
+message OrderStatusCount {
+  string status = 1;
+  int64  count  = 2;
+}
+
+message GetAnalyticsRequest {
+}
+
+message GetAnalyticsResponse {
+  int64  total_orders        = 1;
+  int64  orders_this_month   = 2;
+  repeated OrderStatusCount by_status = 3;
+  double total_revenue       = 4;
+  double revenue_this_month  = 5;
+  double avg_order_value     = 6;
+  double completion_rate     = 7; // completed / total
 }
