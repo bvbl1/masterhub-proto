@@ -1278,6 +1278,102 @@ func (x *WithdrawJobRequestResponseResponse) GetSuccess() bool {
 	return false
 }
 
+type GetAnalyticsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAnalyticsRequest) Reset() {
+	*x = GetAnalyticsRequest{}
+	mi := &file_job_request_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAnalyticsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnalyticsRequest) ProtoMessage() {}
+
+func (x *GetAnalyticsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_job_request_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnalyticsRequest.ProtoReflect.Descriptor instead.
+func (*GetAnalyticsRequest) Descriptor() ([]byte, []int) {
+	return file_job_request_proto_rawDescGZIP(), []int{20}
+}
+
+type GetAnalyticsResponse struct {
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	TotalJobRequests     int64                  `protobuf:"varint,1,opt,name=total_job_requests,json=totalJobRequests,proto3" json:"total_job_requests,omitempty"`
+	JobRequestsThisMonth int64                  `protobuf:"varint,2,opt,name=job_requests_this_month,json=jobRequestsThisMonth,proto3" json:"job_requests_this_month,omitempty"`
+	OpenJobRequests      int64                  `protobuf:"varint,3,opt,name=open_job_requests,json=openJobRequests,proto3" json:"open_job_requests,omitempty"` // status=open
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
+}
+
+func (x *GetAnalyticsResponse) Reset() {
+	*x = GetAnalyticsResponse{}
+	mi := &file_job_request_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAnalyticsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnalyticsResponse) ProtoMessage() {}
+
+func (x *GetAnalyticsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_job_request_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnalyticsResponse.ProtoReflect.Descriptor instead.
+func (*GetAnalyticsResponse) Descriptor() ([]byte, []int) {
+	return file_job_request_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *GetAnalyticsResponse) GetTotalJobRequests() int64 {
+	if x != nil {
+		return x.TotalJobRequests
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetJobRequestsThisMonth() int64 {
+	if x != nil {
+		return x.JobRequestsThisMonth
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetOpenJobRequests() int64 {
+	if x != nil {
+		return x.OpenJobRequests
+	}
+	return 0
+}
+
 var File_job_request_proto protoreflect.FileDescriptor
 
 const file_job_request_proto_rawDesc = "" +
@@ -1392,7 +1488,12 @@ const file_job_request_proto_rawDesc = "" +
 	"\vresponse_id\x18\x02 \x01(\x03R\n" +
 	"responseId\">\n" +
 	"\"WithdrawJobRequestResponseResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xaf\v\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x15\n" +
+	"\x13GetAnalyticsRequest\"\xa7\x01\n" +
+	"\x14GetAnalyticsResponse\x12,\n" +
+	"\x12total_job_requests\x18\x01 \x01(\x03R\x10totalJobRequests\x125\n" +
+	"\x17job_requests_this_month\x18\x02 \x01(\x03R\x14jobRequestsThisMonth\x12*\n" +
+	"\x11open_job_requests\x18\x03 \x01(\x03R\x0fopenJobRequests2\xb3\f\n" +
 	"\x11JobRequestService\x12\x80\x01\n" +
 	"\x10CreateJobRequest\x12&.jobrequest.v1.CreateJobRequestRequest\x1a'.jobrequest.v1.CreateJobRequestResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/job-requests\x12w\n" +
 	"\rGetJobRequest\x12#.jobrequest.v1.GetJobRequestRequest\x1a\".jobrequest.v1.GetJobRequestResult\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/v1/job-requests/{id}\x12z\n" +
@@ -1402,7 +1503,8 @@ const file_job_request_proto_rawDesc = "" +
 	"\x17ListJobRequestResponses\x12-.jobrequest.v1.ListJobRequestResponsesRequest\x1a..jobrequest.v1.ListJobRequestResponsesResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/job-requests/{job_request_id}/responses\x12\xb5\x01\n" +
 	"\x15GetJobRequestResponse\x12+.jobrequest.v1.GetJobRequestResponseRequest\x1a,.jobrequest.v1.GetJobRequestResponseResponse\"A\x82\xd3\xe4\x93\x02;\x129/v1/job-requests/{job_request_id}/responses/{response_id}\x12\xc8\x01\n" +
 	"\x18AcceptJobRequestResponse\x12..jobrequest.v1.AcceptJobRequestResponseRequest\x1a/.jobrequest.v1.AcceptJobRequestResponseResponse\"K\x82\xd3\xe4\x93\x02E:\x01*\"@/v1/job-requests/{job_request_id}/responses/{response_id}/accept\x12\xc4\x01\n" +
-	"\x1aWithdrawJobRequestResponse\x120.jobrequest.v1.WithdrawJobRequestResponseRequest\x1a1.jobrequest.v1.WithdrawJobRequestResponseResponse\"A\x82\xd3\xe4\x93\x02;*9/v1/job-requests/{job_request_id}/responses/{response_id}BAZ?github.com/bvbl1/masterhub-proto/golang/jobrequest;jobrequestpbb\x06proto3"
+	"\x1aWithdrawJobRequestResponse\x120.jobrequest.v1.WithdrawJobRequestResponseRequest\x1a1.jobrequest.v1.WithdrawJobRequestResponseResponse\"A\x82\xd3\xe4\x93\x02;*9/v1/job-requests/{job_request_id}/responses/{response_id}\x12\x81\x01\n" +
+	"\fGetAnalytics\x12\".jobrequest.v1.GetAnalyticsRequest\x1a#.jobrequest.v1.GetAnalyticsResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /v1/admin/job-requests/analyticsBAZ?github.com/bvbl1/masterhub-proto/golang/jobrequest;jobrequestpbb\x06proto3"
 
 var (
 	file_job_request_proto_rawDescOnce sync.Once
@@ -1416,7 +1518,7 @@ func file_job_request_proto_rawDescGZIP() []byte {
 	return file_job_request_proto_rawDescData
 }
 
-var file_job_request_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_job_request_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_job_request_proto_goTypes = []any{
 	(*JobRequest)(nil),                         // 0: jobrequest.v1.JobRequest
 	(*JobRequestResponse)(nil),                 // 1: jobrequest.v1.JobRequestResponse
@@ -1438,6 +1540,8 @@ var file_job_request_proto_goTypes = []any{
 	(*AcceptJobRequestResponseResponse)(nil),   // 17: jobrequest.v1.AcceptJobRequestResponseResponse
 	(*WithdrawJobRequestResponseRequest)(nil),  // 18: jobrequest.v1.WithdrawJobRequestResponseRequest
 	(*WithdrawJobRequestResponseResponse)(nil), // 19: jobrequest.v1.WithdrawJobRequestResponseResponse
+	(*GetAnalyticsRequest)(nil),                // 20: jobrequest.v1.GetAnalyticsRequest
+	(*GetAnalyticsResponse)(nil),               // 21: jobrequest.v1.GetAnalyticsResponse
 }
 var file_job_request_proto_depIdxs = []int32{
 	0,  // 0: jobrequest.v1.CreateJobRequestResponse.job_request:type_name -> jobrequest.v1.JobRequest
@@ -1456,17 +1560,19 @@ var file_job_request_proto_depIdxs = []int32{
 	14, // 13: jobrequest.v1.JobRequestService.GetJobRequestResponse:input_type -> jobrequest.v1.GetJobRequestResponseRequest
 	16, // 14: jobrequest.v1.JobRequestService.AcceptJobRequestResponse:input_type -> jobrequest.v1.AcceptJobRequestResponseRequest
 	18, // 15: jobrequest.v1.JobRequestService.WithdrawJobRequestResponse:input_type -> jobrequest.v1.WithdrawJobRequestResponseRequest
-	3,  // 16: jobrequest.v1.JobRequestService.CreateJobRequest:output_type -> jobrequest.v1.CreateJobRequestResponse
-	5,  // 17: jobrequest.v1.JobRequestService.GetJobRequest:output_type -> jobrequest.v1.GetJobRequestResult
-	7,  // 18: jobrequest.v1.JobRequestService.ListJobRequests:output_type -> jobrequest.v1.ListJobRequestsResponse
-	9,  // 19: jobrequest.v1.JobRequestService.CancelJobRequest:output_type -> jobrequest.v1.CancelJobRequestResponse
-	11, // 20: jobrequest.v1.JobRequestService.RespondToJobRequest:output_type -> jobrequest.v1.RespondToJobRequestResponse
-	13, // 21: jobrequest.v1.JobRequestService.ListJobRequestResponses:output_type -> jobrequest.v1.ListJobRequestResponsesResponse
-	15, // 22: jobrequest.v1.JobRequestService.GetJobRequestResponse:output_type -> jobrequest.v1.GetJobRequestResponseResponse
-	17, // 23: jobrequest.v1.JobRequestService.AcceptJobRequestResponse:output_type -> jobrequest.v1.AcceptJobRequestResponseResponse
-	19, // 24: jobrequest.v1.JobRequestService.WithdrawJobRequestResponse:output_type -> jobrequest.v1.WithdrawJobRequestResponseResponse
-	16, // [16:25] is the sub-list for method output_type
-	7,  // [7:16] is the sub-list for method input_type
+	20, // 16: jobrequest.v1.JobRequestService.GetAnalytics:input_type -> jobrequest.v1.GetAnalyticsRequest
+	3,  // 17: jobrequest.v1.JobRequestService.CreateJobRequest:output_type -> jobrequest.v1.CreateJobRequestResponse
+	5,  // 18: jobrequest.v1.JobRequestService.GetJobRequest:output_type -> jobrequest.v1.GetJobRequestResult
+	7,  // 19: jobrequest.v1.JobRequestService.ListJobRequests:output_type -> jobrequest.v1.ListJobRequestsResponse
+	9,  // 20: jobrequest.v1.JobRequestService.CancelJobRequest:output_type -> jobrequest.v1.CancelJobRequestResponse
+	11, // 21: jobrequest.v1.JobRequestService.RespondToJobRequest:output_type -> jobrequest.v1.RespondToJobRequestResponse
+	13, // 22: jobrequest.v1.JobRequestService.ListJobRequestResponses:output_type -> jobrequest.v1.ListJobRequestResponsesResponse
+	15, // 23: jobrequest.v1.JobRequestService.GetJobRequestResponse:output_type -> jobrequest.v1.GetJobRequestResponseResponse
+	17, // 24: jobrequest.v1.JobRequestService.AcceptJobRequestResponse:output_type -> jobrequest.v1.AcceptJobRequestResponseResponse
+	19, // 25: jobrequest.v1.JobRequestService.WithdrawJobRequestResponse:output_type -> jobrequest.v1.WithdrawJobRequestResponseResponse
+	21, // 26: jobrequest.v1.JobRequestService.GetAnalytics:output_type -> jobrequest.v1.GetAnalyticsResponse
+	17, // [17:27] is the sub-list for method output_type
+	7,  // [7:17] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name
@@ -1483,7 +1589,7 @@ func file_job_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_job_request_proto_rawDesc), len(file_job_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

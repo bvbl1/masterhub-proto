@@ -64,6 +64,12 @@ service JobRequestService {
       delete: "/v1/job-requests/{job_request_id}/responses/{response_id}"
     };
   }
+
+  rpc GetAnalytics(GetAnalyticsRequest) returns (GetAnalyticsResponse) {
+    option (google.api.http) = {
+      get: "/v1/admin/job-requests/analytics"
+    };
+  }
 }
 
 // ── Core messages ─────────────────────────────────────────────────────────────
@@ -211,4 +217,13 @@ message WithdrawJobRequestResponseRequest {
 
 message WithdrawJobRequestResponseResponse {
   bool success = 1;
+}
+
+message GetAnalyticsRequest {
+}
+
+message GetAnalyticsResponse {
+  int64 total_job_requests        = 1;
+  int64 job_requests_this_month   = 2;
+  int64 open_job_requests         = 3; // status=open
 }

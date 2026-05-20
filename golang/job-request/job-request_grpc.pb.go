@@ -28,6 +28,7 @@ const (
 	JobRequestService_GetJobRequestResponse_FullMethodName      = "/jobrequest.v1.JobRequestService/GetJobRequestResponse"
 	JobRequestService_AcceptJobRequestResponse_FullMethodName   = "/jobrequest.v1.JobRequestService/AcceptJobRequestResponse"
 	JobRequestService_WithdrawJobRequestResponse_FullMethodName = "/jobrequest.v1.JobRequestService/WithdrawJobRequestResponse"
+	JobRequestService_GetAnalytics_FullMethodName               = "/jobrequest.v1.JobRequestService/GetAnalytics"
 )
 
 // JobRequestServiceClient is the client API for JobRequestService service.
@@ -43,6 +44,7 @@ type JobRequestServiceClient interface {
 	GetJobRequestResponse(ctx context.Context, in *GetJobRequestResponseRequest, opts ...grpc.CallOption) (*GetJobRequestResponseResponse, error)
 	AcceptJobRequestResponse(ctx context.Context, in *AcceptJobRequestResponseRequest, opts ...grpc.CallOption) (*AcceptJobRequestResponseResponse, error)
 	WithdrawJobRequestResponse(ctx context.Context, in *WithdrawJobRequestResponseRequest, opts ...grpc.CallOption) (*WithdrawJobRequestResponseResponse, error)
+	GetAnalytics(ctx context.Context, in *GetAnalyticsRequest, opts ...grpc.CallOption) (*GetAnalyticsResponse, error)
 }
 
 type jobRequestServiceClient struct {
@@ -143,6 +145,16 @@ func (c *jobRequestServiceClient) WithdrawJobRequestResponse(ctx context.Context
 	return out, nil
 }
 
+func (c *jobRequestServiceClient) GetAnalytics(ctx context.Context, in *GetAnalyticsRequest, opts ...grpc.CallOption) (*GetAnalyticsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAnalyticsResponse)
+	err := c.cc.Invoke(ctx, JobRequestService_GetAnalytics_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // JobRequestServiceServer is the server API for JobRequestService service.
 // All implementations must embed UnimplementedJobRequestServiceServer
 // for forward compatibility.
@@ -156,6 +168,7 @@ type JobRequestServiceServer interface {
 	GetJobRequestResponse(context.Context, *GetJobRequestResponseRequest) (*GetJobRequestResponseResponse, error)
 	AcceptJobRequestResponse(context.Context, *AcceptJobRequestResponseRequest) (*AcceptJobRequestResponseResponse, error)
 	WithdrawJobRequestResponse(context.Context, *WithdrawJobRequestResponseRequest) (*WithdrawJobRequestResponseResponse, error)
+	GetAnalytics(context.Context, *GetAnalyticsRequest) (*GetAnalyticsResponse, error)
 	mustEmbedUnimplementedJobRequestServiceServer()
 }
 
@@ -192,6 +205,9 @@ func (UnimplementedJobRequestServiceServer) AcceptJobRequestResponse(context.Con
 }
 func (UnimplementedJobRequestServiceServer) WithdrawJobRequestResponse(context.Context, *WithdrawJobRequestResponseRequest) (*WithdrawJobRequestResponseResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method WithdrawJobRequestResponse not implemented")
+}
+func (UnimplementedJobRequestServiceServer) GetAnalytics(context.Context, *GetAnalyticsRequest) (*GetAnalyticsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAnalytics not implemented")
 }
 func (UnimplementedJobRequestServiceServer) mustEmbedUnimplementedJobRequestServiceServer() {}
 func (UnimplementedJobRequestServiceServer) testEmbeddedByValue()                           {}
@@ -376,6 +392,24 @@ func _JobRequestService_WithdrawJobRequestResponse_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _JobRequestService_GetAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAnalyticsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(JobRequestServiceServer).GetAnalytics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: JobRequestService_GetAnalytics_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(JobRequestServiceServer).GetAnalytics(ctx, req.(*GetAnalyticsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // JobRequestService_ServiceDesc is the grpc.ServiceDesc for JobRequestService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +452,10 @@ var JobRequestService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "WithdrawJobRequestResponse",
 			Handler:    _JobRequestService_WithdrawJobRequestResponse_Handler,
+		},
+		{
+			MethodName: "GetAnalytics",
+			Handler:    _JobRequestService_GetAnalytics_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
