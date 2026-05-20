@@ -1319,6 +1319,10 @@ type GetAnalyticsResponse struct {
 	TotalJobRequests     int64                  `protobuf:"varint,1,opt,name=total_job_requests,json=totalJobRequests,proto3" json:"total_job_requests,omitempty"`
 	JobRequestsThisMonth int64                  `protobuf:"varint,2,opt,name=job_requests_this_month,json=jobRequestsThisMonth,proto3" json:"job_requests_this_month,omitempty"`
 	OpenJobRequests      int64                  `protobuf:"varint,3,opt,name=open_job_requests,json=openJobRequests,proto3" json:"open_job_requests,omitempty"` // status=open
+	ClosedJobRequests    int64                  `protobuf:"varint,4,opt,name=closed_job_requests,json=closedJobRequests,proto3" json:"closed_job_requests,omitempty"`
+	CancelledJobRequests int64                  `protobuf:"varint,5,opt,name=cancelled_job_requests,json=cancelledJobRequests,proto3" json:"cancelled_job_requests,omitempty"`
+	TotalResponses       int64                  `protobuf:"varint,6,opt,name=total_responses,json=totalResponses,proto3" json:"total_responses,omitempty"`
+	ResponsesThisMonth   int64                  `protobuf:"varint,7,opt,name=responses_this_month,json=responsesThisMonth,proto3" json:"responses_this_month,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
@@ -1370,6 +1374,34 @@ func (x *GetAnalyticsResponse) GetJobRequestsThisMonth() int64 {
 func (x *GetAnalyticsResponse) GetOpenJobRequests() int64 {
 	if x != nil {
 		return x.OpenJobRequests
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetClosedJobRequests() int64 {
+	if x != nil {
+		return x.ClosedJobRequests
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetCancelledJobRequests() int64 {
+	if x != nil {
+		return x.CancelledJobRequests
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetTotalResponses() int64 {
+	if x != nil {
+		return x.TotalResponses
+	}
+	return 0
+}
+
+func (x *GetAnalyticsResponse) GetResponsesThisMonth() int64 {
+	if x != nil {
+		return x.ResponsesThisMonth
 	}
 	return 0
 }
@@ -1489,11 +1521,15 @@ const file_job_request_proto_rawDesc = "" +
 	"responseId\">\n" +
 	"\"WithdrawJobRequestResponseResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x15\n" +
-	"\x13GetAnalyticsRequest\"\xa7\x01\n" +
+	"\x13GetAnalyticsRequest\"\xe8\x02\n" +
 	"\x14GetAnalyticsResponse\x12,\n" +
 	"\x12total_job_requests\x18\x01 \x01(\x03R\x10totalJobRequests\x125\n" +
 	"\x17job_requests_this_month\x18\x02 \x01(\x03R\x14jobRequestsThisMonth\x12*\n" +
-	"\x11open_job_requests\x18\x03 \x01(\x03R\x0fopenJobRequests2\xb3\f\n" +
+	"\x11open_job_requests\x18\x03 \x01(\x03R\x0fopenJobRequests\x12.\n" +
+	"\x13closed_job_requests\x18\x04 \x01(\x03R\x11closedJobRequests\x124\n" +
+	"\x16cancelled_job_requests\x18\x05 \x01(\x03R\x14cancelledJobRequests\x12'\n" +
+	"\x0ftotal_responses\x18\x06 \x01(\x03R\x0etotalResponses\x120\n" +
+	"\x14responses_this_month\x18\a \x01(\x03R\x12responsesThisMonth2\xb3\f\n" +
 	"\x11JobRequestService\x12\x80\x01\n" +
 	"\x10CreateJobRequest\x12&.jobrequest.v1.CreateJobRequestRequest\x1a'.jobrequest.v1.CreateJobRequestResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/job-requests\x12w\n" +
 	"\rGetJobRequest\x12#.jobrequest.v1.GetJobRequestRequest\x1a\".jobrequest.v1.GetJobRequestResult\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/v1/job-requests/{id}\x12z\n" +

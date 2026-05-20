@@ -226,4 +226,8 @@ message GetAnalyticsResponse {
   int64 total_job_requests        = 1;
   int64 job_requests_this_month   = 2;
   int64 open_job_requests         = 3; // status=open
+  int64 closed_job_requests = 4;
+  int64 cancelled_job_requests = 5;
+  int64 total_responses = 6;
+  int64 responses_this_month = 7;
 }
