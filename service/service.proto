@@ -147,6 +147,7 @@ message ListCitiesResponse {
 }
 
 message AvgPriceForCategoryRequest {
+  int64 category_id = 1;
 }
 
 message AvgPriceForCategoryResponse{

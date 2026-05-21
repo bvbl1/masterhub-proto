@@ -792,6 +792,7 @@ func (x *ListCitiesResponse) GetCities() []string {
 
 type AvgPriceForCategoryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryId    int64                  `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -824,6 +825,13 @@ func (x *AvgPriceForCategoryRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AvgPriceForCategoryRequest.ProtoReflect.Descriptor instead.
 func (*AvgPriceForCategoryRequest) Descriptor() ([]byte, []int) {
 	return file_service_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *AvgPriceForCategoryRequest) GetCategoryId() int64 {
+	if x != nil {
+		return x.CategoryId
+	}
+	return 0
 }
 
 type AvgPriceForCategoryResponse struct {
@@ -933,8 +941,10 @@ const file_service_proto_rawDesc = "" +
 	"\x15ListMyServicesRequest\"\x13\n" +
 	"\x11ListCitiesRequest\",\n" +
 	"\x12ListCitiesResponse\x12\x16\n" +
-	"\x06cities\x18\x01 \x03(\tR\x06cities\"\x1c\n" +
-	"\x1aAvgPriceForCategoryRequest\":\n" +
+	"\x06cities\x18\x01 \x03(\tR\x06cities\"=\n" +
+	"\x1aAvgPriceForCategoryRequest\x12\x1f\n" +
+	"\vcategory_id\x18\x01 \x01(\x03R\n" +
+	"categoryId\":\n" +
 	"\x1bAvgPriceForCategoryResponse\x12\x1b\n" +
 	"\tavg_price\x18\x01 \x01(\x01R\bavgPrice2\x87\a\n" +
 	"\x0eServiceService\x12m\n" +
