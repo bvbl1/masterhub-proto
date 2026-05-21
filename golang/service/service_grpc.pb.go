@@ -19,13 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceService_CreateService_FullMethodName  = "/service.v1.ServiceService/CreateService"
-	ServiceService_GetService_FullMethodName     = "/service.v1.ServiceService/GetService"
-	ServiceService_ListServices_FullMethodName   = "/service.v1.ServiceService/ListServices"
-	ServiceService_UpdateService_FullMethodName  = "/service.v1.ServiceService/UpdateService"
-	ServiceService_DeleteService_FullMethodName  = "/service.v1.ServiceService/DeleteService"
-	ServiceService_ListMyServices_FullMethodName = "/service.v1.ServiceService/ListMyServices"
-	ServiceService_ListCities_FullMethodName     = "/service.v1.ServiceService/ListCities"
+	ServiceService_CreateService_FullMethodName       = "/service.v1.ServiceService/CreateService"
+	ServiceService_GetService_FullMethodName          = "/service.v1.ServiceService/GetService"
+	ServiceService_ListServices_FullMethodName        = "/service.v1.ServiceService/ListServices"
+	ServiceService_UpdateService_FullMethodName       = "/service.v1.ServiceService/UpdateService"
+	ServiceService_DeleteService_FullMethodName       = "/service.v1.ServiceService/DeleteService"
+	ServiceService_ListMyServices_FullMethodName      = "/service.v1.ServiceService/ListMyServices"
+	ServiceService_ListCities_FullMethodName          = "/service.v1.ServiceService/ListCities"
+	ServiceService_AvgPriceForCategory_FullMethodName = "/service.v1.ServiceService/AvgPriceForCategory"
 )
 
 // ServiceServiceClient is the client API for ServiceService service.
@@ -39,6 +40,7 @@ type ServiceServiceClient interface {
 	DeleteService(ctx context.Context, in *DeleteServiceRequest, opts ...grpc.CallOption) (*DeleteServiceResponse, error)
 	ListMyServices(ctx context.Context, in *ListMyServicesRequest, opts ...grpc.CallOption) (*ListServicesResponse, error)
 	ListCities(ctx context.Context, in *ListCitiesRequest, opts ...grpc.CallOption) (*ListCitiesResponse, error)
+	AvgPriceForCategory(ctx context.Context, in *AvgPriceForCategoryRequest, opts ...grpc.CallOption) (*AvgPriceForCategoryResponse, error)
 }
 
 type serviceServiceClient struct {
@@ -119,6 +121,16 @@ func (c *serviceServiceClient) ListCities(ctx context.Context, in *ListCitiesReq
 	return out, nil
 }
 
+func (c *serviceServiceClient) AvgPriceForCategory(ctx context.Context, in *AvgPriceForCategoryRequest, opts ...grpc.CallOption) (*AvgPriceForCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AvgPriceForCategoryResponse)
+	err := c.cc.Invoke(ctx, ServiceService_AvgPriceForCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServiceServer is the server API for ServiceService service.
 // All implementations must embed UnimplementedServiceServiceServer
 // for forward compatibility.
@@ -130,6 +142,7 @@ type ServiceServiceServer interface {
 	DeleteService(context.Context, *DeleteServiceRequest) (*DeleteServiceResponse, error)
 	ListMyServices(context.Context, *ListMyServicesRequest) (*ListServicesResponse, error)
 	ListCities(context.Context, *ListCitiesRequest) (*ListCitiesResponse, error)
+	AvgPriceForCategory(context.Context, *AvgPriceForCategoryRequest) (*AvgPriceForCategoryResponse, error)
 	mustEmbedUnimplementedServiceServiceServer()
 }
 
@@ -160,6 +173,9 @@ func (UnimplementedServiceServiceServer) ListMyServices(context.Context, *ListMy
 }
 func (UnimplementedServiceServiceServer) ListCities(context.Context, *ListCitiesRequest) (*ListCitiesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListCities not implemented")
+}
+func (UnimplementedServiceServiceServer) AvgPriceForCategory(context.Context, *AvgPriceForCategoryRequest) (*AvgPriceForCategoryResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method AvgPriceForCategory not implemented")
 }
 func (UnimplementedServiceServiceServer) mustEmbedUnimplementedServiceServiceServer() {}
 func (UnimplementedServiceServiceServer) testEmbeddedByValue()                        {}
@@ -308,6 +324,24 @@ func _ServiceService_ListCities_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceService_AvgPriceForCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AvgPriceForCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServiceServer).AvgPriceForCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceService_AvgPriceForCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServiceServer).AvgPriceForCategory(ctx, req.(*AvgPriceForCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceService_ServiceDesc is the grpc.ServiceDesc for ServiceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +376,10 @@ var ServiceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListCities",
 			Handler:    _ServiceService_ListCities_Handler,
+		},
+		{
+			MethodName: "AvgPriceForCategory",
+			Handler:    _ServiceService_AvgPriceForCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

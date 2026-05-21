@@ -790,6 +790,86 @@ func (x *ListCitiesResponse) GetCities() []string {
 	return nil
 }
 
+type AvgPriceForCategoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AvgPriceForCategoryRequest) Reset() {
+	*x = AvgPriceForCategoryRequest{}
+	mi := &file_service_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AvgPriceForCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AvgPriceForCategoryRequest) ProtoMessage() {}
+
+func (x *AvgPriceForCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AvgPriceForCategoryRequest.ProtoReflect.Descriptor instead.
+func (*AvgPriceForCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{14}
+}
+
+type AvgPriceForCategoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AvgPrice      float64                `protobuf:"fixed64,1,opt,name=avg_price,json=avgPrice,proto3" json:"avg_price,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AvgPriceForCategoryResponse) Reset() {
+	*x = AvgPriceForCategoryResponse{}
+	mi := &file_service_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AvgPriceForCategoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AvgPriceForCategoryResponse) ProtoMessage() {}
+
+func (x *AvgPriceForCategoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AvgPriceForCategoryResponse.ProtoReflect.Descriptor instead.
+func (*AvgPriceForCategoryResponse) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *AvgPriceForCategoryResponse) GetAvgPrice() float64 {
+	if x != nil {
+		return x.AvgPrice
+	}
+	return 0
+}
+
 var File_service_proto protoreflect.FileDescriptor
 
 const file_service_proto_rawDesc = "" +
@@ -853,7 +933,10 @@ const file_service_proto_rawDesc = "" +
 	"\x15ListMyServicesRequest\"\x13\n" +
 	"\x11ListCitiesRequest\",\n" +
 	"\x12ListCitiesResponse\x12\x16\n" +
-	"\x06cities\x18\x01 \x03(\tR\x06cities2\x89\x06\n" +
+	"\x06cities\x18\x01 \x03(\tR\x06cities\"\x1c\n" +
+	"\x1aAvgPriceForCategoryRequest\":\n" +
+	"\x1bAvgPriceForCategoryResponse\x12\x1b\n" +
+	"\tavg_price\x18\x01 \x01(\x01R\bavgPrice2\x87\a\n" +
 	"\x0eServiceService\x12m\n" +
 	"\rCreateService\x12 .service.v1.CreateServiceRequest\x1a!.service.v1.CreateServiceResponse\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/v1/services\x12f\n" +
 	"\n" +
@@ -863,7 +946,8 @@ const file_service_proto_rawDesc = "" +
 	"\rDeleteService\x12 .service.v1.DeleteServiceRequest\x1a!.service.v1.DeleteServiceResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/services/{id}\x12m\n" +
 	"\x0eListMyServices\x12!.service.v1.ListMyServicesRequest\x1a .service.v1.ListServicesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/myservices\x12c\n" +
 	"\n" +
-	"ListCities\x12\x1d.service.v1.ListCitiesRequest\x1a\x1e.service.v1.ListCitiesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/listcitiesB;Z9github.com/bvbl1/masterhub-proto/golang/service;servicepbb\x06proto3"
+	"ListCities\x12\x1d.service.v1.ListCitiesRequest\x1a\x1e.service.v1.ListCitiesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/listcities\x12|\n" +
+	"\x13AvgPriceForCategory\x12&.service.v1.AvgPriceForCategoryRequest\x1a'.service.v1.AvgPriceForCategoryResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/avgpriceB;Z9github.com/bvbl1/masterhub-proto/golang/service;servicepbb\x06proto3"
 
 var (
 	file_service_proto_rawDescOnce sync.Once
@@ -877,22 +961,24 @@ func file_service_proto_rawDescGZIP() []byte {
 	return file_service_proto_rawDescData
 }
 
-var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_service_proto_goTypes = []any{
-	(*Service)(nil),               // 0: service.v1.Service
-	(*CreateServiceRequest)(nil),  // 1: service.v1.CreateServiceRequest
-	(*CreateServiceResponse)(nil), // 2: service.v1.CreateServiceResponse
-	(*GetServiceRequest)(nil),     // 3: service.v1.GetServiceRequest
-	(*GetServiceResponse)(nil),    // 4: service.v1.GetServiceResponse
-	(*ListServicesRequest)(nil),   // 5: service.v1.ListServicesRequest
-	(*ListServicesResponse)(nil),  // 6: service.v1.ListServicesResponse
-	(*UpdateServiceRequest)(nil),  // 7: service.v1.UpdateServiceRequest
-	(*UpdateServiceResponse)(nil), // 8: service.v1.UpdateServiceResponse
-	(*DeleteServiceRequest)(nil),  // 9: service.v1.DeleteServiceRequest
-	(*DeleteServiceResponse)(nil), // 10: service.v1.DeleteServiceResponse
-	(*ListMyServicesRequest)(nil), // 11: service.v1.ListMyServicesRequest
-	(*ListCitiesRequest)(nil),     // 12: service.v1.ListCitiesRequest
-	(*ListCitiesResponse)(nil),    // 13: service.v1.ListCitiesResponse
+	(*Service)(nil),                     // 0: service.v1.Service
+	(*CreateServiceRequest)(nil),        // 1: service.v1.CreateServiceRequest
+	(*CreateServiceResponse)(nil),       // 2: service.v1.CreateServiceResponse
+	(*GetServiceRequest)(nil),           // 3: service.v1.GetServiceRequest
+	(*GetServiceResponse)(nil),          // 4: service.v1.GetServiceResponse
+	(*ListServicesRequest)(nil),         // 5: service.v1.ListServicesRequest
+	(*ListServicesResponse)(nil),        // 6: service.v1.ListServicesResponse
+	(*UpdateServiceRequest)(nil),        // 7: service.v1.UpdateServiceRequest
+	(*UpdateServiceResponse)(nil),       // 8: service.v1.UpdateServiceResponse
+	(*DeleteServiceRequest)(nil),        // 9: service.v1.DeleteServiceRequest
+	(*DeleteServiceResponse)(nil),       // 10: service.v1.DeleteServiceResponse
+	(*ListMyServicesRequest)(nil),       // 11: service.v1.ListMyServicesRequest
+	(*ListCitiesRequest)(nil),           // 12: service.v1.ListCitiesRequest
+	(*ListCitiesResponse)(nil),          // 13: service.v1.ListCitiesResponse
+	(*AvgPriceForCategoryRequest)(nil),  // 14: service.v1.AvgPriceForCategoryRequest
+	(*AvgPriceForCategoryResponse)(nil), // 15: service.v1.AvgPriceForCategoryResponse
 }
 var file_service_proto_depIdxs = []int32{
 	0,  // 0: service.v1.CreateServiceResponse.service:type_name -> service.v1.Service
@@ -906,15 +992,17 @@ var file_service_proto_depIdxs = []int32{
 	9,  // 8: service.v1.ServiceService.DeleteService:input_type -> service.v1.DeleteServiceRequest
 	11, // 9: service.v1.ServiceService.ListMyServices:input_type -> service.v1.ListMyServicesRequest
 	12, // 10: service.v1.ServiceService.ListCities:input_type -> service.v1.ListCitiesRequest
-	2,  // 11: service.v1.ServiceService.CreateService:output_type -> service.v1.CreateServiceResponse
-	4,  // 12: service.v1.ServiceService.GetService:output_type -> service.v1.GetServiceResponse
-	6,  // 13: service.v1.ServiceService.ListServices:output_type -> service.v1.ListServicesResponse
-	8,  // 14: service.v1.ServiceService.UpdateService:output_type -> service.v1.UpdateServiceResponse
-	10, // 15: service.v1.ServiceService.DeleteService:output_type -> service.v1.DeleteServiceResponse
-	6,  // 16: service.v1.ServiceService.ListMyServices:output_type -> service.v1.ListServicesResponse
-	13, // 17: service.v1.ServiceService.ListCities:output_type -> service.v1.ListCitiesResponse
-	11, // [11:18] is the sub-list for method output_type
-	4,  // [4:11] is the sub-list for method input_type
+	14, // 11: service.v1.ServiceService.AvgPriceForCategory:input_type -> service.v1.AvgPriceForCategoryRequest
+	2,  // 12: service.v1.ServiceService.CreateService:output_type -> service.v1.CreateServiceResponse
+	4,  // 13: service.v1.ServiceService.GetService:output_type -> service.v1.GetServiceResponse
+	6,  // 14: service.v1.ServiceService.ListServices:output_type -> service.v1.ListServicesResponse
+	8,  // 15: service.v1.ServiceService.UpdateService:output_type -> service.v1.UpdateServiceResponse
+	10, // 16: service.v1.ServiceService.DeleteService:output_type -> service.v1.DeleteServiceResponse
+	6,  // 17: service.v1.ServiceService.ListMyServices:output_type -> service.v1.ListServicesResponse
+	13, // 18: service.v1.ServiceService.ListCities:output_type -> service.v1.ListCitiesResponse
+	15, // 19: service.v1.ServiceService.AvgPriceForCategory:output_type -> service.v1.AvgPriceForCategoryResponse
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -931,7 +1019,7 @@ func file_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_proto_rawDesc), len(file_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

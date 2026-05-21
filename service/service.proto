@@ -51,6 +51,12 @@ service ServiceService {
       get: "/v1/listcities"
     };
   }
+
+  rpc AvgPriceForCategory (AvgPriceForCategoryRequest) returns (AvgPriceForCategoryResponse){
+    option (google.api.http) = {
+      get: "/v1/avgprice"
+    };
+  }
 }
 
 /* -------- MESSAGES -------- */
@@ -138,4 +144,11 @@ message ListCitiesRequest{
 
 message ListCitiesResponse {
   repeated string cities = 1;
+}
+
+message AvgPriceForCategoryRequest {
+}
+
+message AvgPriceForCategoryResponse{
+  double avg_price = 1;
 }
