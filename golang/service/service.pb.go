@@ -710,6 +710,86 @@ func (*ListMyServicesRequest) Descriptor() ([]byte, []int) {
 	return file_service_proto_rawDescGZIP(), []int{11}
 }
 
+type ListCitiesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCitiesRequest) Reset() {
+	*x = ListCitiesRequest{}
+	mi := &file_service_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCitiesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCitiesRequest) ProtoMessage() {}
+
+func (x *ListCitiesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCitiesRequest.ProtoReflect.Descriptor instead.
+func (*ListCitiesRequest) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{12}
+}
+
+type ListCitiesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Cities        []string               `protobuf:"bytes,1,rep,name=cities,proto3" json:"cities,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCitiesResponse) Reset() {
+	*x = ListCitiesResponse{}
+	mi := &file_service_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCitiesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCitiesResponse) ProtoMessage() {}
+
+func (x *ListCitiesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_service_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCitiesResponse.ProtoReflect.Descriptor instead.
+func (*ListCitiesResponse) Descriptor() ([]byte, []int) {
+	return file_service_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ListCitiesResponse) GetCities() []string {
+	if x != nil {
+		return x.Cities
+	}
+	return nil
+}
+
 var File_service_proto protoreflect.FileDescriptor
 
 const file_service_proto_rawDesc = "" +
@@ -770,7 +850,10 @@ const file_service_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"1\n" +
 	"\x15DeleteServiceResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x17\n" +
-	"\x15ListMyServicesRequest2\xa4\x05\n" +
+	"\x15ListMyServicesRequest\"\x13\n" +
+	"\x11ListCitiesRequest\",\n" +
+	"\x12ListCitiesResponse\x12\x16\n" +
+	"\x06cities\x18\x01 \x03(\tR\x06cities2\x89\x06\n" +
 	"\x0eServiceService\x12m\n" +
 	"\rCreateService\x12 .service.v1.CreateServiceRequest\x1a!.service.v1.CreateServiceResponse\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/v1/services\x12f\n" +
 	"\n" +
@@ -778,7 +861,9 @@ const file_service_proto_rawDesc = "" +
 	"\fListServices\x12\x1f.service.v1.ListServicesRequest\x1a .service.v1.ListServicesResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/services\x12r\n" +
 	"\rUpdateService\x12 .service.v1.UpdateServiceRequest\x1a!.service.v1.UpdateServiceResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\x1a\x11/v1/services/{id}\x12o\n" +
 	"\rDeleteService\x12 .service.v1.DeleteServiceRequest\x1a!.service.v1.DeleteServiceResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/services/{id}\x12m\n" +
-	"\x0eListMyServices\x12!.service.v1.ListMyServicesRequest\x1a .service.v1.ListServicesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/myservicesB;Z9github.com/bvbl1/masterhub-proto/golang/service;servicepbb\x06proto3"
+	"\x0eListMyServices\x12!.service.v1.ListMyServicesRequest\x1a .service.v1.ListServicesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/myservices\x12c\n" +
+	"\n" +
+	"ListCities\x12\x1d.service.v1.ListCitiesRequest\x1a\x1e.service.v1.ListCitiesResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/listcitiesB;Z9github.com/bvbl1/masterhub-proto/golang/service;servicepbb\x06proto3"
 
 var (
 	file_service_proto_rawDescOnce sync.Once
@@ -792,7 +877,7 @@ func file_service_proto_rawDescGZIP() []byte {
 	return file_service_proto_rawDescData
 }
 
-var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_service_proto_goTypes = []any{
 	(*Service)(nil),               // 0: service.v1.Service
 	(*CreateServiceRequest)(nil),  // 1: service.v1.CreateServiceRequest
@@ -806,6 +891,8 @@ var file_service_proto_goTypes = []any{
 	(*DeleteServiceRequest)(nil),  // 9: service.v1.DeleteServiceRequest
 	(*DeleteServiceResponse)(nil), // 10: service.v1.DeleteServiceResponse
 	(*ListMyServicesRequest)(nil), // 11: service.v1.ListMyServicesRequest
+	(*ListCitiesRequest)(nil),     // 12: service.v1.ListCitiesRequest
+	(*ListCitiesResponse)(nil),    // 13: service.v1.ListCitiesResponse
 }
 var file_service_proto_depIdxs = []int32{
 	0,  // 0: service.v1.CreateServiceResponse.service:type_name -> service.v1.Service
@@ -818,14 +905,16 @@ var file_service_proto_depIdxs = []int32{
 	7,  // 7: service.v1.ServiceService.UpdateService:input_type -> service.v1.UpdateServiceRequest
 	9,  // 8: service.v1.ServiceService.DeleteService:input_type -> service.v1.DeleteServiceRequest
 	11, // 9: service.v1.ServiceService.ListMyServices:input_type -> service.v1.ListMyServicesRequest
-	2,  // 10: service.v1.ServiceService.CreateService:output_type -> service.v1.CreateServiceResponse
-	4,  // 11: service.v1.ServiceService.GetService:output_type -> service.v1.GetServiceResponse
-	6,  // 12: service.v1.ServiceService.ListServices:output_type -> service.v1.ListServicesResponse
-	8,  // 13: service.v1.ServiceService.UpdateService:output_type -> service.v1.UpdateServiceResponse
-	10, // 14: service.v1.ServiceService.DeleteService:output_type -> service.v1.DeleteServiceResponse
-	6,  // 15: service.v1.ServiceService.ListMyServices:output_type -> service.v1.ListServicesResponse
-	10, // [10:16] is the sub-list for method output_type
-	4,  // [4:10] is the sub-list for method input_type
+	12, // 10: service.v1.ServiceService.ListCities:input_type -> service.v1.ListCitiesRequest
+	2,  // 11: service.v1.ServiceService.CreateService:output_type -> service.v1.CreateServiceResponse
+	4,  // 12: service.v1.ServiceService.GetService:output_type -> service.v1.GetServiceResponse
+	6,  // 13: service.v1.ServiceService.ListServices:output_type -> service.v1.ListServicesResponse
+	8,  // 14: service.v1.ServiceService.UpdateService:output_type -> service.v1.UpdateServiceResponse
+	10, // 15: service.v1.ServiceService.DeleteService:output_type -> service.v1.DeleteServiceResponse
+	6,  // 16: service.v1.ServiceService.ListMyServices:output_type -> service.v1.ListServicesResponse
+	13, // 17: service.v1.ServiceService.ListCities:output_type -> service.v1.ListCitiesResponse
+	11, // [11:18] is the sub-list for method output_type
+	4,  // [4:11] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -842,7 +931,7 @@ func file_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_proto_rawDesc), len(file_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

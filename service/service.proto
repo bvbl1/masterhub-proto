@@ -45,6 +45,12 @@ service ServiceService {
       get: "/v1/myservices"
     };
   }
+
+  rpc ListCities (ListCitiesRequest) returns (ListCitiesResponse) {
+    option (google.api.http) = {
+      get: "/v1/listcities"
+    };
+  }
 }
 
 /* -------- MESSAGES -------- */
@@ -125,4 +131,11 @@ message DeleteServiceResponse {
 }
 
 message ListMyServicesRequest{
+}
+
+message ListCitiesRequest{
+}
+
+message ListCitiesResponse {
+  repeated string cities = 1;
 }

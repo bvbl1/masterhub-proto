@@ -25,6 +25,7 @@ const (
 	ServiceService_UpdateService_FullMethodName  = "/service.v1.ServiceService/UpdateService"
 	ServiceService_DeleteService_FullMethodName  = "/service.v1.ServiceService/DeleteService"
 	ServiceService_ListMyServices_FullMethodName = "/service.v1.ServiceService/ListMyServices"
+	ServiceService_ListCities_FullMethodName     = "/service.v1.ServiceService/ListCities"
 )
 
 // ServiceServiceClient is the client API for ServiceService service.
@@ -37,6 +38,7 @@ type ServiceServiceClient interface {
 	UpdateService(ctx context.Context, in *UpdateServiceRequest, opts ...grpc.CallOption) (*UpdateServiceResponse, error)
 	DeleteService(ctx context.Context, in *DeleteServiceRequest, opts ...grpc.CallOption) (*DeleteServiceResponse, error)
 	ListMyServices(ctx context.Context, in *ListMyServicesRequest, opts ...grpc.CallOption) (*ListServicesResponse, error)
+	ListCities(ctx context.Context, in *ListCitiesRequest, opts ...grpc.CallOption) (*ListCitiesResponse, error)
 }
 
 type serviceServiceClient struct {
@@ -107,6 +109,16 @@ func (c *serviceServiceClient) ListMyServices(ctx context.Context, in *ListMySer
 	return out, nil
 }
 
+func (c *serviceServiceClient) ListCities(ctx context.Context, in *ListCitiesRequest, opts ...grpc.CallOption) (*ListCitiesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListCitiesResponse)
+	err := c.cc.Invoke(ctx, ServiceService_ListCities_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServiceServer is the server API for ServiceService service.
 // All implementations must embed UnimplementedServiceServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type ServiceServiceServer interface {
 	UpdateService(context.Context, *UpdateServiceRequest) (*UpdateServiceResponse, error)
 	DeleteService(context.Context, *DeleteServiceRequest) (*DeleteServiceResponse, error)
 	ListMyServices(context.Context, *ListMyServicesRequest) (*ListServicesResponse, error)
+	ListCities(context.Context, *ListCitiesRequest) (*ListCitiesResponse, error)
 	mustEmbedUnimplementedServiceServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedServiceServiceServer) DeleteService(context.Context, *DeleteS
 }
 func (UnimplementedServiceServiceServer) ListMyServices(context.Context, *ListMyServicesRequest) (*ListServicesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListMyServices not implemented")
+}
+func (UnimplementedServiceServiceServer) ListCities(context.Context, *ListCitiesRequest) (*ListCitiesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListCities not implemented")
 }
 func (UnimplementedServiceServiceServer) mustEmbedUnimplementedServiceServiceServer() {}
 func (UnimplementedServiceServiceServer) testEmbeddedByValue()                        {}
@@ -274,6 +290,24 @@ func _ServiceService_ListMyServices_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceService_ListCities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServiceServer).ListCities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceService_ListCities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServiceServer).ListCities(ctx, req.(*ListCitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceService_ServiceDesc is the grpc.ServiceDesc for ServiceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var ServiceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMyServices",
 			Handler:    _ServiceService_ListMyServices_Handler,
+		},
+		{
+			MethodName: "ListCities",
+			Handler:    _ServiceService_ListCities_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
