@@ -36,6 +36,12 @@ service ReviewService {
       get: "/v1/reviews/provider/{provider_id}"
     };
   }
+
+  rpc HasReview(HasReviewRequest) returns (HasReviewResponse) {
+    option (google.api.http) = {
+      get: "/v1/reviews/{order_id}/has-review"
+    };
+  }
 }
 
 /* -------- DOMAIN -------- */
@@ -91,4 +97,12 @@ message ListReviewsByProviderRequest {
 message ListReviewsResponse {
   repeated Review reviews    = 1;
   double          avg_rating = 2;
+}
+
+message HasReviewRequest {
+  int64 order_id = 1;
+}
+
+message HasReviewResponse {
+  bool is_reviewed = 1; 
 }

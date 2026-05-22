@@ -207,6 +207,45 @@ func local_request_ReviewService_ListReviewsByProvider_0(ctx context.Context, ma
 	return msg, metadata, err
 }
 
+func request_ReviewService_HasReview_0(ctx context.Context, marshaler runtime.Marshaler, client ReviewServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq HasReviewRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	val, ok := pathParams["order_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "order_id")
+	}
+	protoReq.OrderId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "order_id", err)
+	}
+	msg, err := client.HasReview(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_ReviewService_HasReview_0(ctx context.Context, marshaler runtime.Marshaler, server ReviewServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq HasReviewRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["order_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "order_id")
+	}
+	protoReq.OrderId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "order_id", err)
+	}
+	msg, err := server.HasReview(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 // RegisterReviewServiceHandlerServer registers the http handlers for service ReviewService to "mux".
 // UnaryRPC     :call ReviewServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -292,6 +331,26 @@ func RegisterReviewServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 			return
 		}
 		forward_ReviewService_ListReviewsByProvider_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_ReviewService_HasReview_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/review.v1.ReviewService/HasReview", runtime.WithHTTPPathPattern("/v1/reviews/{order_id}/has-review"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ReviewService_HasReview_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_ReviewService_HasReview_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -401,6 +460,23 @@ func RegisterReviewServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		}
 		forward_ReviewService_ListReviewsByProvider_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodGet, pattern_ReviewService_HasReview_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/review.v1.ReviewService/HasReview", runtime.WithHTTPPathPattern("/v1/reviews/{order_id}/has-review"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ReviewService_HasReview_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_ReviewService_HasReview_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	return nil
 }
 
@@ -409,6 +485,7 @@ var (
 	pattern_ReviewService_GetReview_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "reviews", "id"}, ""))
 	pattern_ReviewService_ListReviewsByService_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "reviews", "service", "service_id"}, ""))
 	pattern_ReviewService_ListReviewsByProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "reviews", "provider", "provider_id"}, ""))
+	pattern_ReviewService_HasReview_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "reviews", "order_id", "has-review"}, ""))
 )
 
 var (
@@ -416,4 +493,5 @@ var (
 	forward_ReviewService_GetReview_0             = runtime.ForwardResponseMessage
 	forward_ReviewService_ListReviewsByService_0  = runtime.ForwardResponseMessage
 	forward_ReviewService_ListReviewsByProvider_0 = runtime.ForwardResponseMessage
+	forward_ReviewService_HasReview_0             = runtime.ForwardResponseMessage
 )

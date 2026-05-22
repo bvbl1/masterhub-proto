@@ -23,6 +23,7 @@ const (
 	ReviewService_GetReview_FullMethodName             = "/review.v1.ReviewService/GetReview"
 	ReviewService_ListReviewsByService_FullMethodName  = "/review.v1.ReviewService/ListReviewsByService"
 	ReviewService_ListReviewsByProvider_FullMethodName = "/review.v1.ReviewService/ListReviewsByProvider"
+	ReviewService_HasReview_FullMethodName             = "/review.v1.ReviewService/HasReview"
 )
 
 // ReviewServiceClient is the client API for ReviewService service.
@@ -37,6 +38,7 @@ type ReviewServiceClient interface {
 	ListReviewsByService(ctx context.Context, in *ListReviewsByServiceRequest, opts ...grpc.CallOption) (*ListReviewsResponse, error)
 	// List reviews for a specific provider (across all their services)
 	ListReviewsByProvider(ctx context.Context, in *ListReviewsByProviderRequest, opts ...grpc.CallOption) (*ListReviewsResponse, error)
+	HasReview(ctx context.Context, in *HasReviewRequest, opts ...grpc.CallOption) (*HasReviewResponse, error)
 }
 
 type reviewServiceClient struct {
@@ -87,6 +89,16 @@ func (c *reviewServiceClient) ListReviewsByProvider(ctx context.Context, in *Lis
 	return out, nil
 }
 
+func (c *reviewServiceClient) HasReview(ctx context.Context, in *HasReviewRequest, opts ...grpc.CallOption) (*HasReviewResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HasReviewResponse)
+	err := c.cc.Invoke(ctx, ReviewService_HasReview_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReviewServiceServer is the server API for ReviewService service.
 // All implementations must embed UnimplementedReviewServiceServer
 // for forward compatibility.
@@ -99,6 +111,7 @@ type ReviewServiceServer interface {
 	ListReviewsByService(context.Context, *ListReviewsByServiceRequest) (*ListReviewsResponse, error)
 	// List reviews for a specific provider (across all their services)
 	ListReviewsByProvider(context.Context, *ListReviewsByProviderRequest) (*ListReviewsResponse, error)
+	HasReview(context.Context, *HasReviewRequest) (*HasReviewResponse, error)
 	mustEmbedUnimplementedReviewServiceServer()
 }
 
@@ -120,6 +133,9 @@ func (UnimplementedReviewServiceServer) ListReviewsByService(context.Context, *L
 }
 func (UnimplementedReviewServiceServer) ListReviewsByProvider(context.Context, *ListReviewsByProviderRequest) (*ListReviewsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListReviewsByProvider not implemented")
+}
+func (UnimplementedReviewServiceServer) HasReview(context.Context, *HasReviewRequest) (*HasReviewResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method HasReview not implemented")
 }
 func (UnimplementedReviewServiceServer) mustEmbedUnimplementedReviewServiceServer() {}
 func (UnimplementedReviewServiceServer) testEmbeddedByValue()                       {}
@@ -214,6 +230,24 @@ func _ReviewService_ListReviewsByProvider_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReviewService_HasReview_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HasReviewRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).HasReview(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReviewService_HasReview_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).HasReview(ctx, req.(*HasReviewRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReviewService_ServiceDesc is the grpc.ServiceDesc for ReviewService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -236,6 +270,10 @@ var ReviewService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListReviewsByProvider",
 			Handler:    _ReviewService_ListReviewsByProvider_Handler,
+		},
+		{
+			MethodName: "HasReview",
+			Handler:    _ReviewService_HasReview_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
