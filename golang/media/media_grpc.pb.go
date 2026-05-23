@@ -26,6 +26,7 @@ const (
 	MediaService_GetMyMedia_FullMethodName      = "/media.v1.MediaService/GetMyMedia"
 	MediaService_DeleteMedia_FullMethodName     = "/media.v1.MediaService/DeleteMedia"
 	MediaService_DeleteManyMedia_FullMethodName = "/media.v1.MediaService/DeleteManyMedia"
+	MediaService_GetPresignedURL_FullMethodName = "/media.v1.MediaService/GetPresignedURL"
 )
 
 // MediaServiceClient is the client API for MediaService service.
@@ -47,6 +48,7 @@ type MediaServiceClient interface {
 	DeleteMedia(ctx context.Context, in *DeleteMediaRequest, opts ...grpc.CallOption) (*DeleteMediaResponse, error)
 	// Batch delete — when a service listing or review is deleted
 	DeleteManyMedia(ctx context.Context, in *DeleteManyMediaRequest, opts ...grpc.CallOption) (*DeleteManyMediaResponse, error)
+	GetPresignedURL(ctx context.Context, in *GetPresignedURLRequest, opts ...grpc.CallOption) (*GetPresignedURLResponse, error)
 }
 
 type mediaServiceClient struct {
@@ -127,6 +129,16 @@ func (c *mediaServiceClient) DeleteManyMedia(ctx context.Context, in *DeleteMany
 	return out, nil
 }
 
+func (c *mediaServiceClient) GetPresignedURL(ctx context.Context, in *GetPresignedURLRequest, opts ...grpc.CallOption) (*GetPresignedURLResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetPresignedURLResponse)
+	err := c.cc.Invoke(ctx, MediaService_GetPresignedURL_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MediaServiceServer is the server API for MediaService service.
 // All implementations must embed UnimplementedMediaServiceServer
 // for forward compatibility.
@@ -146,6 +158,7 @@ type MediaServiceServer interface {
 	DeleteMedia(context.Context, *DeleteMediaRequest) (*DeleteMediaResponse, error)
 	// Batch delete — when a service listing or review is deleted
 	DeleteManyMedia(context.Context, *DeleteManyMediaRequest) (*DeleteManyMediaResponse, error)
+	GetPresignedURL(context.Context, *GetPresignedURLRequest) (*GetPresignedURLResponse, error)
 	mustEmbedUnimplementedMediaServiceServer()
 }
 
@@ -176,6 +189,9 @@ func (UnimplementedMediaServiceServer) DeleteMedia(context.Context, *DeleteMedia
 }
 func (UnimplementedMediaServiceServer) DeleteManyMedia(context.Context, *DeleteManyMediaRequest) (*DeleteManyMediaResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteManyMedia not implemented")
+}
+func (UnimplementedMediaServiceServer) GetPresignedURL(context.Context, *GetPresignedURLRequest) (*GetPresignedURLResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetPresignedURL not implemented")
 }
 func (UnimplementedMediaServiceServer) mustEmbedUnimplementedMediaServiceServer() {}
 func (UnimplementedMediaServiceServer) testEmbeddedByValue()                      {}
@@ -324,6 +340,24 @@ func _MediaService_DeleteManyMedia_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MediaService_GetPresignedURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPresignedURLRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).GetPresignedURL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_GetPresignedURL_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).GetPresignedURL(ctx, req.(*GetPresignedURLRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MediaService_ServiceDesc is the grpc.ServiceDesc for MediaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -358,6 +392,10 @@ var MediaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteManyMedia",
 			Handler:    _MediaService_DeleteManyMedia_Handler,
+		},
+		{
+			MethodName: "GetPresignedURL",
+			Handler:    _MediaService_GetPresignedURL_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -59,6 +59,12 @@ service MediaService {
       delete: "/v1/media/batch"
     };
   }
+
+  rpc GetPresignedURL(GetPresignedURLRequest) returns (GetPresignedURLResponse) {
+    option (google.api.http) = {
+      get: "/v1/media/{media_id}/presigned"
+    };
+  }
 }
 
 // ─── Core message ────────────────────────────────────────────────────────────
@@ -163,4 +169,12 @@ message DeleteManyMediaResponse {
   bool    success    = 1;
   int32   deleted    = 2; // how many were actually deleted
   repeated int64 failed_ids = 3; // IDs that failed — empty on full success
+}
+
+message GetPresignedURLRequest {
+  int64 media_id = 1;
+}
+
+message GetPresignedURLResponse {
+  string url = 1;
 }

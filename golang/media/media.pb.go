@@ -828,6 +828,94 @@ func (x *DeleteManyMediaResponse) GetFailedIds() []int64 {
 	return nil
 }
 
+type GetPresignedURLRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MediaId       int64                  `protobuf:"varint,1,opt,name=media_id,json=mediaId,proto3" json:"media_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPresignedURLRequest) Reset() {
+	*x = GetPresignedURLRequest{}
+	mi := &file_media_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPresignedURLRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPresignedURLRequest) ProtoMessage() {}
+
+func (x *GetPresignedURLRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_media_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPresignedURLRequest.ProtoReflect.Descriptor instead.
+func (*GetPresignedURLRequest) Descriptor() ([]byte, []int) {
+	return file_media_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetPresignedURLRequest) GetMediaId() int64 {
+	if x != nil {
+		return x.MediaId
+	}
+	return 0
+}
+
+type GetPresignedURLResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPresignedURLResponse) Reset() {
+	*x = GetPresignedURLResponse{}
+	mi := &file_media_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPresignedURLResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPresignedURLResponse) ProtoMessage() {}
+
+func (x *GetPresignedURLResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_media_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPresignedURLResponse.ProtoReflect.Descriptor instead.
+func (*GetPresignedURLResponse) Descriptor() ([]byte, []int) {
+	return file_media_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetPresignedURLResponse) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
 var File_media_proto protoreflect.FileDescriptor
 
 const file_media_proto_rawDesc = "" +
@@ -882,7 +970,11 @@ const file_media_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\adeleted\x18\x02 \x01(\x05R\adeleted\x12\x1d\n" +
 	"\n" +
-	"failed_ids\x18\x03 \x03(\x03R\tfailedIds2\xf2\x05\n" +
+	"failed_ids\x18\x03 \x03(\x03R\tfailedIds\"3\n" +
+	"\x16GetPresignedURLRequest\x12\x19\n" +
+	"\bmedia_id\x18\x01 \x01(\x03R\amediaId\"+\n" +
+	"\x17GetPresignedURLResponse\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url2\xf2\x06\n" +
 	"\fMediaService\x12g\n" +
 	"\vUploadMedia\x12\x1c.media.v1.UploadMediaRequest\x1a\x1d.media.v1.UploadMediaResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/media/upload\x12y\n" +
 	"\x0fUploadManyMedia\x12 .media.v1.UploadManyMediaRequest\x1a!.media.v1.UploadManyMediaResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/v1/media/upload/batch\x12_\n" +
@@ -891,7 +983,8 @@ const file_media_proto_rawDesc = "" +
 	"\n" +
 	"GetMyMedia\x12\x1b.media.v1.GetMyMediaRequest\x1a\x1c.media.v1.GetMyMediaResponse\"\x11\x82\xd3\xe4\x93\x02\v\x12\t/v1/media\x12h\n" +
 	"\vDeleteMedia\x12\x1c.media.v1.DeleteMediaRequest\x1a\x1d.media.v1.DeleteMediaResponse\"\x1c\x82\xd3\xe4\x93\x02\x16*\x14/v1/media/{media_id}\x12o\n" +
-	"\x0fDeleteManyMedia\x12 .media.v1.DeleteManyMediaRequest\x1a!.media.v1.DeleteManyMediaResponse\"\x17\x82\xd3\xe4\x93\x02\x11*\x0f/v1/media/batchB7Z5github.com/bvbl1/masterhub-proto/golang/media;mediapbb\x06proto3"
+	"\x0fDeleteManyMedia\x12 .media.v1.DeleteManyMediaRequest\x1a!.media.v1.DeleteManyMediaResponse\"\x17\x82\xd3\xe4\x93\x02\x11*\x0f/v1/media/batch\x12~\n" +
+	"\x0fGetPresignedURL\x12 .media.v1.GetPresignedURLRequest\x1a!.media.v1.GetPresignedURLResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/v1/media/{media_id}/presignedB7Z5github.com/bvbl1/masterhub-proto/golang/media;mediapbb\x06proto3"
 
 var (
 	file_media_proto_rawDescOnce sync.Once
@@ -905,7 +998,7 @@ func file_media_proto_rawDescGZIP() []byte {
 	return file_media_proto_rawDescData
 }
 
-var file_media_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_media_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_media_proto_goTypes = []any{
 	(*MediaItem)(nil),               // 0: media.v1.MediaItem
 	(*UploadMediaRequest)(nil),      // 1: media.v1.UploadMediaRequest
@@ -923,6 +1016,8 @@ var file_media_proto_goTypes = []any{
 	(*DeleteMediaResponse)(nil),     // 13: media.v1.DeleteMediaResponse
 	(*DeleteManyMediaRequest)(nil),  // 14: media.v1.DeleteManyMediaRequest
 	(*DeleteManyMediaResponse)(nil), // 15: media.v1.DeleteManyMediaResponse
+	(*GetPresignedURLRequest)(nil),  // 16: media.v1.GetPresignedURLRequest
+	(*GetPresignedURLResponse)(nil), // 17: media.v1.GetPresignedURLResponse
 }
 var file_media_proto_depIdxs = []int32{
 	0,  // 0: media.v1.UploadMediaResponse.media:type_name -> media.v1.MediaItem
@@ -938,15 +1033,17 @@ var file_media_proto_depIdxs = []int32{
 	10, // 10: media.v1.MediaService.GetMyMedia:input_type -> media.v1.GetMyMediaRequest
 	12, // 11: media.v1.MediaService.DeleteMedia:input_type -> media.v1.DeleteMediaRequest
 	14, // 12: media.v1.MediaService.DeleteManyMedia:input_type -> media.v1.DeleteManyMediaRequest
-	2,  // 13: media.v1.MediaService.UploadMedia:output_type -> media.v1.UploadMediaResponse
-	5,  // 14: media.v1.MediaService.UploadManyMedia:output_type -> media.v1.UploadManyMediaResponse
-	7,  // 15: media.v1.MediaService.GetMedia:output_type -> media.v1.GetMediaResponse
-	9,  // 16: media.v1.MediaService.GetManyMedia:output_type -> media.v1.GetManyMediaResponse
-	11, // 17: media.v1.MediaService.GetMyMedia:output_type -> media.v1.GetMyMediaResponse
-	13, // 18: media.v1.MediaService.DeleteMedia:output_type -> media.v1.DeleteMediaResponse
-	15, // 19: media.v1.MediaService.DeleteManyMedia:output_type -> media.v1.DeleteManyMediaResponse
-	13, // [13:20] is the sub-list for method output_type
-	6,  // [6:13] is the sub-list for method input_type
+	16, // 13: media.v1.MediaService.GetPresignedURL:input_type -> media.v1.GetPresignedURLRequest
+	2,  // 14: media.v1.MediaService.UploadMedia:output_type -> media.v1.UploadMediaResponse
+	5,  // 15: media.v1.MediaService.UploadManyMedia:output_type -> media.v1.UploadManyMediaResponse
+	7,  // 16: media.v1.MediaService.GetMedia:output_type -> media.v1.GetMediaResponse
+	9,  // 17: media.v1.MediaService.GetManyMedia:output_type -> media.v1.GetManyMediaResponse
+	11, // 18: media.v1.MediaService.GetMyMedia:output_type -> media.v1.GetMyMediaResponse
+	13, // 19: media.v1.MediaService.DeleteMedia:output_type -> media.v1.DeleteMediaResponse
+	15, // 20: media.v1.MediaService.DeleteManyMedia:output_type -> media.v1.DeleteManyMediaResponse
+	17, // 21: media.v1.MediaService.GetPresignedURL:output_type -> media.v1.GetPresignedURLResponse
+	14, // [14:22] is the sub-list for method output_type
+	6,  // [6:14] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
 	6,  // [6:6] is the sub-list for extension extendee
 	0,  // [0:6] is the sub-list for field type_name
@@ -963,7 +1060,7 @@ func file_media_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_media_proto_rawDesc), len(file_media_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
