@@ -19,17 +19,23 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PaymentService_Charge_FullMethodName     = "/payment.v1.PaymentService/Charge"
-	PaymentService_GetPayment_FullMethodName = "/payment.v1.PaymentService/GetPayment"
+	PaymentService_InitiatePayment_FullMethodName = "/payment.v1.PaymentService/InitiatePayment"
+	PaymentService_ConfirmPayment_FullMethodName  = "/payment.v1.PaymentService/ConfirmPayment"
+	PaymentService_GetPayment_FullMethodName      = "/payment.v1.PaymentService/GetPayment"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PaymentServiceClient interface {
-	// called by order-service internally
-	Charge(ctx context.Context, in *ChargeRequest, opts ...grpc.CallOption) (*ChargeResponse, error)
-	// called by frontend via gateway
+	// InitiatePayment — вызывается фронтом через gateway.
+	// Создаёт PaymentIntent в Stripe, возвращает client_secret для Stripe.js.
+	InitiatePayment(ctx context.Context, in *InitiatePaymentRequest, opts ...grpc.CallOption) (*InitiatePaymentResponse, error)
+	// ConfirmPayment — вызывается ТОЛЬКО из webhook HTTP-обработчика внутри payment-service.
+	// Меняет статус на "paid" и сообщает order-service перевести заказ в in_progress.
+	// НЕ выставляется наружу через gateway (нет http annotation).
+	ConfirmPayment(ctx context.Context, in *ConfirmPaymentRequest, opts ...grpc.CallOption) (*ConfirmPaymentResponse, error)
+	// GetPayment — вызывается фронтом для отображения статуса оплаты.
 	GetPayment(ctx context.Context, in *GetPaymentRequest, opts ...grpc.CallOption) (*GetPaymentResponse, error)
 }
 
@@ -41,10 +47,20 @@ func NewPaymentServiceClient(cc grpc.ClientConnInterface) PaymentServiceClient {
 	return &paymentServiceClient{cc}
 }
 
-func (c *paymentServiceClient) Charge(ctx context.Context, in *ChargeRequest, opts ...grpc.CallOption) (*ChargeResponse, error) {
+func (c *paymentServiceClient) InitiatePayment(ctx context.Context, in *InitiatePaymentRequest, opts ...grpc.CallOption) (*InitiatePaymentResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ChargeResponse)
-	err := c.cc.Invoke(ctx, PaymentService_Charge_FullMethodName, in, out, cOpts...)
+	out := new(InitiatePaymentResponse)
+	err := c.cc.Invoke(ctx, PaymentService_InitiatePayment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentServiceClient) ConfirmPayment(ctx context.Context, in *ConfirmPaymentRequest, opts ...grpc.CallOption) (*ConfirmPaymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ConfirmPaymentResponse)
+	err := c.cc.Invoke(ctx, PaymentService_ConfirmPayment_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,9 +81,14 @@ func (c *paymentServiceClient) GetPayment(ctx context.Context, in *GetPaymentReq
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
 type PaymentServiceServer interface {
-	// called by order-service internally
-	Charge(context.Context, *ChargeRequest) (*ChargeResponse, error)
-	// called by frontend via gateway
+	// InitiatePayment — вызывается фронтом через gateway.
+	// Создаёт PaymentIntent в Stripe, возвращает client_secret для Stripe.js.
+	InitiatePayment(context.Context, *InitiatePaymentRequest) (*InitiatePaymentResponse, error)
+	// ConfirmPayment — вызывается ТОЛЬКО из webhook HTTP-обработчика внутри payment-service.
+	// Меняет статус на "paid" и сообщает order-service перевести заказ в in_progress.
+	// НЕ выставляется наружу через gateway (нет http annotation).
+	ConfirmPayment(context.Context, *ConfirmPaymentRequest) (*ConfirmPaymentResponse, error)
+	// GetPayment — вызывается фронтом для отображения статуса оплаты.
 	GetPayment(context.Context, *GetPaymentRequest) (*GetPaymentResponse, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
@@ -79,8 +100,11 @@ type PaymentServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPaymentServiceServer struct{}
 
-func (UnimplementedPaymentServiceServer) Charge(context.Context, *ChargeRequest) (*ChargeResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Charge not implemented")
+func (UnimplementedPaymentServiceServer) InitiatePayment(context.Context, *InitiatePaymentRequest) (*InitiatePaymentResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method InitiatePayment not implemented")
+}
+func (UnimplementedPaymentServiceServer) ConfirmPayment(context.Context, *ConfirmPaymentRequest) (*ConfirmPaymentResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ConfirmPayment not implemented")
 }
 func (UnimplementedPaymentServiceServer) GetPayment(context.Context, *GetPaymentRequest) (*GetPaymentResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPayment not implemented")
@@ -106,20 +130,38 @@ func RegisterPaymentServiceServer(s grpc.ServiceRegistrar, srv PaymentServiceSer
 	s.RegisterService(&PaymentService_ServiceDesc, srv)
 }
 
-func _PaymentService_Charge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChargeRequest)
+func _PaymentService_InitiatePayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InitiatePaymentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PaymentServiceServer).Charge(ctx, in)
+		return srv.(PaymentServiceServer).InitiatePayment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PaymentService_Charge_FullMethodName,
+		FullMethod: PaymentService_InitiatePayment_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServiceServer).Charge(ctx, req.(*ChargeRequest))
+		return srv.(PaymentServiceServer).InitiatePayment(ctx, req.(*InitiatePaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentService_ConfirmPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfirmPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).ConfirmPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_ConfirmPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).ConfirmPayment(ctx, req.(*ConfirmPaymentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -150,8 +192,12 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PaymentServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Charge",
-			Handler:    _PaymentService_Charge_Handler,
+			MethodName: "InitiatePayment",
+			Handler:    _PaymentService_InitiatePayment_Handler,
+		},
+		{
+			MethodName: "ConfirmPayment",
+			Handler:    _PaymentService_ConfirmPayment_Handler,
 		},
 		{
 			MethodName: "GetPayment",

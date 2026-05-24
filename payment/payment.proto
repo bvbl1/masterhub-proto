@@ -7,10 +7,22 @@ option go_package = "github.com/bvbl1/masterhub-proto/golang/payment;paymentpb";
 import "google/api/annotations.proto";
 
 service PaymentService {
-  // called by order-service internally
-  rpc Charge(ChargeRequest) returns (ChargeResponse);
 
-  // called by frontend via gateway
+  // InitiatePayment — вызывается фронтом через gateway.
+  // Создаёт PaymentIntent в Stripe, возвращает client_secret для Stripe.js.
+  rpc InitiatePayment(InitiatePaymentRequest) returns (InitiatePaymentResponse) {
+    option (google.api.http) = {
+      post: "/v1/payments"
+      body: "*"
+    };
+  }
+
+  // ConfirmPayment — вызывается ТОЛЬКО из webhook HTTP-обработчика внутри payment-service.
+  // Меняет статус на "paid" и сообщает order-service перевести заказ в in_progress.
+  // НЕ выставляется наружу через gateway (нет http annotation).
+  rpc ConfirmPayment(ConfirmPaymentRequest) returns (ConfirmPaymentResponse);
+
+  // GetPayment — вызывается фронтом для отображения статуса оплаты.
   rpc GetPayment(GetPaymentRequest) returns (GetPaymentResponse) {
     option (google.api.http) = {
       get: "/v1/payments/{order_id}"
@@ -18,30 +30,46 @@ service PaymentService {
   }
 }
 
+// --- Domain message ---
+
 message Payment {
   int64  id             = 1;
   int64  order_id       = 2;
   double amount         = 3;
-  string status         = 4;
-  string transaction_id = 5;
-  string created_at     = 6;
-  string updated_at     = 7;
+  string status         = 4; // unpaid | pending | paid | failed
+  string transaction_id = 5; // Stripe PaymentIntent ID: pi_3abc...
+  string client_secret  = 6; // pi_3abc..._secret_xyz — нужен фронту для Stripe.js
+  string created_at     = 7;
+  string updated_at     = 8;
 }
 
-// Charge — internal, called by order-service
-message ChargeRequest {
-  int64  order_id = 1;
-  double amount   = 2;
-  int64  user_id  = 3; // customer being charged
+// --- InitiatePayment ---
+
+message InitiatePaymentRequest {
+  int64  order_id = 1; // фронт передаёт order_id
+  // amount и user_id НЕ принимаем от клиента — берём из order-service по order_id
+  // (никогда не доверяй клиенту сумму!)
 }
 
-message ChargeResponse {
-  bool    success        = 1;
-  string  transaction_id = 2;
-  string  status         = 3;
+message InitiatePaymentResponse {
+  string client_secret   = 1; // передаётся в Stripe.js на фронте
+  string transaction_id  = 2; // PaymentIntent ID, для отображения
+  string status          = 3; // "pending"
 }
 
-// GetPayment
+// --- ConfirmPayment (internal) ---
+
+message ConfirmPaymentRequest {
+  string stripe_payment_intent_id = 1; // pi_3abc... из Stripe webhook события
+}
+
+message ConfirmPaymentResponse {
+  bool   success  = 1;
+  int64  order_id = 2; // чтобы вызвать order-service после подтверждения
+}
+
+// --- GetPayment ---
+
 message GetPaymentRequest {
   int64 order_id = 1;
 }
