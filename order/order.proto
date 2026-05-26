@@ -180,7 +180,7 @@ message PayOrderRequest {
 }
 
 message PayOrderResponse {
-  Order order = 1;
+  string client_secret = 1; // passed to Stripe.js on the frontend
 }
 
 // MarkComplete

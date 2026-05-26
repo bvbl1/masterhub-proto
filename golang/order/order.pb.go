@@ -807,7 +807,7 @@ func (x *PayOrderRequest) GetId() int64 {
 
 type PayOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Order         *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	ClientSecret  string                 `protobuf:"bytes,1,opt,name=client_secret,json=clientSecret,proto3" json:"client_secret,omitempty"` // passed to Stripe.js on the frontend
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -842,11 +842,11 @@ func (*PayOrderResponse) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *PayOrderResponse) GetOrder() *Order {
+func (x *PayOrderResponse) GetClientSecret() string {
 	if x != nil {
-		return x.Order
+		return x.ClientSecret
 	}
-	return nil
+	return ""
 }
 
 // MarkComplete
@@ -1742,9 +1742,9 @@ const file_order_proto_rawDesc = "" +
 	"\x13CancelOrderResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"!\n" +
 	"\x0fPayOrderRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"9\n" +
-	"\x10PayOrderResponse\x12%\n" +
-	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"%\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"7\n" +
+	"\x10PayOrderResponse\x12#\n" +
+	"\rclient_secret\x18\x01 \x01(\tR\fclientSecret\"%\n" +
 	"\x13MarkCompleteRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"=\n" +
 	"\x14MarkCompleteResponse\x12%\n" +
@@ -1868,48 +1868,47 @@ var file_order_proto_depIdxs = []int32{
 	0,  // 2: order.v1.ListOrdersResponse.orders:type_name -> order.v1.Order
 	0,  // 3: order.v1.AcceptOrderResponse.order:type_name -> order.v1.Order
 	0,  // 4: order.v1.RejectOrderResponse.order:type_name -> order.v1.Order
-	0,  // 5: order.v1.PayOrderResponse.order:type_name -> order.v1.Order
-	0,  // 6: order.v1.MarkCompleteResponse.order:type_name -> order.v1.Order
-	0,  // 7: order.v1.ConfirmCompleteResponse.order:type_name -> order.v1.Order
-	0,  // 8: order.v1.DisputeOrderResponse.order:type_name -> order.v1.Order
-	0,  // 9: order.v1.DisputedOrderProto.order:type_name -> order.v1.Order
-	21, // 10: order.v1.ListDisputedOrdersResponse.disputes:type_name -> order.v1.DisputedOrderProto
-	0,  // 11: order.v1.ResolveDisputeResponse.order:type_name -> order.v1.Order
-	0,  // 12: order.v1.UpdateOrderStatusResponse.order:type_name -> order.v1.Order
-	28, // 13: order.v1.GetAnalyticsResponse.by_status:type_name -> order.v1.OrderStatusCount
-	1,  // 14: order.v1.OrderService.CreateOrder:input_type -> order.v1.CreateOrderRequest
-	3,  // 15: order.v1.OrderService.GetOrder:input_type -> order.v1.GetOrderRequest
-	5,  // 16: order.v1.OrderService.ListOrders:input_type -> order.v1.ListOrdersRequest
-	7,  // 17: order.v1.OrderService.AcceptOrder:input_type -> order.v1.AcceptOrderRequest
-	9,  // 18: order.v1.OrderService.RejectOrder:input_type -> order.v1.RejectOrderRequest
-	11, // 19: order.v1.OrderService.CancelOrder:input_type -> order.v1.CancelOrderRequest
-	13, // 20: order.v1.OrderService.PayOrder:input_type -> order.v1.PayOrderRequest
-	15, // 21: order.v1.OrderService.MarkComplete:input_type -> order.v1.MarkCompleteRequest
-	17, // 22: order.v1.OrderService.ConfirmComplete:input_type -> order.v1.ConfirmCompleteRequest
-	19, // 23: order.v1.OrderService.DisputeOrder:input_type -> order.v1.DisputeOrderRequest
-	26, // 24: order.v1.OrderService.UpdateOrderStatus:input_type -> order.v1.UpdateOrderStatusRequest
-	22, // 25: order.v1.OrderService.ListDisputedOrders:input_type -> order.v1.ListDisputedOrdersRequest
-	24, // 26: order.v1.OrderService.ResolveDispute:input_type -> order.v1.ResolveDisputeRequest
-	29, // 27: order.v1.OrderService.GetAnalytics:input_type -> order.v1.GetAnalyticsRequest
-	2,  // 28: order.v1.OrderService.CreateOrder:output_type -> order.v1.CreateOrderResponse
-	4,  // 29: order.v1.OrderService.GetOrder:output_type -> order.v1.GetOrderResponse
-	6,  // 30: order.v1.OrderService.ListOrders:output_type -> order.v1.ListOrdersResponse
-	8,  // 31: order.v1.OrderService.AcceptOrder:output_type -> order.v1.AcceptOrderResponse
-	10, // 32: order.v1.OrderService.RejectOrder:output_type -> order.v1.RejectOrderResponse
-	12, // 33: order.v1.OrderService.CancelOrder:output_type -> order.v1.CancelOrderResponse
-	14, // 34: order.v1.OrderService.PayOrder:output_type -> order.v1.PayOrderResponse
-	16, // 35: order.v1.OrderService.MarkComplete:output_type -> order.v1.MarkCompleteResponse
-	18, // 36: order.v1.OrderService.ConfirmComplete:output_type -> order.v1.ConfirmCompleteResponse
-	20, // 37: order.v1.OrderService.DisputeOrder:output_type -> order.v1.DisputeOrderResponse
-	27, // 38: order.v1.OrderService.UpdateOrderStatus:output_type -> order.v1.UpdateOrderStatusResponse
-	23, // 39: order.v1.OrderService.ListDisputedOrders:output_type -> order.v1.ListDisputedOrdersResponse
-	25, // 40: order.v1.OrderService.ResolveDispute:output_type -> order.v1.ResolveDisputeResponse
-	30, // 41: order.v1.OrderService.GetAnalytics:output_type -> order.v1.GetAnalyticsResponse
-	28, // [28:42] is the sub-list for method output_type
-	14, // [14:28] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	0,  // 5: order.v1.MarkCompleteResponse.order:type_name -> order.v1.Order
+	0,  // 6: order.v1.ConfirmCompleteResponse.order:type_name -> order.v1.Order
+	0,  // 7: order.v1.DisputeOrderResponse.order:type_name -> order.v1.Order
+	0,  // 8: order.v1.DisputedOrderProto.order:type_name -> order.v1.Order
+	21, // 9: order.v1.ListDisputedOrdersResponse.disputes:type_name -> order.v1.DisputedOrderProto
+	0,  // 10: order.v1.ResolveDisputeResponse.order:type_name -> order.v1.Order
+	0,  // 11: order.v1.UpdateOrderStatusResponse.order:type_name -> order.v1.Order
+	28, // 12: order.v1.GetAnalyticsResponse.by_status:type_name -> order.v1.OrderStatusCount
+	1,  // 13: order.v1.OrderService.CreateOrder:input_type -> order.v1.CreateOrderRequest
+	3,  // 14: order.v1.OrderService.GetOrder:input_type -> order.v1.GetOrderRequest
+	5,  // 15: order.v1.OrderService.ListOrders:input_type -> order.v1.ListOrdersRequest
+	7,  // 16: order.v1.OrderService.AcceptOrder:input_type -> order.v1.AcceptOrderRequest
+	9,  // 17: order.v1.OrderService.RejectOrder:input_type -> order.v1.RejectOrderRequest
+	11, // 18: order.v1.OrderService.CancelOrder:input_type -> order.v1.CancelOrderRequest
+	13, // 19: order.v1.OrderService.PayOrder:input_type -> order.v1.PayOrderRequest
+	15, // 20: order.v1.OrderService.MarkComplete:input_type -> order.v1.MarkCompleteRequest
+	17, // 21: order.v1.OrderService.ConfirmComplete:input_type -> order.v1.ConfirmCompleteRequest
+	19, // 22: order.v1.OrderService.DisputeOrder:input_type -> order.v1.DisputeOrderRequest
+	26, // 23: order.v1.OrderService.UpdateOrderStatus:input_type -> order.v1.UpdateOrderStatusRequest
+	22, // 24: order.v1.OrderService.ListDisputedOrders:input_type -> order.v1.ListDisputedOrdersRequest
+	24, // 25: order.v1.OrderService.ResolveDispute:input_type -> order.v1.ResolveDisputeRequest
+	29, // 26: order.v1.OrderService.GetAnalytics:input_type -> order.v1.GetAnalyticsRequest
+	2,  // 27: order.v1.OrderService.CreateOrder:output_type -> order.v1.CreateOrderResponse
+	4,  // 28: order.v1.OrderService.GetOrder:output_type -> order.v1.GetOrderResponse
+	6,  // 29: order.v1.OrderService.ListOrders:output_type -> order.v1.ListOrdersResponse
+	8,  // 30: order.v1.OrderService.AcceptOrder:output_type -> order.v1.AcceptOrderResponse
+	10, // 31: order.v1.OrderService.RejectOrder:output_type -> order.v1.RejectOrderResponse
+	12, // 32: order.v1.OrderService.CancelOrder:output_type -> order.v1.CancelOrderResponse
+	14, // 33: order.v1.OrderService.PayOrder:output_type -> order.v1.PayOrderResponse
+	16, // 34: order.v1.OrderService.MarkComplete:output_type -> order.v1.MarkCompleteResponse
+	18, // 35: order.v1.OrderService.ConfirmComplete:output_type -> order.v1.ConfirmCompleteResponse
+	20, // 36: order.v1.OrderService.DisputeOrder:output_type -> order.v1.DisputeOrderResponse
+	27, // 37: order.v1.OrderService.UpdateOrderStatus:output_type -> order.v1.UpdateOrderStatusResponse
+	23, // 38: order.v1.OrderService.ListDisputedOrders:output_type -> order.v1.ListDisputedOrdersResponse
+	25, // 39: order.v1.OrderService.ResolveDispute:output_type -> order.v1.ResolveDisputeResponse
+	30, // 40: order.v1.OrderService.GetAnalytics:output_type -> order.v1.GetAnalyticsResponse
+	27, // [27:41] is the sub-list for method output_type
+	13, // [13:27] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_order_proto_init() }
