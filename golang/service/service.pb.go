@@ -459,16 +459,17 @@ func (x *ListServicesResponse) GetServices() []*Service {
 }
 
 type UpdateServiceRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	PriceStart    float64                `protobuf:"fixed64,4,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
-	IsActive      bool                   `protobuf:"varint,5,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	City          string                 `protobuf:"bytes,6,opt,name=city,proto3" json:"city,omitempty"`
-	PhotoUrls     []string               `protobuf:"bytes,7,rep,name=photo_urls,json=photoUrls,proto3" json:"photo_urls,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Id                int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title             string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Description       string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	PriceStart        float64                `protobuf:"fixed64,4,opt,name=price_start,json=priceStart,proto3" json:"price_start,omitempty"`
+	IsActive          bool                   `protobuf:"varint,5,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	City              string                 `protobuf:"bytes,6,opt,name=city,proto3" json:"city,omitempty"`
+	PhotoUrlsToAdd    []string               `protobuf:"bytes,7,rep,name=photo_urls_to_add,json=photoUrlsToAdd,proto3" json:"photo_urls_to_add,omitempty"`
+	PhotoUrlsToRemove []string               `protobuf:"bytes,8,rep,name=photo_urls_to_remove,json=photoUrlsToRemove,proto3" json:"photo_urls_to_remove,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *UpdateServiceRequest) Reset() {
@@ -543,9 +544,16 @@ func (x *UpdateServiceRequest) GetCity() string {
 	return ""
 }
 
-func (x *UpdateServiceRequest) GetPhotoUrls() []string {
+func (x *UpdateServiceRequest) GetPhotoUrlsToAdd() []string {
 	if x != nil {
-		return x.PhotoUrls
+		return x.PhotoUrlsToAdd
+	}
+	return nil
+}
+
+func (x *UpdateServiceRequest) GetPhotoUrlsToRemove() []string {
+	if x != nil {
+		return x.PhotoUrlsToRemove
 	}
 	return nil
 }
@@ -931,7 +939,7 @@ const file_service_proto_rawDesc = "" +
 	"onlyActive\x12\x12\n" +
 	"\x04city\x18\x04 \x01(\tR\x04city\"G\n" +
 	"\x14ListServicesResponse\x12/\n" +
-	"\bservices\x18\x01 \x03(\v2\x13.service.v1.ServiceR\bservices\"\xcf\x01\n" +
+	"\bservices\x18\x01 \x03(\v2\x13.service.v1.ServiceR\bservices\"\x8c\x02\n" +
 	"\x14UpdateServiceRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
@@ -939,9 +947,9 @@ const file_service_proto_rawDesc = "" +
 	"\vprice_start\x18\x04 \x01(\x01R\n" +
 	"priceStart\x12\x1b\n" +
 	"\tis_active\x18\x05 \x01(\bR\bisActive\x12\x12\n" +
-	"\x04city\x18\x06 \x01(\tR\x04city\x12\x1d\n" +
-	"\n" +
-	"photo_urls\x18\a \x03(\tR\tphotoUrls\"F\n" +
+	"\x04city\x18\x06 \x01(\tR\x04city\x12)\n" +
+	"\x11photo_urls_to_add\x18\a \x03(\tR\x0ephotoUrlsToAdd\x12/\n" +
+	"\x14photo_urls_to_remove\x18\b \x03(\tR\x11photoUrlsToRemove\"F\n" +
 	"\x15UpdateServiceResponse\x12-\n" +
 	"\aservice\x18\x01 \x01(\v2\x13.service.v1.ServiceR\aservice\"&\n" +
 	"\x14DeleteServiceRequest\x12\x0e\n" +
