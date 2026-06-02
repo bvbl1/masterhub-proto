@@ -120,9 +120,9 @@ message UpdateServiceRequest {
   double price_start = 4;
   bool   is_active   = 5;
   string city = 6;
-  repeated string photo_urls = 7;
+  repeated string photo_urls_to_add = 7;
+  repeated string photo_urls_to_remove = 8;
 }
-
 message UpdateServiceResponse {
   Service service = 1;
 }
