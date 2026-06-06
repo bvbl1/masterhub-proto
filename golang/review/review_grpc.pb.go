@@ -24,6 +24,7 @@ const (
 	ReviewService_ListReviewsByService_FullMethodName  = "/review.v1.ReviewService/ListReviewsByService"
 	ReviewService_ListReviewsByProvider_FullMethodName = "/review.v1.ReviewService/ListReviewsByProvider"
 	ReviewService_HasReview_FullMethodName             = "/review.v1.ReviewService/HasReview"
+	ReviewService_ListReviews_FullMethodName           = "/review.v1.ReviewService/ListReviews"
 )
 
 // ReviewServiceClient is the client API for ReviewService service.
@@ -39,6 +40,7 @@ type ReviewServiceClient interface {
 	// List reviews for a specific provider (across all their services)
 	ListReviewsByProvider(ctx context.Context, in *ListReviewsByProviderRequest, opts ...grpc.CallOption) (*ListReviewsResponse, error)
 	HasReview(ctx context.Context, in *HasReviewRequest, opts ...grpc.CallOption) (*HasReviewResponse, error)
+	ListReviews(ctx context.Context, in *ListReviewsRequest, opts ...grpc.CallOption) (*ListReviewsResponse, error)
 }
 
 type reviewServiceClient struct {
@@ -99,6 +101,16 @@ func (c *reviewServiceClient) HasReview(ctx context.Context, in *HasReviewReques
 	return out, nil
 }
 
+func (c *reviewServiceClient) ListReviews(ctx context.Context, in *ListReviewsRequest, opts ...grpc.CallOption) (*ListReviewsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListReviewsResponse)
+	err := c.cc.Invoke(ctx, ReviewService_ListReviews_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReviewServiceServer is the server API for ReviewService service.
 // All implementations must embed UnimplementedReviewServiceServer
 // for forward compatibility.
@@ -112,6 +124,7 @@ type ReviewServiceServer interface {
 	// List reviews for a specific provider (across all their services)
 	ListReviewsByProvider(context.Context, *ListReviewsByProviderRequest) (*ListReviewsResponse, error)
 	HasReview(context.Context, *HasReviewRequest) (*HasReviewResponse, error)
+	ListReviews(context.Context, *ListReviewsRequest) (*ListReviewsResponse, error)
 	mustEmbedUnimplementedReviewServiceServer()
 }
 
@@ -136,6 +149,9 @@ func (UnimplementedReviewServiceServer) ListReviewsByProvider(context.Context, *
 }
 func (UnimplementedReviewServiceServer) HasReview(context.Context, *HasReviewRequest) (*HasReviewResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method HasReview not implemented")
+}
+func (UnimplementedReviewServiceServer) ListReviews(context.Context, *ListReviewsRequest) (*ListReviewsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListReviews not implemented")
 }
 func (UnimplementedReviewServiceServer) mustEmbedUnimplementedReviewServiceServer() {}
 func (UnimplementedReviewServiceServer) testEmbeddedByValue()                       {}
@@ -248,6 +264,24 @@ func _ReviewService_HasReview_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReviewService_ListReviews_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListReviewsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).ListReviews(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReviewService_ListReviews_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).ListReviews(ctx, req.(*ListReviewsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReviewService_ServiceDesc is the grpc.ServiceDesc for ReviewService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -274,6 +308,10 @@ var ReviewService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HasReview",
 			Handler:    _ReviewService_HasReview_Handler,
+		},
+		{
+			MethodName: "ListReviews",
+			Handler:    _ReviewService_ListReviews_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

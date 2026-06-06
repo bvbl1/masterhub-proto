@@ -42,6 +42,12 @@ service ReviewService {
       get: "/v1/reviews/{order_id}/has-review"
     };
   }
+
+  rpc ListReviews(ListReviewsRequest) returns (ListReviewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/reviews"
+    };
+  }
 }
 
 /* -------- DOMAIN -------- */
@@ -105,4 +111,9 @@ message HasReviewRequest {
 
 message HasReviewResponse {
   bool is_reviewed = 1; 
+}
+
+message ListReviewsRequest {
+  int32 limit       = 1;
+  int32 offset      = 2;
 }

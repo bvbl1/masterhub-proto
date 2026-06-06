@@ -582,6 +582,58 @@ func (x *HasReviewResponse) GetIsReviewed() bool {
 	return false
 }
 
+type ListReviewsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListReviewsRequest) Reset() {
+	*x = ListReviewsRequest{}
+	mi := &file_review_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListReviewsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListReviewsRequest) ProtoMessage() {}
+
+func (x *ListReviewsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_review_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListReviewsRequest.ProtoReflect.Descriptor instead.
+func (*ListReviewsRequest) Descriptor() ([]byte, []int) {
+	return file_review_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ListReviewsRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *ListReviewsRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
 var File_review_proto protoreflect.FileDescriptor
 
 const file_review_proto_rawDesc = "" +
@@ -630,13 +682,17 @@ const file_review_proto_rawDesc = "" +
 	"\border_id\x18\x01 \x01(\x03R\aorderId\"4\n" +
 	"\x11HasReviewResponse\x12\x1f\n" +
 	"\vis_reviewed\x18\x01 \x01(\bR\n" +
-	"isReviewed2\xe7\x04\n" +
+	"isReviewed\"B\n" +
+	"\x12ListReviewsRequest\x12\x14\n" +
+	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset2\xca\x05\n" +
 	"\rReviewService\x12g\n" +
 	"\fCreateReview\x12\x1e.review.v1.CreateReviewRequest\x1a\x1f.review.v1.CreateReviewResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/v1/reviews\x12`\n" +
 	"\tGetReview\x12\x1b.review.v1.GetReviewRequest\x1a\x1c.review.v1.GetReviewResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/reviews/{id}\x12\x88\x01\n" +
 	"\x14ListReviewsByService\x12&.review.v1.ListReviewsByServiceRequest\x1a\x1e.review.v1.ListReviewsResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /v1/reviews/service/{service_id}\x12\x8c\x01\n" +
 	"\x15ListReviewsByProvider\x12'.review.v1.ListReviewsByProviderRequest\x1a\x1e.review.v1.ListReviewsResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/v1/reviews/provider/{provider_id}\x12q\n" +
-	"\tHasReview\x12\x1b.review.v1.HasReviewRequest\x1a\x1c.review.v1.HasReviewResponse\")\x82\xd3\xe4\x93\x02#\x12!/v1/reviews/{order_id}/has-reviewB9Z7github.com/bvbl1/masterhub-proto/golang/review;reviewpbb\x06proto3"
+	"\tHasReview\x12\x1b.review.v1.HasReviewRequest\x1a\x1c.review.v1.HasReviewResponse\")\x82\xd3\xe4\x93\x02#\x12!/v1/reviews/{order_id}/has-review\x12a\n" +
+	"\vListReviews\x12\x1d.review.v1.ListReviewsRequest\x1a\x1e.review.v1.ListReviewsResponse\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/v1/reviewsB9Z7github.com/bvbl1/masterhub-proto/golang/review;reviewpbb\x06proto3"
 
 var (
 	file_review_proto_rawDescOnce sync.Once
@@ -650,7 +706,7 @@ func file_review_proto_rawDescGZIP() []byte {
 	return file_review_proto_rawDescData
 }
 
-var file_review_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_review_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_review_proto_goTypes = []any{
 	(*Review)(nil),                       // 0: review.v1.Review
 	(*CreateReviewRequest)(nil),          // 1: review.v1.CreateReviewRequest
@@ -662,26 +718,29 @@ var file_review_proto_goTypes = []any{
 	(*ListReviewsResponse)(nil),          // 7: review.v1.ListReviewsResponse
 	(*HasReviewRequest)(nil),             // 8: review.v1.HasReviewRequest
 	(*HasReviewResponse)(nil),            // 9: review.v1.HasReviewResponse
+	(*ListReviewsRequest)(nil),           // 10: review.v1.ListReviewsRequest
 }
 var file_review_proto_depIdxs = []int32{
-	0, // 0: review.v1.CreateReviewResponse.review:type_name -> review.v1.Review
-	0, // 1: review.v1.GetReviewResponse.review:type_name -> review.v1.Review
-	0, // 2: review.v1.ListReviewsResponse.reviews:type_name -> review.v1.Review
-	1, // 3: review.v1.ReviewService.CreateReview:input_type -> review.v1.CreateReviewRequest
-	3, // 4: review.v1.ReviewService.GetReview:input_type -> review.v1.GetReviewRequest
-	5, // 5: review.v1.ReviewService.ListReviewsByService:input_type -> review.v1.ListReviewsByServiceRequest
-	6, // 6: review.v1.ReviewService.ListReviewsByProvider:input_type -> review.v1.ListReviewsByProviderRequest
-	8, // 7: review.v1.ReviewService.HasReview:input_type -> review.v1.HasReviewRequest
-	2, // 8: review.v1.ReviewService.CreateReview:output_type -> review.v1.CreateReviewResponse
-	4, // 9: review.v1.ReviewService.GetReview:output_type -> review.v1.GetReviewResponse
-	7, // 10: review.v1.ReviewService.ListReviewsByService:output_type -> review.v1.ListReviewsResponse
-	7, // 11: review.v1.ReviewService.ListReviewsByProvider:output_type -> review.v1.ListReviewsResponse
-	9, // 12: review.v1.ReviewService.HasReview:output_type -> review.v1.HasReviewResponse
-	8, // [8:13] is the sub-list for method output_type
-	3, // [3:8] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: review.v1.CreateReviewResponse.review:type_name -> review.v1.Review
+	0,  // 1: review.v1.GetReviewResponse.review:type_name -> review.v1.Review
+	0,  // 2: review.v1.ListReviewsResponse.reviews:type_name -> review.v1.Review
+	1,  // 3: review.v1.ReviewService.CreateReview:input_type -> review.v1.CreateReviewRequest
+	3,  // 4: review.v1.ReviewService.GetReview:input_type -> review.v1.GetReviewRequest
+	5,  // 5: review.v1.ReviewService.ListReviewsByService:input_type -> review.v1.ListReviewsByServiceRequest
+	6,  // 6: review.v1.ReviewService.ListReviewsByProvider:input_type -> review.v1.ListReviewsByProviderRequest
+	8,  // 7: review.v1.ReviewService.HasReview:input_type -> review.v1.HasReviewRequest
+	10, // 8: review.v1.ReviewService.ListReviews:input_type -> review.v1.ListReviewsRequest
+	2,  // 9: review.v1.ReviewService.CreateReview:output_type -> review.v1.CreateReviewResponse
+	4,  // 10: review.v1.ReviewService.GetReview:output_type -> review.v1.GetReviewResponse
+	7,  // 11: review.v1.ReviewService.ListReviewsByService:output_type -> review.v1.ListReviewsResponse
+	7,  // 12: review.v1.ReviewService.ListReviewsByProvider:output_type -> review.v1.ListReviewsResponse
+	9,  // 13: review.v1.ReviewService.HasReview:output_type -> review.v1.HasReviewResponse
+	7,  // 14: review.v1.ReviewService.ListReviews:output_type -> review.v1.ListReviewsResponse
+	9,  // [9:15] is the sub-list for method output_type
+	3,  // [3:9] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_review_proto_init() }
@@ -695,7 +754,7 @@ func file_review_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_review_proto_rawDesc), len(file_review_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
